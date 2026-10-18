@@ -1,0 +1,24 @@
+# FreightKit Apache/cPanel shared-hosting defaults.
+Options -Indexes
+DirectoryIndex index.html index.php
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# Serve CSV templates as downloads where mod_headers is available.
+<IfModule mod_headers.c>
+  <FilesMatch "\.csv$">
+    Header set Content-Type "text/csv; charset=utf-8"
+    Header set Content-Disposition "attachment"
+  </FilesMatch>
+</IfModule>
+
+# Enable HTTPS redirect only after the domain's SSL certificate is active.
+# Uncomment the next lines after confirming HTTPS works:
+# RewriteEngine On
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]

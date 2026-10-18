@@ -1,0 +1,16 @@
+# Private host configuration and secrets
+contact-config.php
+.env
+.env.*
+!.env.example
+*.log
+
+# Local editor/OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporary backups / archives
+*.zip
+*.bak
