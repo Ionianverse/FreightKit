@@ -1,0 +1,59 @@
+# FreightKit Apache/cPanel shared-hosting defaults.
+Options -Indexes
+DirectoryIndex index.html index.php
+ErrorDocument 404 /404.html
+
+AddType application/manifest+json .webmanifest
+AddType image/svg+xml .svg
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# Allow /embed/ to be framed by other sites (it is the embeddable calculator);
+# every other page may only be framed by this site.
+<IfModule mod_headers.c>
+  <If "%{REQUEST_URI} !~ m#^/embed/#">
+    Header always set X-Frame-Options "SAMEORIGIN"
+  </If>
+</IfModule>
+
+# Serve CSV templates as downloads where mod_headers is available.
+<IfModule mod_headers.c>
+  <FilesMatch "\.csv$">
+    Header set Content-Type "text/csv; charset=utf-8"
+    Header set Content-Disposition "attachment"
+  </FilesMatch>
+</IfModule>
+
+# Keep project files that are not part of the public website private.
+<FilesMatch "(^contact-config.*\.php$|\.md$|\.py$|\.ps1$|^\.git)">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 ^/(docs|scripts|\.github|\.git)(/.*)?$
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/csv application/javascript application/json application/manifest+json image/svg+xml application/xml text/xml
+</IfModule>
+
+# Browser caching: HTML stays fresh, assets are cached for a week.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+</IfModule>
+
+# Enable HTTPS (and optional www → non-www) redirects only after the domain's SSL certificate is active.
+# Uncomment the next lines after confirming https://your-domain works:
+# RewriteEngine On
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+# RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+# RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
