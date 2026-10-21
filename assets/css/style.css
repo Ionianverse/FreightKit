@@ -185,3 +185,10 @@ img{max-width:100%;height:auto}
  .batch-summary{grid-template-columns:1fr}
 }
 @media print{.skip-link,.breadcrumbs,.related{display:none!important}}
+
+/* Templates library */
+.template-cat{margin-top:32px;font-size:22px}
+.template-card{display:flex;flex-direction:column}
+.template-card .template-meta{font-size:12px;margin-top:10px}
+.template-card .template-actions{margin-top:auto;padding-top:12px}
+.template-card .badge{align-self:flex-start}
