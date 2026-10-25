@@ -16,7 +16,8 @@ required = [
     'downloads/inventory-tracker.csv', 'downloads/shipment-tracker.csv', 'contact/index.html',
     'contact-handler.php', 'contact-config.example.php', '.htaccess', 'sitemap.xml', 'robots.txt', 'README.md',
     'tools/freight-invoice-audit/index.html', 'tools/po-exception-report/index.html', 'document-process/index.html',
-    'assets/js/workflows.js', 'assets/js/document-process-v2.js', 'downloads/freight-invoice-audit.xlsx',
+    'assets/js/workflows.js', 'assets/js/document-process-v3.js', 'assets/vendor/sheetjs/xlsx.full.min.js',
+    'assets/vendor/pdfjs/pdf.min.mjs', 'assets/vendor/pdfjs/pdf.worker.min.mjs', 'downloads/freight-invoice-audit.xlsx',
     'downloads/po-exception-tracker.xlsx', 'downloads/supplier-scorecard-workbook.xlsx',
     'downloads/freight-quote-comparison.xlsx', 'downloads/inventory-reorder-planner.xlsx',
 ]
