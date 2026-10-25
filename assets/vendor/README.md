@@ -3,7 +3,7 @@
 FreightKit serves these libraries locally so document comparisons do not depend on a third-party CDN:
 
 - **SheetJS Community Edition 0.20.3** (`sheetjs/xlsx.full.min.js`) — reads XLSX files and creates XLSX reports.
-- **PDF.js 5.6.205** (`pdfjs/pdf.min.mjs`, `pdfjs/pdf.worker.min.mjs`) — extracts selectable text from text-based PDFs in the browser.
+- **PDF.js 5.6.205** (`pdfjs/pdf.min.js`, `pdfjs/pdf.worker.min.js`) — extracts selectable text from text-based PDFs in the browser. The ESM bundles use `.js` extensions so static hosts serve them with a JavaScript MIME type.
 
 Both projects are distributed under the Apache License 2.0. Their project pages and license texts:
 
