@@ -206,4 +206,6 @@ img{max-width:100%;height:auto}
 .example-panel .btn{flex:0 0 auto}
 .text-button{border:0;padding:0;background:none;color:var(--blue);font:inherit;text-decoration:underline;cursor:pointer}
 .text-button:hover{text-decoration-thickness:2px}
+.workflow-result .data-table{min-width:1380px}
+.workflow-result .data-table td:last-child{text-align:left;font-weight:400}
 @media(max-width:720px){.document-service-card,.example-panel{align-items:stretch;flex-direction:column}.document-service-card .btn,.example-panel .btn{width:100%;text-align:center}}
