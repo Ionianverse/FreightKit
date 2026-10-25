@@ -195,3 +195,15 @@ img{max-width:100%;height:auto}
 .template-card .template-meta{font-size:12px;margin-top:10px}
 .template-card .template-actions{margin-top:auto;padding-top:12px}
 .template-card .badge{align-self:flex-start}
+
+/* Document Process service directory and guided sample entry point */
+.document-process-catalog{margin:24px 0 30px}
+.document-service-card{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:12px 0;padding:20px}
+.document-service-card h3{margin:10px 0 6px}
+.document-service-card p{margin:6px 0}
+.example-panel{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:14px 0;padding:16px}
+.example-panel p{margin:5px 0 0}
+.example-panel .btn{flex:0 0 auto}
+.text-button{border:0;padding:0;background:none;color:var(--blue);font:inherit;text-decoration:underline;cursor:pointer}
+.text-button:hover{text-decoration-thickness:2px}
+@media(max-width:720px){.document-service-card,.example-panel{align-items:stretch;flex-direction:column}.document-service-card .btn,.example-panel .btn{width:100%;text-align:center}}

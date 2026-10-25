@@ -39,17 +39,26 @@
  function dateText(ms){return ms===null?'':new Date(ms).toISOString().slice(0,10);}
  function showError(out,message){if(!out)return;out.innerHTML='<div class="error-box" role="alert"><strong>Check the file or column mapping:</strong><p>'+esc(message)+'</p></div>';out.hidden=false;}
  function summaryCards(items){return '<div class="workflow-kpis">'+items.map(i=>'<div class="card"><span class="muted-small">'+esc(i[0])+'</span><strong>'+esc(i[1])+'</strong></div>').join('')+'</div>';}
- function bindFileMapping(inputId,hostId,fields){const input=$(inputId),host=$(hostId);if(!input||!host)return;input.addEventListener('change',async()=>{host.innerHTML='';if(!input.files?.[0])return;try{const data=await readCsv(input.files[0]);mapUI(host,data.headers,fields);host.dataset.ready='true';}catch(e){host.dataset.ready='false';showError($(input.dataset.errorTarget),e.message||'Could not read the CSV.');}});}
+ function bindFileMapping(inputId,hostId,fields){const input=$(inputId),host=$(hostId);if(!input||!host)return;input.addEventListener('change',async()=>{const form=input.form;if(form)form.dataset.demoMode='false';host.innerHTML='';if(!input.files?.[0])return;try{const data=await readCsv(input.files[0]);mapUI(host,data.headers,fields);host.dataset.ready='true';}catch(e){host.dataset.ready='false';showError($(input.dataset.errorTarget),e.message||'Could not read the CSV.');}});}
  const invoiceFields=[{key:'shipment',label:'Shipment / quote reference',required:true,aliases:['shipment_id','shipment','shipment_ref','quote_reference','reference','load_id','job_number']},{key:'charge',label:'Charge line / code',required:true,aliases:['charge_code','charge','line_item','cost_code','description','charge_description']},{key:'amount',label:'Extended line amount',required:true,aliases:['amount','charge_amount','quoted_amount','invoiced_amount','line_total','line_amount','extended_amount'] }];
  function initInvoiceAudit(){
   const form=$('invoice-audit-form');if(!form)return;
   const qInput=$('quote-file'),iInput=$('invoice-file'),qMap=$('quote-mapping'),iMap=$('invoice-mapping'),out=$('invoice-audit-result');
   bindFileMapping('quote-file','quote-mapping',invoiceFields);bindFileMapping('invoice-file','invoice-mapping',invoiceFields);
   const formatMoney=(value,currency)=>`${currency?currency+' ':''}${value.toFixed(2)}`;
+  const demoQuote={name:'freightkit-quote-example.csv',text:'shipment_id,charge_code,amount\r\nFK-26001,Base freight,1250\r\nFK-26001,Fuel surcharge,180\r\nFK-26002,Origin handling,95\r\nFK-26003,Documentation,45\r\n'};
+  const demoInvoice={name:'freightkit-invoice-example.csv',text:'shipment_id,charge_code,amount\r\nFK-26001,Base freight,1285\r\nFK-26001,Fuel surcharge,180\r\nFK-26002,Origin handling,120\r\nFK-26003,Documentation,40\r\nFK-26004,Destination delivery,310\r\n'};
+  $('try-audit-example')?.addEventListener('click',()=>{
+   try{
+    mapUI(qMap,parseCsv(demoQuote.text).headers,invoiceFields);mapUI(iMap,parseCsv(demoInvoice.text).headers,invoiceFields);
+    form.dataset.demoMode='true';$('charge-aliases').value='';$('audit-currency').value='USD';$('variance-tolerance').value='1';
+    form.requestSubmit();
+   }catch(err){showError(out,err.message||'Could not load the sample comparison.');}
+  });
   form.addEventListener('submit',async e=>{
    e.preventDefault();out.hidden=false;
    try{
-    const [q,inv]=await Promise.all([readCsv(qInput.files?.[0]),readCsv(iInput.files?.[0])]);
+    const isDemo=form.dataset.demoMode==='true';const [q,inv]=isDemo?[parseCsv(demoQuote.text),parseCsv(demoInvoice.text)]:await Promise.all([readCsv(qInput.files?.[0]),readCsv(iInput.files?.[0])]);
     const qm=selectedMap(qMap,invoiceFields),im=selectedMap(iMap,invoiceFields);
     const tolerance=Number($('variance-tolerance').value);
     if(!Number.isFinite(tolerance)||tolerance<0)throw Error('Variance tolerance must be zero or greater.');
@@ -92,7 +101,8 @@
     out.innerHTML=summaryCards([['Lines reviewed',rows.length],['Review needed',reviewNeeded],['Billed above quote',formatMoney(above,currency)],['Invoice-only charges',formatMoney(invoiceOnly,currency)],['Quote lines not billed',missingInvoice],['Within tolerance',within]])+
      '<details class="card"><summary>Matched-line totals</summary><p>Quoted: <strong>'+esc(formatMoney(matchedQuote,currency))+'</strong> · Invoiced: <strong>'+esc(formatMoney(matchedInvoice,currency))+'</strong> · Net variance: <strong>'+esc(formatMoney(net,currency))+'</strong> · Below quote: '+esc(formatMoney(below,currency))+'</p></details>'+
      (repeated?'<p class="note"><strong>Repeated rows:</strong> '+repeated+' charge group(s) contain multiple source lines. The report shows all contributing row numbers and sums those lines; inspect them before treating a group as a duplicate.</p>':'')+
-     '<p class="muted-small">Evidence files: quote <strong>'+esc(qInput.files[0].name)+'</strong>; invoice <strong>'+esc(iInput.files[0].name)+'</strong>. Row references are source line numbers; the header is line 1.</p>'+
+     (isDemo?'<p class="note"><strong>Sample results:</strong> These are example shipments for learning the report. Your files were not used. Choose your quote and invoice CSV above to run your own comparison.</p>':'')+
+     '<p class="muted-small">Evidence files: quote <strong>'+esc(isDemo?demoQuote.name:qInput.files[0].name)+'</strong>; invoice <strong>'+esc(isDemo?demoInvoice.name:iInput.files[0].name)+'</strong>. Row references are source line numbers; the header is line 1.</p>'+
      '<div class="table-scroll"><table class="data-table"><thead><tr><th>Shipment</th><th>Quote charge</th><th>Invoice charge</th><th>Quoted</th><th>Billed</th><th>Variance</th><th>Variance %</th><th>Finding</th><th>Quote row(s)</th><th>Invoice row(s)</th><th>Why flagged / next check</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+esc(r.shipment)+'</td><td>'+esc(r.quoteCharges||'—')+'</td><td>'+esc(r.invoiceCharges||'—')+'</td><td>'+esc(r.quoted===''?'—':formatMoney(r.quoted,currency))+'</td><td>'+esc(r.invoiced===''?'—':formatMoney(r.invoiced,currency))+'</td><td>'+esc(r.variance===''?'—':formatMoney(r.variance,currency))+'</td><td>'+esc(r.percent===''?'—':(r.percent*100).toFixed(1)+'%')+'</td><td><span class="status-pill '+(r.status==='Invoice higher'?'status-risk':r.status==='Within tolerance'?'status-ok':'status-review')+'">'+esc(r.status)+'</span>'+(r.isRepeated?'<br><small>Multiple source rows summed</small>':'')+'</td><td>'+esc(r.quoteRows)+'</td><td>'+esc(r.invoiceRows)+'</td><td><strong>'+esc(r.reason)+'</strong><br>'+esc(r.next)+'</td></tr>').join('')+'</tbody></table></div>'+
      '<p class="muted-small">This is a screening report, not proof of an incorrect charge. It compares extended line amounts in one currency; it does not interpret contracts, tax, dimensional reweighs, or service-event evidence.</p><button class="btn secondary" type="button" id="export-invoice-audit">Download findings CSV</button>';
     $('export-invoice-audit').addEventListener('click',()=>download('freightkit-invoice-audit-findings.csv',[['Shipment','Quote charge','Invoice charge','Quoted amount','Billed amount','Variance','Variance %','Finding','Why flagged','Suggested next check','Quote source rows','Invoice source rows'],...rows.map(r=>[r.shipment,r.quoteCharges,r.invoiceCharges,r.quoted,r.invoiced,r.variance,r.percent,r.status,r.reason,r.next,r.quoteRows,r.invoiceRows])]));
