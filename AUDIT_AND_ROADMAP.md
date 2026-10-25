@@ -1,8 +1,8 @@
 # FreightKit — code audit, validation results, and monetisation roadmap
 
-**Build reviewed:** static HTML, CSS, and JavaScript site provided in the project ZIP  
-**Audit date:** 15 October 2026  
-**Current canonical host in this build:** `https://YOUR-DOMAIN.com`
+**Build reviewed:** FreightKit static HTML, CSS, JavaScript, and PHP source
+**Current review date:** 25 October 2026
+**Current canonical host in source:** `https://freightkit.in`
 
 ## 1. What is included in this update
 
@@ -85,7 +85,7 @@ These are automated checks of representative examples, validations, and paths th
 ## 3. Deployment checklist — do these before promoting FreightKit
 
 1. **Upload this updated ZIP and test the actual published site.** Test the homepage, `/tools/`, several individual tools, `/custom-calculator/`, `/embed/`, CSV download/export, and mobile navigation. The source has been tested locally; this package does not prove the current Tiiny deployment has been updated or that every host setting behaves identically.
-2. **Confirm your domain.** This package uses the placeholder `YOUR-DOMAIN.com` until you choose a domain. Run `scripts/set-domain.ps1` and review the resulting diff before launch.
+2. **Confirm your domain.** The current source uses `https://freightkit.in`. If the live domain changes, run `scripts/set-domain.ps1` and review the resulting diff before launch.
 3. **Connect working feedback/support forms.** The contact and suggestion forms use the included PHP handler. On PHP hosting, configure `contact-config.php`, confirm SMTP/mail delivery, and submit a real test enquiry. Static-only hosting cannot run this handler.
 4. **Configure a monitored support address.** Do not publish a placeholder support email.
 5. **Review the privacy policy and terms.** These pages are draft informational copy, not legal advice. Update them to match the analytics, form provider, payment processor, cookies, and data retention you actually deploy.
@@ -193,3 +193,22 @@ Review results weekly. A tool with repeat use and export activity is a better ca
 **Tooling**
 - `scripts/check-site.py` now checks every local link, flags root-relative paths and missing SEO tags.
 - `scripts/set-domain.ps1` accepts subfolder addresses (e.g. `https://username.github.io/freightkit`) and makes 404-page links absolute.
+
+## 9. 25 October 2026 usability and workflow update
+
+- Added a local-browser freight quote vs invoice audit with suggested column mapping, tolerance controls, matched-line variances, unmatched-line flags, and result CSV export.
+- Added a local-browser PO and shipment exception report with a review date, open quantity, overdue and missing-ETA priorities, exception notes, owner visibility, search/filter controls, and CSV export.
+- Added five formula-led Excel workbooks for freight invoice audits, PO/ETA exception tracking, supplier scorecards, freight quote comparisons, and inventory reorder planning. Examples are explicitly illustrative; editable thresholds, weights, and reorder assumptions must be aligned to the user's contracts and operating policy.
+- Quote comparisons surface all-in charges, cost per kg and unit, transit, validity, and rank; reorder planning includes open PO quantities, lead time, safety stock, MOQ, and review-period demand.
+- Corrected the invoice workbook's incomplete-line status and matched-line totals, surfaced PO quantity/status conflicts, and made the supplier scorecard identify incomplete score rows.
+- Added a display-currency selector to monetary calculator results. It changes the symbol only and does not convert amounts.
+- Added short, tool-specific interpretation and verification guidance to calculator results.
+- Expanded the About, Privacy, Terms, Solutions, and Templates pages to describe current capabilities and boundaries more clearly.
+- Fixed domain setup so changing from `freightkit.in` updates existing canonical references, not only the old placeholder.
+
+### Remaining launch dependencies
+
+- Live hosting and DNS were not changed by repository edits. Confirm which build is deployed before announcing the new workflows.
+- Contact and suggestion delivery still depends on a real `contact-config.php`, PHP hosting, monitored inbox, and tested email transport. The private production config is intentionally not stored in this repository.
+- The browser workflow tools do not provide an ERP connection, live carrier feeds, supplier messaging, cloud storage, user accounts, analytics, or payment checkout. These should be scoped and validated before being marketed as available services.
+- Calculator output remains planning support. Review carrier, tariff, tax, safety, and reporting rules with the relevant source and update assumptions as they change.

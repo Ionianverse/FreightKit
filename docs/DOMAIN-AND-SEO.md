@@ -19,13 +19,13 @@ Add both the root domain and `www` version in the hosting panel if you want both
 
 ## Set the domain in this project
 
-After deciding the final public URL, run from the repository root in PowerShell:
+This source currently uses `https://freightkit.in`. If the final public URL is different, run from the repository root in PowerShell:
 
 ```powershell
 .\scripts\set-domain.ps1 -Domain "https://your-real-domain.com"
 ```
 
-Use the domain without a trailing slash. The script updates all canonical URLs, JSON-LD website URLs, `sitemap.xml`, and `robots.txt`. Inspect `git diff` afterward and commit the change. Do not leave `YOUR-DOMAIN.com` in production.
+Use the domain without a trailing slash. The script updates references to both the starter placeholder and the current `freightkit.in` domain, including canonical URLs, structured data, `sitemap.xml`, `robots.txt`, and root 404 links. Inspect `git diff` afterward and commit the change. Do not leave a placeholder or an old canonical host in production.
 
 ## Search engine launch checklist
 

@@ -2,8 +2,8 @@ param(
     [Parameter(Mandatory=$true)]
     [string]$Domain
 )
-# Replaces the YOUR-DOMAIN.com placeholder in canonical URLs, social tags, structured data,
-# sitemap.xml and robots.txt. A subfolder site is supported, e.g. https://username.github.io/freightkit
+# Replaces the starter placeholder and current FreightKit host in canonical URLs, social tags,
+# structured data, sitemap.xml and robots.txt. Subfolder sites are supported.
 $ErrorActionPreference = 'Stop'
 $Domain = $Domain.Trim().TrimEnd('/')
 if ($Domain -notmatch '^https://[a-zA-Z0-9.-]+(/[a-zA-Z0-9._~-]+)*$') {
@@ -14,11 +14,14 @@ $extensions = @('.html', '.xml', '.txt')
 $files = Get-ChildItem -Path $root -Recurse -File | Where-Object {
     $extensions -contains $_.Extension.ToLower() -and $_.FullName -notmatch '[\\/]\.git[\\/]'
 }
-$old = 'https://YOUR-DOMAIN.com'
+$oldDomains = @('https://YOUR-DOMAIN.com', 'https://freightkit.in')
 $count = 0
 foreach ($file in $files) {
     $content = [System.IO.File]::ReadAllText($file.FullName)
-    $updated = $content.Replace($old, $Domain)
+    $updated = $content
+    foreach ($oldDomain in $oldDomains) {
+        $updated = $updated.Replace($oldDomain, $Domain)
+    }
     # The 404 page can be served at any URL depth, so its links must be absolute.
     if ($file.Name -eq '404.html' -and $file.DirectoryName -eq $root) {
         $updated = [regex]::Replace($updated, '\b(href|src)="/(?!/)', ('$1="' + $Domain + '/'))

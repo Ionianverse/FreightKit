@@ -1,6 +1,6 @@
 # FreightKit — logistics and supply-chain tools
 
-FreightKit is a static-first website containing browser-based calculators, CSV tools, templates, guides and service pages. The site is designed to be version-controlled in GitHub and hosted on ordinary PHP-enabled shared hosting (for example, cPanel hosting). It does **not** require Netlify, a Node.js build, or a database for the current browser tools.
+FreightKit is a static-first website containing browser-based calculators, CSV review workflows, downloadable CSV and Excel templates, guides and service pages. The current canonical domain in the source is `https://freightkit.in`. The site is designed to be version-controlled in GitHub and hosted on ordinary PHP-enabled shared hosting (for example, cPanel hosting). It does **not** require Netlify, a Node.js build, or a database for the current browser tools.
 
 ## Repository structure
 
@@ -11,6 +11,7 @@ freightkit/
 ├── tools/                     # Individual calculators/data tools
 ├── templates/                 # Template landing page
 ├── downloads/                 # Actual downloadable CSV files
+│   └── *.xlsx                 # Formula-led Excel workbooks
 ├── guides/                    # Logistics guides
 ├── solutions/                 # Service/solution pages
 ├── contact/                   # Contact page
@@ -47,8 +48,8 @@ The form will still require a valid `contact-config.php` and a configured mail t
 ## Launch steps
 
 1. Buy/register your domain and a PHP-enabled shared hosting plan. Point the domain to that hosting account and enable the free SSL certificate.
-2. Pick your permanent domain, for example `https://freightkit.example` (replace this example with your actual domain).
-3. In PowerShell, from the extracted project folder, run:
+2. This source currently uses `https://freightkit.in`. If deploying to a different final domain, replace the current domain and update canonical URLs before publishing.
+3. In PowerShell, from the project folder, run this only when changing domains:
 
    ```powershell
    .\scripts\set-domain.ps1 -Domain "https://your-real-domain.com"
@@ -87,6 +88,8 @@ Never commit passwords, hosting credentials, API keys, customer documents, `cont
 ## Contact forms
 
 The contact and suggestion forms post to `contact-handler.php`. The handler validates input, uses a honeypot field, and emails the configured inbox. It depends on PHP and a working mail transport on the host. This is not an inbox/database; add a database or ticketing system only if you need stored enquiries, team access, spam controls, or a customer portal. Email delivery must be tested and can require SMTP configuration.
+
+The browser-based freight invoice audit and PO/shipment exception report process CSV files on the visitor's device and export review files locally. They do not send data to FreightKit, contact suppliers, connect to an ERP, or provide live carrier/shipment updates. Five formula-led Excel workbooks support freight quote comparison, invoice audits, PO/ETA exceptions, supplier scorecards, and inventory reorder planning from the Templates page.
 
 ## Current limitations
 

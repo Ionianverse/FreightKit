@@ -44,6 +44,47 @@ const CALC={
 function esc(value){return String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function safeStorageGet(key,fallback){try{const value=localStorage.getItem(key);return value?JSON.parse(value):fallback;}catch(_){return fallback;}}
 function readForm(form){const values={};form.querySelectorAll('input,select,textarea').forEach(el=>{if(el.type==='file')return;values[el.id]=el.type==='number'?(el.value.trim()===''?NaN:Number(el.value)):el.value;});return values;}
+const MONEY_SLUGS=new Set(['air-vs-sea','cargo-insurance','carrying-cost','customs-duty-estimator','demurrage-detention','freight-cost-per-kg','landed-cost','lcl-vs-fcl','make-vs-buy','moq-planner','rfq-comparison','shipment-consolidation','tco','transport-cost-per-delivery','warehouse-cost-per-pallet']);
+const CURRENCY_SYMBOLS={USD:'$',INR:'₹',EUR:'€',GBP:'£',AED:'AED ',CAD:'CA$',AUD:'A$',OTHER:''};
+const RESULT_GUIDANCE={
+ 'volumetric-weight':'Confirm the divisor, rounding rule, and chargeable-weight minimum with the carrier before booking.',
+ 'cbm-calculator':'Measure the packed outer dimensions and confirm whether the carrier bills by volume, actual weight, or chargeable weight.',
+ 'container-load':'Treat this as a geometric estimate; verify door clearance, payload, packing pattern, and axle limits before loading.',
+ 'cartons-per-pallet':'Check pallet footprint, overhang, safe stack height, and warehouse handling rules before confirming the count.',
+ 'freight-class':'Density gives an estimate only. Confirm the commodity, packaging, handling characteristics, and carrier classification rules.',
+ 'demurrage-detention':'Check the carrier contract, terminal free time, local holidays, and whether charges accrue per container or day.',
+ 'freight-cost-per-kg':'Use the same shipment scope and currency when comparing lanes, carriers, or reporting periods.',
+ 'air-vs-sea':'Compare like-for-like service scope, cut-off dates, surcharges, inventory carrying cost, and disruption risk.',
+ 'lcl-vs-fcl':'Check minimum charges, origin/destination handling, free time, cargo dimensions, and the actual sailing schedule.',
+ 'cargo-insurance':'Confirm the insured value basis, exclusions, deductible, and policy wording with the insurer.',
+ 'landed-cost':'Confirm the duty base, tariff classification, origin, tax treatment, and destination charges with a qualified broker.',
+ 'customs-duty-estimator':'Rates and tax bases vary by product, origin, destination, and date; verify the current tariff and customs guidance.',
+ 'eoq':'The result assumes stable demand and costs. Revisit it when demand, order cost, or holding rate changes.',
+ 'safety-stock':'This estimate excludes lead-time variability; compare it with actual service levels and stockout history.',
+ 'inventory-turnover':'Compare periods and accounting treatment consistently; a high or low ratio needs business context.',
+ 'days-of-supply':'Use a representative demand rate and account for open orders, allocations, and seasonality.',
+ 'min-max':'Review the policy when demand, supplier lead time, review cadence, or pack sizes change.',
+ 'carrying-cost':'Use a complete annual carrying-cost rate and average inventory value for the same period.',
+ 'demand-forecast':'A moving average is a baseline, not a seasonal or causal forecast; compare it with actual demand.',
+ 'supplier-scorecard':'Use the same period, KPI definitions, and evidence for every supplier; document improvement actions.',
+ 'rfq-comparison':'Confirm that quotes include the same scope, accessorials, currency, validity, transit time, and service level.',
+ 'tco':'Include all material lifecycle costs and a consistent time horizon before choosing an option.',
+ 'make-vs-buy':'Check capacity, quality, lead time, working capital, and risk before acting on the break-even point.',
+ 'moq-planner':'Confirm case-pack rules, shelf life, storage capacity, cash impact, and supplier flexibility.',
+ 'otif-fill-rate':'Keep order and line definitions consistent; agree treatment of partials, cancellations, and promised dates.',
+ 'early-payment-discount':'Compare the annualized return with borrowing cost, cash needs, and the supplier’s actual payment terms.',
+ 'cash-conversion-cycle':'Use consistent inventory, receivables, and payables periods; investigate the underlying drivers.',
+ 'unit-converter':'Check that the source and destination units refer to the same physical quantity and precision.',
+ 'business-day-lead-time':'Add the correct origin and destination holiday calendar if local holidays affect the commitment.',
+ 'gtin-check-digit':'A valid check digit confirms the number structure, not that the GTIN is assigned to the correct product.',
+ 'container-validator':'The check digit validates format only; confirm the container identity and availability with the carrier.',
+ 'shipment-co2':'Use a consistent reporting boundary and verified emission factors before external sustainability reporting.',
+ 'shipment-consolidation':'Include added handling, storage, inventory, service-level, and damage risks in the comparison.',
+ 'transport-cost-per-delivery':'Keep fixed and variable cost periods aligned and use completed deliveries as the denominator.',
+ 'warehouse-cost-per-pallet':'Check usable capacity, occupancy, handling, and storage billing rules for the same period.',
+ 'rack-capacity':'Confirm rated load, beam configuration, aisle clearances, and safety inspection requirements with the rack supplier.'
+};
+function addCurrencyControl(form){if(!MONEY_SLUGS.has(form.dataset.slug)||form.querySelector('#currency'))return;const field=document.createElement('div');field.className='field currency-control';field.innerHTML='<label for="currency">Display currency</label><select id="currency"><option value="USD">USD ($)</option><option value="INR">INR (₹)</option><option value="EUR">EUR (€)</option><option value="GBP">GBP (£)</option><option value="AED">AED</option><option value="CAD">CAD (CA$)</option><option value="AUD">AUD (A$)</option><option value="OTHER">Other (no symbol)</option></select><small class="muted-small">Changes the display symbol only; it does not convert amounts.</small>';const submit=form.querySelector('button[type="submit"]');form.insertBefore(field,submit||null);}
 const POSITIVE_FIELDS={
  'cbm-calculator':['length','width','height','qty'],
  'volumetric-weight':['length','width','height','qty','divisor'],
@@ -126,10 +167,11 @@ function copyText(text,btn){const done=ok=>{if(!btn)return;const label=btn.datas
 function fallbackCopy(text){const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy');}catch(_){}ta.remove();return ok;}
 function render(slug,form){const out=document.getElementById('result'),stepsEl=document.getElementById('steps');if(!out)return;
  const errors=validateForm(form);if(errors.length){showError(errors);return;}
- try{if(!CALC[slug])throw new Error('This calculator is not connected yet. Use the Custom Calculator Builder instead.');const r=CALC[slug].calc(readForm(form));if(!r||!Array.isArray(r.rows))throw new Error('No result was returned. Check the inputs and try again.');
+  try{if(!CALC[slug])throw new Error('This calculator is not connected yet. Use the Custom Calculator Builder instead.');const r=CALC[slug].calc(readForm(form));if(!r||!Array.isArray(r.rows))throw new Error('No result was returned. Check the inputs and try again.');
  const displayed=[...(r.rows||[]).flat(),...(r.steps||[])].map(x=>String(x));if(displayed.some(x=>/\b(?:NaN|Infinity|-Infinity)\b/.test(x)))throw new Error('These inputs are too large for a reliable calculation. Use smaller values and try again.');
- let html='<table><tbody>';r.rows.forEach(row=>{html+='<tr><td>'+esc(row[0])+'</td><td>'+esc(row[1])+'</td></tr>';});html+='</tbody></table>';out.innerHTML=html;out.style.display='block';out.setAttribute('aria-live','polite');
- if(r.steps&&r.steps.length){stepsEl.innerHTML='<strong>Show the working</strong><ol>'+r.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol>';stepsEl.style.display='block';}else if(stepsEl)stepsEl.style.display='none';attachResultActions(out,r.rows,slug);
+  const currency=form.querySelector('#currency')?.value||'USD',symbol=CURRENCY_SYMBOLS[currency]||'$';const rows=r.rows.map(row=>[row[0],String(row[1]).replace(/\$/g,symbol)]);const steps=(r.steps||[]).map(step=>String(step).replace(/\$/g,symbol));
+  let html='<table><tbody>';rows.forEach(row=>{html+='<tr><td>'+esc(row[0])+'</td><td>'+esc(row[1])+'</td></tr>';});html+='</tbody></table>';if(RESULT_GUIDANCE[slug])html+='<p class="result-guidance"><strong>Next step:</strong> '+esc(RESULT_GUIDANCE[slug])+'</p>';out.innerHTML=html;out.style.display='block';out.setAttribute('aria-live','polite');
+  if(steps.length){stepsEl.innerHTML='<strong>Show the working</strong><ol>'+steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol>';stepsEl.style.display='block';}else if(stepsEl)stepsEl.style.display='none';attachResultActions(out,rows,slug);
  }catch(e){showError([e.message||'Calculation failed.']);}}
 document.addEventListener('submit',e=>{if(!e.target.matches('form.calc'))return;e.preventDefault();const form=e.target;const slug=form.dataset.slug;if(slug==='abc-analysis'||slug==='csv-duplicate-finder'){const file=form.querySelector('input[type="file"]')?.files?.[0];if(!file){showError(['Choose a CSV file first.']);return;}if(file.size>10*1024*1024){showError(['Please use a CSV smaller than 10 MB.']);return;}if(slug==='abc-analysis')handleABC(file);else handleDup(file);return;}render(slug,form);});
 document.addEventListener('click',e=>{const btn=e.target.closest('.example-btn');if(!btn)return;const form=btn.closest('form');if(!form)return;const slug=form.dataset.slug;if(slug==='abc-analysis'||slug==='csv-duplicate-finder'){const sample=slug==='abc-analysis'?'sku,annual_value\nSKU-001,12000\nSKU-002,7600\nSKU-003,2500\nSKU-004,900\nSKU-005,250\n':'sku,description\nA100,Widget\nA101,Gadget\nA100,Widget duplicate\nA102,Box\n';downloadText(slug==='abc-analysis'?'freightkit-abc-sample.csv':'freightkit-duplicates-sample.csv',sample);const out=document.getElementById('result');if(out){out.innerHTML='<p>Sample CSV downloaded. Select the file above and press Calculate.</p>';out.style.display='block';}return;}
@@ -160,7 +202,7 @@ function batchCalc(){
 function saveCalc(){const form=document.querySelector('form.calc');if(!form)return;const slug=form.dataset.slug;if(slug==='abc-analysis'||slug==='csv-duplicate-finder'){showError(['CSV files are not saved in browser history.']);return;}const errors=validateForm(form);if(errors.length){showError(errors);return;}const saved=safeStorageGet('fk_saved',[]);const data={slug,values:readForm(form),when:new Date().toISOString()};try{saved.unshift(data);localStorage.setItem('fk_saved',JSON.stringify(saved.slice(0,50)));renderSaved();}catch(_){showError(['Could not save locally. Your browser storage may be full or disabled.']);}}
 function renderSaved(){const el=document.getElementById('savedlist');if(!el)return;const saved=safeStorageGet('fk_saved',[]);el.innerHTML=saved.length?'<div class="saved-head"><h3>Saved calculations</h3><button class="btn secondary" type="button" id="clear-saved">Clear all</button></div>'+saved.map((s,i)=>'<div class="card saved-card"><strong>'+esc(s.slug)+'</strong><br><small>'+esc(new Date(s.when).toLocaleString())+'</small><br><button class="btn secondary" style="margin-top:8px" type="button" data-load-saved="'+i+'">Load</button> <button class="btn secondary" style="margin-top:8px" type="button" data-delete-saved="'+i+'">Delete</button></div>').join(''):'<p class="lead">No saved calculations on this browser.</p>';}
 document.addEventListener('click',e=>{const load=e.target.closest('[data-load-saved]');if(load){const saved=safeStorageGet('fk_saved',[])[Number(load.dataset.loadSaved)];if(!saved)return;try{sessionStorage.setItem('fk_load',JSON.stringify(saved));location.href=FK_BASE+'tools/'+encodeURIComponent(saved.slug)+'/';}catch(_){showError(['This browser blocks session storage, so saved inputs cannot be loaded in this context.']);}return;}const del=e.target.closest('[data-delete-saved]');if(del){const saved=safeStorageGet('fk_saved',[]);saved.splice(Number(del.dataset.deleteSaved),1);localStorage.setItem('fk_saved',JSON.stringify(saved));renderSaved();return;}if(e.target.id==='clear-saved'){if(confirm('Delete all saved calculations from this browser?')){localStorage.removeItem('fk_saved');renderSaved();}}});
-document.addEventListener('DOMContentLoaded',()=>{setupMobileNav();let load=null;try{load=sessionStorage.getItem('fk_load');}catch(_){}if(load){try{const s=JSON.parse(load);const form=document.querySelector('form.calc');if(form&&form.dataset.slug===s.slug){Object.entries(s.values||{}).forEach(([k,v])=>{const el=form.querySelector('#'+CSS.escape(k));if(el)el.value=v;});render(s.slug,form);}sessionStorage.removeItem('fk_load');}catch(_){sessionStorage.removeItem('fk_load');}}else{const form=document.querySelector('form.calc');if(form&&!form.querySelector('input[type="file"]')&&location.search&&applyQueryInputs(form))render(form.dataset.slug,form);}renderSaved();});
+document.addEventListener('DOMContentLoaded',()=>{setupMobileNav();let load=null;try{load=sessionStorage.getItem('fk_load');}catch(_){}const form=document.querySelector('form.calc');if(form)addCurrencyControl(form);if(load){try{const s=JSON.parse(load);if(form&&form.dataset.slug===s.slug){Object.entries(s.values||{}).forEach(([k,v])=>{const el=form.querySelector('#'+CSS.escape(k));if(el)el.value=v;});render(s.slug,form);}sessionStorage.removeItem('fk_load');}catch(_){sessionStorage.removeItem('fk_load');}}else if(form&&!form.querySelector('input[type="file"]')&&location.search&&applyQueryInputs(form))render(form.dataset.slug,form);renderSaved();});
 /* Press "/" to jump to the calculator search box on the tools directory. */
 document.addEventListener('keydown',e=>{if(e.key!=='/'||e.ctrlKey||e.metaKey||e.altKey||e.target.closest('input,textarea,select,[contenteditable]'))return;const search=document.getElementById('tool-search');if(search){e.preventDefault();search.focus();}});
 

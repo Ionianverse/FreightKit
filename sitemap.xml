@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://freightkit.in/</loc><lastmod>2026-10-21</lastmod></url>
-<url><loc>https://freightkit.in/tools/</loc><lastmod>2026-10-21</lastmod></url>
-<url><loc>https://freightkit.in/solutions/</loc><lastmod>2026-10-21</lastmod></url>
-<url><loc>https://freightkit.in/templates/</loc><lastmod>2026-10-21</lastmod></url>
+<url><loc>https://freightkit.in/tools/</loc><lastmod>2026-10-25</lastmod></url>
+<url><loc>https://freightkit.in/document-process/</loc><lastmod>2026-10-25</lastmod></url>
+<url><loc>https://freightkit.in/solutions/</loc><lastmod>2026-10-25</lastmod></url>
+<url><loc>https://freightkit.in/templates/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://freightkit.in/guides/</loc><lastmod>2026-10-21</lastmod></url>
 <url><loc>https://freightkit.in/custom-calculator/</loc><lastmod>2026-10-21</lastmod></url>
 <url><loc>https://freightkit.in/suggest/</loc><lastmod>2026-10-21</lastmod></url>
 <url><loc>https://freightkit.in/pro/</loc><lastmod>2026-10-21</lastmod></url>
 <url><loc>https://freightkit.in/pricing/</loc><lastmod>2026-10-21</lastmod></url>
-<url><loc>https://freightkit.in/about/</loc><lastmod>2026-10-21</lastmod></url>
+<url><loc>https://freightkit.in/about/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://freightkit.in/contact/</loc><lastmod>2026-10-21</lastmod></url>
-<url><loc>https://freightkit.in/privacy/</loc><lastmod>2026-10-21</lastmod></url>
-<url><loc>https://freightkit.in/terms/</loc><lastmod>2026-10-21</lastmod></url>
+<url><loc>https://freightkit.in/privacy/</loc><lastmod>2026-10-25</lastmod></url>
+<url><loc>https://freightkit.in/terms/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://freightkit.in/tools/volumetric-weight/</loc><lastmod>2026-10-21</lastmod></url>
 <url><loc>https://freightkit.in/tools/cbm-calculator/</loc><lastmod>2026-10-21</lastmod></url>
 <url><loc>https://freightkit.in/tools/container-load/</loc><lastmod>2026-10-21</lastmod></url>
@@ -58,4 +59,6 @@
 <url><loc>https://freightkit.in/guides/freight-dispute/</loc><lastmod>2026-10-21</lastmod></url>
 <url><loc>https://freightkit.in/guides/stockout-response/</loc><lastmod>2026-10-21</lastmod></url>
 <url><loc>https://freightkit.in/guides/bill-of-lading/</loc><lastmod>2026-10-21</lastmod></url>
+<url><loc>https://freightkit.in/tools/freight-invoice-audit/</loc><lastmod>2026-10-25</lastmod></url>
+<url><loc>https://freightkit.in/tools/po-exception-report/</loc><lastmod>2026-10-25</lastmod></url>
 </urlset>

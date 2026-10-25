@@ -2,7 +2,7 @@
 
 ## Before first launch
 
-- [ ] Replace `YOUR-DOMAIN.com` with the final domain using the supplied script.
+- [ ] Confirm the canonical host. This source uses `https://freightkit.in`; if publishing elsewhere, update it with `scripts/set-domain.ps1` and review the diff.
 - [ ] Point DNS to the hosting provider and confirm SSL works.
 - [ ] Upload the **contents** of this project to the hosting web root (`public_html/` on many cPanel hosts).
 - [ ] Ensure `index.html` is directly in the web root, not nested in another folder.
