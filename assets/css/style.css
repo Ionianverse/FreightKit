@@ -206,13 +206,13 @@ img{max-width:100%;height:auto}
 .example-panel .btn{flex:0 0 auto}
 .text-button{border:0;padding:0;background:none;color:var(--blue);font:inherit;text-decoration:underline;cursor:pointer}
 .text-button:hover{text-decoration-thickness:2px}
-.workflow-result .data-table{min-width:1500px;table-layout:fixed}
+.workflow-result .data-table{min-width:1550px;table-layout:fixed}
 .workflow-result .data-table th:nth-child(1),.workflow-result .data-table td:nth-child(1){width:110px}
 .workflow-result .data-table th:nth-child(2),.workflow-result .data-table td:nth-child(2),.workflow-result .data-table th:nth-child(3),.workflow-result .data-table td:nth-child(3){width:145px}
 .workflow-result .data-table th:nth-child(4),.workflow-result .data-table td:nth-child(4),.workflow-result .data-table th:nth-child(5),.workflow-result .data-table td:nth-child(5),.workflow-result .data-table th:nth-child(6),.workflow-result .data-table td:nth-child(6){width:110px}
 .workflow-result .data-table th:nth-child(7),.workflow-result .data-table td:nth-child(7){width:95px}
 .workflow-result .data-table th:nth-child(8),.workflow-result .data-table td:nth-child(8){width:145px}
-.workflow-result .data-table th:nth-child(9),.workflow-result .data-table td:nth-child(9),.workflow-result .data-table th:nth-child(10),.workflow-result .data-table td:nth-child(10){width:95px}
+.workflow-result .data-table th:nth-child(9),.workflow-result .data-table td:nth-child(9),.workflow-result .data-table th:nth-child(10),.workflow-result .data-table td:nth-child(10){width:120px}
 .workflow-result .data-table th:nth-child(11),.workflow-result .data-table td:nth-child(11){width:340px}
 .finding-next{margin-top:6px}.finding-next summary{cursor:pointer;color:var(--brand);font-weight:650}.finding-next p{margin:6px 0 0}
 .workflow-result .data-table td:last-child{text-align:left;font-weight:400}
