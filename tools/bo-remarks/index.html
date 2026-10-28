@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BO Remarks Workspace | FreightKit</title>
+<meta name="description" content="Review backorder remark suggestions from BO, stock, and transfer files. Edit rules, see quantity evidence, and export selected updates locally.">
+<link rel="canonical" href="https://freightkit.in/tools/bo-remarks/">
+<meta name="theme-color" content="#0b5fff"><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png"><link rel="manifest" href="../../site.webmanifest">
+<meta property="og:site_name" content="FreightKit"><meta property="og:type" content="website"><meta property="og:title" content="BO Remarks Workspace"><meta property="og:description" content="Review backorder remark suggestions using your own BO, stock, and transfer files."><meta property="og:url" content="https://freightkit.in/tools/bo-remarks/"><meta property="og:image" content="https://freightkit.in/assets/img/og-image.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="BO Remarks Workspace"><meta name="twitter:description" content="Review backorder remark suggestions using your own BO, stock, and transfer files."><meta name="twitter:image" content="https://freightkit.in/assets/img/og-image.png">
+<link rel="stylesheet" href="../../assets/css/style.css"><link rel="stylesheet" href="../../assets/css/bo-remarks.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"BO Remarks Workspace","url":"https://freightkit.in/tools/bo-remarks/","applicationCategory":"BusinessApplication","operatingSystem":"Any modern browser","isAccessibleForFree":true}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site"><div class="container nav"><a class="logo" href="../../" aria-label="FreightKit home">Freight<span>Kit</span></a><button class="mobile-menu-toggle" type="button" id="mobile-menu-toggle" aria-expanded="false" aria-controls="primary-navigation">☰ <span>Menu</span></button><nav class="navlinks" id="primary-navigation" aria-label="Primary"><a href="../" aria-current="page">Tools</a><a href="../../document-process/">Document Process</a><a href="../../solutions/">Solutions</a><a href="../../templates/">Templates</a><a href="../../guides/">Guides</a><a href="../../custom-calculator/">Build</a><a href="../../pro/">Pro</a><a href="../../about/">About</a><a class="btn" href="../../contact/">Contact</a></nav></div></header>
+<main id="main">
+<section class="builder-hero"><div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../">Home</a></li><li><a href="../">Tools</a></li><li aria-current="page">BO Remarks Workspace</li></ol></nav><span class="badge">Back Orders · Local file workflow</span><h1>BO Remarks Workspace</h1><p class="lead">Load today’s BO report, stock workbook, and transfer export. Review each suggested remark with its quantity trail, then export only the lines you approve.</p><div class="builder-pills"><span>Files stay in this browser</span><span>Rules are editable</span><span>Source rows stay traceable</span></div></div></section>
+<section class="builder-section"><div class="container">
+<div class="note privacy-note"><strong>Private by design:</strong> these files are read in your browser and are not uploaded to FreightKit. Your rule settings stay in this browser unless you export a rules file. This page does not connect to your ERP or send vendor emails.</div>
+<div class="bo-tabs" role="tablist" aria-label="BO workspace pages">
+<button class="bo-tab is-active" type="button" role="tab" id="tab-daily" aria-controls="panel-daily" aria-selected="true" data-panel="daily">Daily update</button>
+<button class="bo-tab" type="button" role="tab" id="tab-procurement" aria-controls="panel-procurement" aria-selected="false" data-panel="procurement">Procurement view</button>
+<button class="bo-tab" type="button" role="tab" id="tab-rules" aria-controls="panel-rules" aria-selected="false" data-panel="rules">Rules &amp; logic</button>
+<button class="bo-tab" type="button" role="tab" id="tab-method" aria-controls="panel-method" aria-selected="false" data-panel="method">How it works</button>
+</div>
+
+<section class="bo-panel is-active" id="panel-daily" role="tabpanel" aria-labelledby="tab-daily">
+<div class="card builder-card">
+<div class="section-heading"><div><h2>1. Add today’s files</h2><p>Choose the same exports you use for your daily update. A BO workbook may contain several sheets; the page looks for a working sheet with Remarks and Actions.</p></div><span class="step-number">01</span></div>
+<form id="bo-input-form" novalidate>
+<div class="workflow-files bo-file-grid">
+<div class="field"><label for="bo-file">Back-order report <span class="required-mark">Required</span></label><input id="bo-file" type="file" accept=".xlsx,.xls,.csv" required><small>Usually the JR BO workbook. The source stays untouched; approved changes export in a separate update file.</small></div>
+<div class="field"><label for="stock-file">Stock data workbook <span class="required-mark">Required</span></label><input id="stock-file" type="file" accept=".xlsx,.xls,.csv" required><small>Warehouse sheets and operation/WIP schedules are detected where possible.</small></div>
+<div class="field"><label for="transfer-file">Transfer order export <span class="required-mark">Required</span></label><input id="transfer-file" type="file" accept=".csv,.xlsx,.xls" required><small>Transfer, item, quantity, destination, shipped, and received columns are used when available.</small></div>
+<div class="field"><label for="as-of-date">Review date</label><input id="as-of-date" type="date"><small>Used only for the review record. It will not be written as a transfer date.</small></div>
+</div>
+<div class="button-row"><button class="btn" type="submit">Analyze files</button><button class="btn secondary" id="clear-session" type="button">Clear loaded files</button></div>
+</form>
+<div id="bo-status" class="bo-status" role="status" aria-live="polite">No files loaded yet.</div>
+</div>
+<div id="bo-results" hidden>
+<div id="bo-kpis" class="workflow-kpis"></div>
+<div id="bo-warnings" class="bo-warnings"></div>
+<div class="card builder-card">
+<div class="section-heading"><div><h2>2. Review suggestions</h2><p>Each row stays tied to its original order, line, item, and worksheet row. Suggestions are unchecked until you approve them.</p></div><span class="step-number">02</span></div>
+<div class="bo-review-controls"><label class="bo-check-all"><input type="checkbox" id="select-visible"> Select visible suggestions</label><label for="review-filter">Show <select id="review-filter"><option value="all">All rows</option><option value="changes">Suggested changes</option><option value="review">Needs review / no rule</option><option value="covered">Fully covered by mapped sources</option></select></label><label for="review-search">Find <input id="review-search" type="search" placeholder="Order, item, remark…"></label><span id="review-count" class="muted-small"></span></div>
+<div class="table-scroll bo-table-scroll"><table class="data-table bo-review-table"><thead><tr><th>Use</th><th>Order / line</th><th>Item · BO qty · WH</th><th>Current remark</th><th>Suggested remark</th><th>Evidence / rule</th></tr></thead><tbody id="bo-review-body"></tbody></table></div>
+<div class="button-row"><button class="btn" type="button" id="export-bo">Download approved BO update file</button><button class="btn secondary" type="button" id="export-review-csv">Download review CSV</button><span id="export-count" class="muted-small">0 approved suggestions</span></div>
+<p class="muted-small">The update file contains only approved remarks/actions plus the source sheet row and order-line keys. Use those keys to apply the changes in your original workbook; the uploaded report remains untouched.</p>
+</div>
+</div>
+</section>
+
+<section class="bo-panel" id="panel-procurement" role="tabpanel" aria-labelledby="tab-procurement" hidden>
+<div class="card builder-card"><div class="section-heading"><div><h2>Procurement view</h2><p>Show component requirements from the BO report’s material-requirements pivot when that sheet is present and populated. This is a review list, not a purchase-order submission.</p></div><span class="step-number">03</span></div>
+<div id="procurement-empty" class="note">Load and analyze a BO workbook on the Daily update page. The procurement view will use its material-requirement data when available.</div>
+<div id="procurement-content" hidden><div id="procurement-kpis" class="workflow-kpis"></div><div id="procurement-notice"></div><div class="button-row"><button class="btn secondary" type="button" id="export-procurement">Download procurement CSV</button></div><div class="table-scroll"><table class="data-table procurement-table"><thead><tr><th>Material</th><th>BO item / category</th><th>BO demand</th><th>Available</th><th>Open PO</th><th>Need to order</th><th>Vendor</th><th>PO / ETA notes</th></tr></thead><tbody id="procurement-body"></tbody></table></div><p class="muted-small">Need-by dates and three-month coverage require a confirmed forecast period and replenishment policy. Where the source pivot has no calculated quantity, this view will flag the row instead of estimating it.</p></div>
+</div>
+</section>
+
+<section class="bo-panel" id="panel-rules" role="tabpanel" aria-labelledby="tab-rules" hidden>
+<div class="card builder-card"><div class="section-heading"><div><h2>Rules &amp; logic</h2><p>Change the order and wording of the supported stages. Rules save in this browser. Export a rules file to move them to another computer.</p></div><span class="step-number">04</span></div>
+<div class="rule-config-grid">
+<div class="field"><label for="priority-mode">BO line priority</label><select id="priority-mode"><option value="eta">Earliest ETA first</option><option value="source">Keep source worksheet order</option></select><small>Shared quantities are consumed in this order, separately for each item and destination warehouse.</small></div>
+<div class="field"><label for="transfer-basis">Transfer quantity eligible for remarks</label><select id="transfer-basis"><option value="transit">Shipped less received (in transit)</option><option value="unshipped">Unshipped balance only</option><option value="outstanding">Quantity less received (shipped + unshipped)</option></select><small>Transfer dates are not in the supplied export, so the app never invents a date.</small></div>
+<div class="field"><label for="target-months">Target stock coverage (months)</label><input id="target-months" type="number" min="0" step="0.5"><small>Saved as a planning preference only. The report does not calculate a three-month order quantity until the forecast period is confirmed; the nomenclature workbook also contains a two-month note.</small></div>
+<div class="field"><label class="inline-check"><input id="planned-rule-enabled" type="checkbox"> Use planned / unallocated rule</label><small>If Status is Planned and Allocate is NO, use the configured remark before quantity rules.</small></div>
+</div>
+<div class="field"><label for="planned-remark">Planned / unallocated remark</label><input id="planned-remark" type="text"><small>Default observed wording: “Planned Order, Without Allocation”.</small></div>
+<div class="field"><label for="planned-action">Planned / unallocated action code</label><input id="planned-action" type="text"></div>
+<div class="section-heading rule-stage-heading"><div><h3>Supply stages</h3><p>Stages run top to bottom. Partial quantities can continue into later stages.</p></div><button class="btn secondary" type="button" id="add-stage">Add stage</button></div>
+<div class="table-scroll"><table class="data-table rule-table"><thead><tr><th>On</th><th>Stage</th><th>Source</th><th>Apply to form / item</th><th>Process pool / quantity</th><th>Remark wording template</th><th>Action wording template</th><th>Order</th><th></th></tr></thead><tbody id="rule-stage-body"></tbody></table></div><datalist id="process-pool-options"></datalist>
+<p class="rule-token-note">Filters accept comma-separated wildcard patterns; <code>*</code> means every form or item. Template tokens: <code>{item}</code>, <code>{qty}</code>, <code>{wh}</code>, <code>{transfers}</code>, <code>{group}</code>. A transfer date is deliberately unavailable unless the source export supplies one.</p>
+<details class="vendor-rule-details"><summary>Vendor rules (review and edit)</summary><p class="muted-small">Patterns use * as a wildcard. The item nomenclature lists overlapping CHAMPION and SPEC patterns for some gaskets, so overlapping rules default to “Needs review”.</p><div class="table-scroll"><table class="data-table vendor-rule-table"><thead><tr><th>Enabled</th><th>Material pattern</th><th>Vendor</th><th></th></tr></thead><tbody id="vendor-rule-body"></tbody></table></div><button class="btn secondary" type="button" id="add-vendor-rule">Add vendor rule</button></details>
+<div class="builder-actions"><button class="btn" type="button" id="save-rules">Save rules in this browser</button><button class="btn secondary" type="button" id="export-rules">Export rules</button><label class="btn secondary file-button" for="import-rules">Import rules</label><input id="import-rules" type="file" accept=".json,application/json" hidden><button class="text-button danger-text" type="button" id="reset-rules">Restore default rules</button><span id="rules-status" class="formula-status" role="status" aria-live="polite"></span></div>
+</div>
+</section>
+
+<section class="bo-panel" id="panel-method" role="tabpanel" aria-labelledby="tab-method" hidden>
+<div class="card builder-card"><div class="section-heading"><div><h2>Method and limits</h2><p>The first version is deliberately evidence-first. It uses exact item and warehouse matches and leaves process paths without a mapped source for review.</p></div><span class="step-number">05</span></div>
+<div class="method-grid"><div><h3>Daily file matching</h3><ul><li>BO rows are identified by order, line, item, warehouse, and quantity.</li><li>Transfer pools match exact item and destination warehouse. The default eligible quantity is shipped minus received.</li><li>Warehouse stock uses the Available field from sheets with an Item, Whse/Branch, and Available header.</li><li>Shared transfer and stock quantities are consumed by BO ETA priority, so the same quantity is not allocated repeatedly.</li><li>When the BO workbook has an Item / Material / Per Quantity table, parent pack/kit quantities are expanded into those components.</li><li>Inventory process blocks can be added as ordered stages by choosing the exact pool and Stock, WIP, On Xfer, NS/QC, or GRN quantity field.</li><li>Planned rows with Allocate = NO can use a separate wording rule.</li></ul></div><div><h3>What stays for human review</h3><ul><li>Component and process mappings must match the ERP’s current material and operation rules. Rows without an exact mapping remain unassigned.</li><li>Transfer exports without a date cannot support a transfer ETA in generated text.</li><li>Existing remarks are shown beside every draft. No row is approved by default.</li><li>The procurement view uses a populated material pivot if available; it does not infer a three-month order quantity from an unknown forecast cadence.</li></ul></div></div>
+<div class="note"><strong>Next calibration step:</strong> compare several real rows for each process stage, confirm which source pool supplies each material and whether partial quantities fall through. Update the Rules tab, then rerun the same workbook and compare the changed suggestions.</div>
+</div>
+</section>
+</div></section>
+</main>
+<footer class="site"><div class="container"><div class="footer-grid"><div><strong class="footer-brand">FreightKit</strong><br>Practical logistics tools.</div><div><a href="../">Calculators</a><br><a href="../../templates/">Templates</a><br><a href="../../guides/">Guides</a><br><a href="../../solutions/">Solutions</a></div><div><a href="../../custom-calculator/">Build a calculator</a><br><a href="../../pro/">Pro</a><br><a href="../../pricing/">Pricing</a><br><a href="../../contact/">Contact</a></div><div><a href="../../about/">About</a><br><a href="../../privacy/">Privacy</a><br><a href="../../terms/">Terms</a><br><a href="../../sitemap.xml">Sitemap</a></div></div><p class="footer-copy">© <span id="yr"></span> FreightKit. Review suggestions against source records before updating operational remarks.</p></div></footer>
+<script src="../../assets/js/app.js"></script><script src="../../assets/vendor/sheetjs/xlsx.full.min.js"></script><script src="../../assets/js/bo-remarks.js?v=20261029a"></script><script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body></html>
