@@ -28,7 +28,8 @@ for item in required:
         errors.append(f'Missing required file: {item}')
 
 REF = re.compile(r'\b(?:href|src|action)="([^"]*)"')
-pages = [p for p in ROOT.rglob('*.html') if '.git' not in p.parts and 'docs' not in p.parts]
+PRIVATE = {'.git', 'docs', 'bo-src', 'sample', 'samples', '.claude'}  # not published
+pages = [p for p in ROOT.rglob('*.html') if not PRIVATE.intersection(p.parts)]
 checked = 0
 for page in pages:
     rel = page.relative_to(ROOT).as_posix()
@@ -68,7 +69,7 @@ for page in pages:
             errors.append(f'{rel}: broken link "{ref}"')
 
 placeholders = sorted({p.relative_to(ROOT).as_posix() for ext in ('*.html', '*.xml', '*.txt')
-                       for p in ROOT.rglob(ext) if '.git' not in p.parts and 'docs' not in p.parts
+                       for p in ROOT.rglob(ext) if not PRIVATE.intersection(p.parts)
                        and 'YOUR-DOMAIN.com' in p.read_text(encoding='utf-8', errors='ignore')})
 if placeholders:
     warnings.append(f'YOUR-DOMAIN.com is still used in {len(placeholders)} file(s). Run scripts/set-domain.ps1 '

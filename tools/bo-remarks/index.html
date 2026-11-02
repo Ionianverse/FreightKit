@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BO Planning System | FreightKit</title>
+<meta name="description" content="Back-order planning tool for authorized users.">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#0b5fff"><link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/css/style.css"><link rel="stylesheet" href="login.css?v=20261103d">
+</head>
+<body class="bo-app">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site"><div class="container nav"><a class="logo" href="../../" aria-label="FreightKit home">Freight<span>Kit</span></a><button class="mobile-menu-toggle" type="button" id="mobile-menu-toggle" aria-expanded="false" aria-controls="primary-navigation">☰ <span>Menu</span></button><nav class="navlinks" id="primary-navigation" aria-label="Primary"><a href="../">Tools</a><a href="../../document-process/">Document Process</a><a href="../../solutions/">Solutions</a><a href="../../templates/">Templates</a><a href="../../guides/">Guides</a><a href="../../about/">About</a><a class="btn" href="../../contact/">Contact</a></nav></div></header>
+<main id="main">
+<div class="container bo-signed-bar" id="signed-in" hidden><span>Signed in. Files stay in this browser and are cleared when you sign out.</span><button class="btn secondary" type="button" id="sign-out">Sign out</button></div>
+<section class="bo-login" id="login-card">
+<div class="card bo-login-card">
+<h1>BO Planning System</h1>
+<p class="muted-small">Authorized users only. Sign in with the ID and password you were given.</p>
+<form id="login-form" autocomplete="on">
+<div class="field"><label for="login-id">ID</label><input id="login-id" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required></div>
+<div class="field"><label for="login-password">Password</label><input id="login-password" name="password" type="password" autocomplete="current-password" required></div>
+<button class="btn" type="submit" id="login-btn">Sign in</button>
+<p id="login-status" class="bo-login-status" role="status" aria-live="polite"></p>
+</form>
+</div>
+</section>
+<div id="app-root"></div>
+</main>
+<footer class="site"><div class="container"><p class="footer-copy">© <span id="yr"></span> FreightKit.</p></div></footer>
+<script src="../../assets/js/app.js"></script>
+<script src="../../assets/vendor/sheetjs/xlsx.full.min.js"></script>
+<script src="login.js?v=20261103d"></script>
+</body></html>

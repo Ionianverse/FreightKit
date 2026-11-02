@@ -1,0 +1,7 @@
+.bo-login{padding:56px 16px 72px;display:flex;justify-content:center}
+.bo-login-card{width:100%;max-width:400px;padding:28px}
+.bo-login-card h1{font-size:24px;margin:0 0 6px}
+.bo-login-card .btn{width:100%;margin-top:4px;padding:11px}
+.bo-login-status{min-height:20px;margin:12px 0 0;font-size:14px;color:var(--muted)}
+.bo-login-status.is-error{color:#9f1239;font-weight:650}
+.bo-signed-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:12px;font-size:13px;color:var(--muted)}

@@ -17,3 +17,13 @@ Thumbs.db
 
 # Local tooling
 .claude/
+
+# Private business sample files (never commit)
+sample/
+samples/
+
+# Server password files (Hostinger directory protection)
+.htpasswd
+
+# Private source of the BO Planning System (encrypted into tools/bo-remarks/app.bundle)
+bo-src/
