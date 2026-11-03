@@ -23,10 +23,12 @@ BO, stock, transfer and contact files are read inside the browser tab. They are 
 
 ## Changing the tool or the password
 
-1. Edit files in `bo-src/` (or change rules on the Rules page and export them into `bo-src/js/rules-default.js`).
-2. To change the password, edit `bo-src/.credentials.json`.
+1. To change the built-in rules, edit them on the Rules page, press **Export rules file**, then run `python scripts/build-bo-bundle.py --rules "<exported file>"`. The file becomes `bo-src/rules.json` (the previous one is kept as a dated backup in `bo-src/`).
+2. To change the tool itself, edit files in `bo-src/`. To change the password, edit `bo-src/.credentials.json`.
 3. Run `python scripts/build-bo-bundle.py` (needs `python -m pip install --user cryptography` once).
 4. Commit the new `bo-planning/app.bundle` and upload it to the website.
+
+Rules saved on the Rules page live only in that browser and take priority over the built-in rules there. The Rules page says which rules are in use; **Restore defaults** switches back to the built-in rules.
 
 ## Publishing to the website
 
