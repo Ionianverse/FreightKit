@@ -240,7 +240,8 @@ FreightKit/
 ├── solutions/ pro/ pricing/ about/ contact/ suggest/ privacy/ terms/
 ├── assets/
 │   ├── css/style.css          Shared styles
-│   ├── js/app.js              Calculators, results actions, site search, recently used
+│   ├── js/app.js              Calculators and result actions (copy, share, CSV, print)
+│   ├── js/site-search.js      Site search (/ or Ctrl+K) and recently used tools
 │   ├── js/search-index.js     Search index (generated)
 │   ├── js/document-process-v4.js, workflows.js   File workflows
 │   └── vendor/                SheetJS, PDF.js

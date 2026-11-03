@@ -33,3 +33,47 @@
  }
  document.addEventListener('DOMContentLoaded',()=>{initInvoiceAudit();initExceptions();});
 })();
+
+/* ---------- "Try an example": fill the file inputs with built-in sample files and build the report ----------
+   The samples go through exactly the same steps as an uploaded file (column matching, checks, report). */
+(()=>{
+ const $=id=>document.getElementById(id);
+ const csv=rows=>rows.map(r=>r.map(v=>{const s=String(v);return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;}).join(',')).join('\n');
+ const day=offset=>{const d=new Date();d.setDate(d.getDate()+offset);return d.toISOString().slice(0,10);};
+ function setFile(inputId,name,rows){
+  const input=$(inputId);if(!input)return false;
+  try{const dt=new DataTransfer();dt.items.add(new File([csv(rows)],name,{type:'text/csv'}));input.files=dt.files;}catch(_){return false;}
+  input.dispatchEvent(new Event('change',{bubbles:true}));return true;
+ }
+ // The column-matching panel is built after each file is read; wait for it before building the report.
+ function whenReady(hostIds,done,tries=0){
+  if(hostIds.every(id=>$(id)&&$(id).dataset.ready==='true'))return done();
+  if(tries>50)return done();
+  setTimeout(()=>whenReady(hostIds,done,tries+1),60);
+ }
+ function bind(buttonId,formSelector,files,hosts){
+  const btn=$(buttonId);if(!btn)return;
+  btn.addEventListener('click',()=>{
+   const ok=files.every(f=>setFile(f[0],f[1],f[2]));
+   if(!ok){alert('This browser cannot load the example automatically. Use the sample CSV downloads instead.');return;}
+   const form=btn.closest('form')||document.querySelector(formSelector);
+   whenReady(hosts,()=>{form.dataset.example='true';form.requestSubmit?form.requestSubmit():form.submit();});
+  });
+ }
+ bind('try-audit-example','form',[
+  ['quote-file','example-quote.csv',[['shipment_id','charge_code','amount'],['FK-26001','Base freight',1250],['FK-26001','Fuel surcharge',180],['FK-26002','Origin handling',95],['FK-26003','Documentation',45]]],
+  ['invoice-file','example-invoice.csv',[['shipment_id','charge_code','amount'],['FK-26001','Base freight',1285],['FK-26001','Fuel surcharge',180],['FK-26002','Origin handling',120],['FK-26003','Documentation',40],['FK-26004','Destination delivery',310]]]
+ ],['quote-mapping','invoice-mapping']);
+ bind('try-po-example','form',[
+  ['po-file','example-po-export.csv',[['po_number','supplier','sku','qty_ordered','qty_received','promised_date','eta','status','buyer'],
+   ['PO-1001','Northline Castings','SKU-110',500,0,day(-12),day(3),'Open','Asha'],
+   ['PO-1002','Northline Castings','SKU-114',200,200,day(-20),'','Received','Asha'],
+   ['PO-1003','Bayside Fasteners','SKU-208',1000,400,day(-5),'','Open','Ravi'],
+   ['PO-1004','Bayside Fasteners','SKU-210',300,0,day(4),day(4),'Open','Ravi'],
+   ['PO-1005','Delta Packaging','SKU-330',2500,0,day(18),'','Open','Meera'],
+   ['PO-1006','Delta Packaging','SKU-331',800,0,day(-2),day(9),'Open','Meera']]],
+  ['shipment-file','example-shipments.csv',[['po_number','eta','current_milestone','exception_note'],
+   ['PO-1001',day(3),'Departed origin port',''],
+   ['PO-1006',day(9),'Awaiting vessel','Rolled to next sailing']]]
+ ],['po-mapping','shipment-mapping']);
+})();
