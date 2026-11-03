@@ -53,6 +53,8 @@
     $('app-root').innerHTML = app.html;
     $('login-card').remove();
     $('signed-in').hidden = false;
+    $('sign-out').hidden = false;
+    $('site-link').hidden = true;
     for (const s of app.scripts) await loadScript(s.code, s.name);
   }
 
@@ -68,6 +70,7 @@
     try {
       const app = await unlock(id, password);
       $('login-password').value = '';
+      $('signed-user').textContent = id;
       await mount(app);
     } catch (err) {
       failures += err.auth ? 1 : 0;

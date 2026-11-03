@@ -228,3 +228,6 @@ img{max-width:100%;height:auto}
 .workflow-result .result-content{max-height:min(68vh,680px);overflow:auto;overscroll-behavior:contain;padding:12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.76)}
 .findings-table-scroll{max-height:none;overscroll-behavior:contain}
 @media(max-width:720px){.workflow-result .result-toolbar{top:54px}.workflow-result .result-content{max-height:68vh;padding:8px}}
+.navlinks a.nav-bo{color:#0b1f3a;border:1.5px solid #0b1f3a;border-radius:9px;padding:7px 12px;font-weight:750}
+.navlinks a.nav-bo:hover{background:#0b1f3a;color:#fff}
+@media(min-width:861px) and (max-width:1100px){.navlinks{gap:12px}.navlinks a{font-size:13px}.navlinks a.nav-bo{padding:6px 9px}}

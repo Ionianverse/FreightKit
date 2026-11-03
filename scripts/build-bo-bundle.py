@@ -10,7 +10,7 @@ The readable tool lives in the private, git-ignored folder ``bo-src/``:
 
 This script packs those files, compresses them, and encrypts them with AES-256-GCM.
 The key comes from the ID and password (PBKDF2-SHA256), so the published file
-``tools/bo-remarks/app.bundle`` cannot be read or used without them.
+``bo-planning/app.bundle`` cannot be read or used without them.
 
 Run from anywhere:  python scripts/build-bo-bundle.py
 Change the password: edit bo-src/.credentials.json (or set BO_ID / BO_PASSWORD), then run again.
@@ -32,7 +32,7 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "bo-src"
-OUT = ROOT / "tools" / "bo-remarks" / "app.bundle"
+OUT = ROOT / "bo-planning" / "app.bundle"
 SCRIPTS = ["rules-default.js", "engine.js", "planning.js", "app.js"]
 ITERATIONS = 600_000
 

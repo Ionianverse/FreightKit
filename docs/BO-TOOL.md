@@ -1,14 +1,14 @@
 # BO Planning System – sign-in, privacy and updates
 
-The BO Planning System lives at `tools/bo-remarks/` and is for one authorized user (one ID and password).
+The BO Planning System lives at `bo-planning/` (the old `tools/bo-remarks/` address redirects there) and is for one authorized user (one ID and password).
 
 ## What is public and what is private
 
 | Public (in this repository and on the website) | Private (only on the owner's computer) |
 | --- | --- |
-| `tools/bo-remarks/index.html` – sign-in page | `bo-src/` – the readable tool: page markup, styles, rules and logic |
-| `tools/bo-remarks/login.js`, `login.css` – sign-in and loader | `bo-src/.credentials.json` – the ID and password |
-| `tools/bo-remarks/app.bundle` – the tool, encrypted | Real BO, stock and transfer files (`sample/`) |
+| `bo-planning/index.html` – sign-in page and app shell | `bo-src/` – the readable tool: page markup, styles, rules and logic |
+| `bo-planning/login.js`, `app-shell.css` – sign-in and loader | `bo-src/.credentials.json` – the ID and password |
+| `bo-planning/app.bundle` – the tool, encrypted | Real BO, stock and transfer files (`sample/`) |
 | `scripts/build-bo-bundle.py` – builds the encrypted bundle | |
 
 `bo-src/` and `sample/` are in `.gitignore` and must never be committed. Keep a backup of `bo-src/` (for example in a private cloud folder); it is the only readable copy of the tool.
@@ -26,8 +26,8 @@ BO, stock, transfer and contact files are read inside the browser tab. They are 
 1. Edit files in `bo-src/` (or change rules on the Rules page and export them into `bo-src/js/rules-default.js`).
 2. To change the password, edit `bo-src/.credentials.json`.
 3. Run `python scripts/build-bo-bundle.py` (needs `python -m pip install --user cryptography` once).
-4. Commit the new `tools/bo-remarks/app.bundle` and upload it to the website.
+4. Commit the new `bo-planning/app.bundle` and upload it to the website.
 
 ## Publishing to the website
 
-Upload the `tools/bo-remarks/` folder (index.html, login.js, login.css, app.bundle) to the same path on the host. The page is `noindex` and not linked from the public pages; open it directly at `/tools/bo-remarks/`.
+Upload the `bo-planning/` folder (index.html, login.js, app-shell.css, app.bundle) and the updated pages to the host. Every page's menu has a **BO Planning** tab that opens the sign-in page; the page is `noindex`, so search engines do not list it.
