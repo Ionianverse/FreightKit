@@ -231,3 +231,20 @@ Review results weekly. A tool with repeat use and export activity is a better ca
 
 **Checks**
 - `scripts/check-site.py`: 68 pages, 2,234 local links, all passed. Search, recently used, both example buttons, the builder page and a calculator were exercised in a browser at desktop and 375 px widths with no script errors.
+
+## 11. 4 November 2026 document review and menu update
+
+**Document Review (quote vs invoice), for roughly structured Excel and CSV files**
+- Picks the worksheet that looks most like a charge table (a cover sheet no longer breaks the review); reads .xlsx, .xlsm and .xls.
+- CSV separator is detected (comma, semicolon, tab or pipe); .tsv and .txt exports are accepted.
+- Header rows with blank or duplicate names and rows with missing or extra cells are tolerated instead of stopping the review.
+- Section headings, notes, total / sub-total rows and tax rows (GST, IGST, CGST, SGST, VAT…) are set aside and listed under "Rows not compared, and why" instead of causing errors or false findings.
+- Each document's own stated total is checked against its charge lines (and tax); a mismatch is reported in plain words with the row number.
+- Tax is shown separately for quote and invoice, with the difference.
+- Amounts such as "Rs. 1,500/-", "INR 1,500", "1,500 Cr" and "(1,500)" are read correctly.
+- More built-in charge synonyms: THC / terminal handling, documentation / BL fee, delivery order, customs clearance / brokerage, pickup / collection, delivery / cartage / drayage, storage, insurance, demurrage, peak season, currency adjustment and security filings.
+- A plain-language summary opens the results ("The invoice is ₹X higher than the quote. 2 charges are billed above the quote…").
+- Tested with a messy two-sheet Excel quote and a semicolon CSV invoice (title rows, section rows, totals, GST, duplicate line, renamed charges, wrong grand total): every planted discrepancy was found; the built-in examples still give ₹2,835 and ₹0.
+
+**Menu**
+- Primary menu: Tools · Document review · Build a calculator · Guides · Services · BO Planning · Contact. Templates stays in the footer, search and the homepage task picker.
