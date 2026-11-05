@@ -17,7 +17,8 @@
 [Invoice review](https://freightkit.in/document-process/) ·
 [Templates](https://freightkit.in/templates/) ·
 [Guides](https://freightkit.in/guides/) ·
-[Services](https://freightkit.in/services/)
+[Services](https://freightkit.in/services/) ·
+[**All pages and links**](links/)
 
 </div>
 
@@ -33,6 +34,7 @@
 - [Services](#services)
 - [Privacy by design](#privacy-by-design)
 - [For maintainers](#for-maintainers)
+- [All pages and links →](links/) (every page and download with its live link; also as [links.csv](links/links.csv))
 
 ---
 
@@ -247,6 +249,7 @@ FreightKit/
 │   └── vendor/                SheetJS, PDF.js
 ├── scripts/                   Site checks, search index, BO bundle builder, domain helper
 ├── docs/                      Hosting / release notes and README screenshots
+├── links/                     All pages and links (README.md + links.csv, made by scripts/build-links-page.py)
 ├── sitemap.xml  robots.txt  .htaccess  site.webmanifest
 └── contact-handler.php        Form handler for PHP hosting (config kept out of git)
 ```
@@ -267,6 +270,7 @@ Open <http://localhost:8000/>. The site is static; the PHP contact handler needs
 
 ```bash
 python scripts/build-search-index.py   # after adding or renaming a page or template
+python scripts/build-links-page.py     # refresh links/ (all pages and links) after adding or renaming a page
 python scripts/check-site.py           # links, assets, SEO tags
 ```
 
