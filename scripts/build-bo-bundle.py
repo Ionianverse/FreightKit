@@ -37,7 +37,7 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "bo-src"
 OUT = ROOT / "bo-planning" / "app.bundle"
-SCRIPTS = ["rules-default.js", "engine.js", "planning.js", "app.js"]
+SCRIPTS = ["rules-default.js", "usmap.js", "engine.js", "planning.js", "app.js"]
 ITERATIONS = 600_000
 
 
