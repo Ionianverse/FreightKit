@@ -4,20 +4,17 @@
 
 # FreightKit
 
-**Practical tools for freight, logistics, inventory and procurement work — free, in the browser, with the formula shown.**
+**Back-order planning and logistics tools that run in your browser — your files never leave your computer.**
 
 [![Live site](https://img.shields.io/badge/live-freightkit.in-0b5fff?style=flat-square)](https://freightkit.in/)
-[![Calculators](https://img.shields.io/badge/calculators-40%2B-00a37a?style=flat-square)](https://freightkit.in/tools/)
-[![Templates](https://img.shields.io/badge/templates-27_CSV_%2B_5_Excel-00a37a?style=flat-square)](https://freightkit.in/templates/)
-[![Privacy](https://img.shields.io/badge/files-stay_in_your_browser-0f172a?style=flat-square)](#privacy-by-design)
-[![No sign-up](https://img.shields.io/badge/account-not_needed-0f172a?style=flat-square)](https://freightkit.in/)
+[![Main product](https://img.shields.io/badge/main_product-BO_Planning_System-0b1b33?style=flat-square)](#bo-planning-system)
+[![Privacy](https://img.shields.io/badge/files-stay_in_your_browser-0f172a?style=flat-square)](#data-security-and-privacy)
+[![Free tools](https://img.shields.io/badge/free_tools-40%2B-00a37a?style=flat-square)](https://freightkit.in/tools/)
 
-[**Open FreightKit**](https://freightkit.in/) ·
-[Calculators](https://freightkit.in/tools/) ·
-[Invoice review](https://freightkit.in/document-process/) ·
-[Templates](https://freightkit.in/templates/) ·
-[Guides](https://freightkit.in/guides/) ·
-[Services](https://freightkit.in/services/) ·
+[**BO Planning System**](#bo-planning-system) ·
+[Data security](#data-security-and-privacy) ·
+[Free tools](#free-tools) ·
+[Services](#services) ·
 [**All pages and links**](links/)
 
 </div>
@@ -26,274 +23,233 @@
 
 ## Contents
 
-- [What you can do](#what-you-can-do)
-- [A quick look](#a-quick-look)
-- [Tool catalogue](#tool-catalogue)
-- [Workflows](#workflows)
-- [Templates and Excel workbooks](#templates-and-excel-workbooks)
-- [Services](#services)
-- [Privacy by design](#privacy-by-design)
-- [For maintainers](#for-maintainers)
-- [All pages and links →](links/) (every page and download with its live link; also as [links.csv](links/links.csv))
+1. [BO Planning System — our main product](#bo-planning-system)
+2. [What it does each day](#what-it-does-each-day)
+3. [Inside the tool](#inside-the-tool)
+4. [Tested on real data](#tested-on-real-data)
+5. [Data security and privacy](#data-security-and-privacy)
+6. [Free tools](#free-tools)
+7. [Services](#services)
+8. [All pages and links](#all-pages-and-links)
+9. [For maintainers](#for-maintainers)
 
 ---
 
-## What you can do
+<a id="bo-planning-system"></a>
+## 1. BO Planning System
 
-Pick the task, open the tool, enter your numbers or add your file, and get a result you can check, copy, share or download.
+**A daily back-order planning tool for manufacturers and distributors.** It reads the reports your team already exports — back-order report, stock file, transfer export, assembly schedule — and in a few seconds tells each owner what to **expedite**, **follow up** or **order**, writes the line remarks, and shows the whole picture on one screen.
 
-| I need to… | Use |
+| Before | With BO Planning |
 | --- | --- |
-| 🧾 Check a carrier invoice against the agreed quote | [Freight invoice review](https://freightkit.in/document-process/) |
-| ⚖️ Work out chargeable weight for air or courier | [Volumetric & chargeable weight](https://freightkit.in/tools/volumetric-weight/) · [Parcel DIM weight](https://freightkit.in/tools/parcel-dim-weight/) |
-| 📦 Plan a container or pallet | [Container load planner](https://freightkit.in/tools/container-load/) · [Cartons per pallet](https://freightkit.in/tools/cartons-per-pallet/) · [CBM](https://freightkit.in/tools/cbm-calculator/) |
-| 💰 Know the real cost of an import | [Landed cost](https://freightkit.in/tools/landed-cost/) · [Customs duty & import tax](https://freightkit.in/tools/customs-duty-estimator/) |
-| 🤝 Compare suppliers or forwarders | [RFQ / quote comparison](https://freightkit.in/tools/rfq-comparison/) · [Supplier scorecard](https://freightkit.in/tools/supplier-scorecard/) |
-| 📉 Set stock levels | [Safety stock & reorder point](https://freightkit.in/tools/safety-stock/) · [Min-max](https://freightkit.in/tools/min-max/) · [EOQ](https://freightkit.in/tools/eoq/) |
-| ⏰ Chase late purchase orders | [PO & shipment exception report](https://freightkit.in/tools/po-exception-report/) |
-| 📥 Start a tracker or checklist | [27 CSV templates and 5 Excel workbooks](https://freightkit.in/templates/) |
-| 🛠️ Make a calculator for my own rule | [Custom calculator builder](https://freightkit.in/custom-calculator/) |
+| Hours each morning checking stock, transfers and schedules line by line | The full plan in seconds, from the same files |
+| Remarks written by hand, often out of date | Remarks suggested from today's data; true ones kept as written |
+| Shortages found late | Every shortage → "place order", in ETA order, never hidden |
+| Hard to see the whole network | Dashboard, filters and an interactive warehouse map |
+| Knowledge in people's heads | Rules (routes, vendors, lead times, wording) on a settings page anyone can edit |
 
-Press <kbd>/</kbd> or <kbd>Ctrl</kbd>+<kbd>K</kbd> on any page to search every tool, template and guide.
+<p align="center"><img src="docs/screenshots/bo-dashboard.svg" alt="BO Planning overview: KPIs, owner cards and plan status" width="900"><br><sub>Overview — what to do today, by owner. <i>Illustration with sample data.</i></sub></p>
+
+**Access:** private, one sign-in per organisation. [Ask for a demo or a system for your own reports →](https://freightkit.in/contact/)
 
 ---
 
-## A quick look
-
-<table>
-<tr>
-<td width="50%"><img src="docs/screenshots/home.png" alt="FreightKit homepage with search"><br><sub><b>Home</b> — search everything, or start from a task.</sub></td>
-<td width="50%"><img src="docs/screenshots/tasks.png" alt="Task picker on the homepage"><br><sub><b>Task picker</b> — eight common jobs, one click each. Recently used tools appear below.</sub></td>
-</tr>
-<tr>
-<td width="50%"><img src="docs/screenshots/search.png" alt="Site-wide search results"><br><sub><b>Search</b> — tools, workflows, templates and guides in one list. Keyboard friendly.</sub></td>
-<td width="50%"><img src="docs/screenshots/invoice-review.png" alt="Freight invoice review results"><br><sub><b>Invoice review</b> — quoted vs billed totals, above-quote and invoice-only charges, source rows.</sub></td>
-</tr>
-</table>
-
----
-
-## Tool catalogue
-
-Every calculator shows the formula, the assumptions and a step-by-step working. Results can be copied, shared as a link (inputs included), printed or downloaded as CSV.
-
-<details open>
-<summary><b>🚢 Freight & cargo</b> — 5 tools</summary>
-
-[Volumetric & chargeable weight](https://freightkit.in/tools/volumetric-weight/) · [CBM calculator](https://freightkit.in/tools/cbm-calculator/) · [Container load planner](https://freightkit.in/tools/container-load/) · [Cartons per pallet](https://freightkit.in/tools/cartons-per-pallet/) · [Freight class density guide](https://freightkit.in/tools/freight-class/)
-</details>
-
-<details>
-<summary><b>🚚 Freight & transport</b> — 9 tools</summary>
-
-[Demurrage & detention](https://freightkit.in/tools/demurrage-detention/) · [Freight cost per kg / unit](https://freightkit.in/tools/freight-cost-per-kg/) · [Air vs sea](https://freightkit.in/tools/air-vs-sea/) · [LCL vs FCL](https://freightkit.in/tools/lcl-vs-fcl/) · [Cargo insurance](https://freightkit.in/tools/cargo-insurance/) · [Parcel DIM weight](https://freightkit.in/tools/parcel-dim-weight/) · [Shipment consolidation](https://freightkit.in/tools/shipment-consolidation/) · [Transport cost per delivery](https://freightkit.in/tools/transport-cost-per-delivery/) · [Shipment CO₂ estimator](https://freightkit.in/tools/shipment-co2/)
-</details>
-
-<details>
-<summary><b>💰 Costs & conversion</b> — 3 tools</summary>
-
-[Landed cost](https://freightkit.in/tools/landed-cost/) · [Logistics unit converter](https://freightkit.in/tools/unit-converter/) · [Customs duty & import tax](https://freightkit.in/tools/customs-duty-estimator/)
-</details>
-
-<details>
-<summary><b>📊 Inventory & performance</b> — 9 tools</summary>
-
-[EOQ](https://freightkit.in/tools/eoq/) · [Safety stock & reorder point](https://freightkit.in/tools/safety-stock/) · [Inventory turnover & days](https://freightkit.in/tools/inventory-turnover/) · [OTIF & fill rate](https://freightkit.in/tools/otif-fill-rate/) · [Days of supply](https://freightkit.in/tools/days-of-supply/) · [Min-max planner](https://freightkit.in/tools/min-max/) · [Inventory carrying cost](https://freightkit.in/tools/carrying-cost/) · [Simple demand forecast](https://freightkit.in/tools/demand-forecast/) · [ABC analysis](https://freightkit.in/tools/abc-analysis/)
-</details>
-
-<details>
-<summary><b>🤝 Procurement</b> — 7 tools</summary>
-
-[Supplier scorecard](https://freightkit.in/tools/supplier-scorecard/) · [RFQ / quote comparison](https://freightkit.in/tools/rfq-comparison/) · [Total cost of ownership](https://freightkit.in/tools/tco/) · [Make vs buy](https://freightkit.in/tools/make-vs-buy/) · [MOQ planner](https://freightkit.in/tools/moq-planner/) · [Early payment discount](https://freightkit.in/tools/early-payment-discount/) · [Cash conversion cycle](https://freightkit.in/tools/cash-conversion-cycle/)
-</details>
-
-<details>
-<summary><b>🏭 Warehouse & 3PL</b> — 2 tools</summary>
-
-[Warehouse cost per pallet](https://freightkit.in/tools/warehouse-cost-per-pallet/) · [Warehouse rack capacity](https://freightkit.in/tools/rack-capacity/)
-</details>
-
-<details>
-<summary><b>🧰 Data & documents</b> — 5 tools</summary>
-
-[Business-day lead time](https://freightkit.in/tools/business-day-lead-time/) · [GTIN / barcode check digit](https://freightkit.in/tools/gtin-check-digit/) · [Container number validator](https://freightkit.in/tools/container-validator/) · [CSV duplicate finder](https://freightkit.in/tools/csv-duplicate-finder/) · [Custom calculator builder](https://freightkit.in/custom-calculator/)
-</details>
-
----
-
-## Workflows
-
-File-based reviews that turn an export into a list of things to check.
-
-### 🧾 Freight invoice review
-
-Compare an accepted quote or rate confirmation with the carrier invoice — CSV, Excel or text-based PDF.
-
-- Finds **billed above quote**, **invoice-only charges**, **quoted but not billed** and possible duplicates.
-- Suggests which columns to use, lets you match differently named charges (e.g. *Fuel surcharge = Fuel adjustment*) and set a tolerance.
-- Every finding points back to its source row or PDF page, with what to check next.
-- Try it with built-in sample data — no files needed.
-
-[Open invoice review](https://freightkit.in/document-process/) · [Excel audit workbook](https://freightkit.in/downloads/freight-invoice-audit.xlsx)
-
-### ⏰ PO & shipment exceptions
-
-Upload a PO or shipment export; get overdue lines, missing ETAs, open quantities and owners, ready to send as a follow-up list. [Open the report](https://freightkit.in/tools/po-exception-report/)
+<a id="what-it-does-each-day"></a>
+## 2. What it does each day
 
 ```mermaid
 flowchart LR
-    A["📄 Your export<br/>(CSV / Excel / PDF)"] --> B["🔎 Columns matched<br/>in your browser"]
-    B --> C["⚖️ Rules applied<br/>tolerance · dates · matches"]
-    C --> D["📋 Findings with<br/>source references"]
-    D --> E["📥 Excel / CSV<br/>to share"]
+    subgraph IN["Your daily exports"]
+      A1["Back-order report"]
+      A2["Stock file"]
+      A3["Transfer export"]
+      A4["Assembly schedule"]
+    end
+    IN --> B["Read in your browser"]
+    B --> C["Stock and transfers<br/>matched to lines<br/>in ETA order"]
+    C --> D["Packs and kits built<br/>from the bill of materials"]
+    D --> E["Your rules:<br/>routes · vendors ·<br/>lead times · wording"]
+    E --> F1["Actions by owner"]
+    E --> F2["Updated BO file<br/>with remarks"]
+    E --> F3["Requirements,<br/>components, map"]
 ```
+
+1. **Add the files you have.** None is required — each screen shows what it can and says which file it still needs.
+2. **Stock goes to the earliest ETA first.** Each line walks its route: transfer to its warehouse, stock and work in progress, process stages, outside vendors, open purchase orders — and anything still missing becomes **place order**.
+3. **Kits and packs** are checked part by part from the bill of materials; a finished kit already in stock is used first.
+4. **Remarks are checked, not overwritten.** Remarks that are still true are kept; the rest get a suggestion you can edit. Lines marked "disregard" are left out.
+5. **Need-by dates** come from the ETA minus each stage's lead time, so you know what is late today.
 
 ---
 
-## Templates and Excel workbooks
+<a id="inside-the-tool"></a>
+## 3. Inside the tool
 
-27 free CSV templates and 5 formula-led Excel workbooks that open in Excel, Google Sheets or LibreOffice.
+| Screen | What you get |
+| --- | --- |
+| **Overview** | Expedite / place order / follow up counts and a card per owner (production, foundries, outside vendors, suppliers) with one-click Excel |
+| **Actions** | Every action with need-by date, owner and evidence; filter by status, owner, warehouse, customer (type or paste a list), ETA |
+| **Requirements & Materials** | What is needed per item, beside stock, open POs and forecast |
+| **Planned lines** | Lines planned without allocation, analysed after real lines so they never take their stock |
+| **Components** | Stock at each process stage (ground, machined, thread-rolled, painted…), coverage in months, and a process plan to reach 3 months of stock |
+| **Transfers** | Open transfers, age and which BO lines they serve |
+| **Analysis** | Charts by status, owner, region, warehouse, week and customer, plus the **distribution network map** |
+| **Remarks** | Each remark checked against today's data; download the **updated BO file** with the new remarks written in |
+| **Rules** | Routes, vendors, lead times, wording, warehouses — edit, save, export and import |
+
+<p align="center"><img src="docs/screenshots/bo-network-map.svg" alt="Distribution network map with warehouses, status rings and open transfers" width="900"><br><sub>Analysis → distribution network. Each warehouse shows its number, its plan-status mix and open transfers. Click a warehouse or a state to filter; <b>Reset map</b> and <b>Download selection</b> are one click. <i>Illustration with sample warehouses and data.</i></sub></p>
+
+**Every download offers two choices:** *results only*, or *results + your original data* (every column of the BO line, transfer or stock row).
+
+---
+
+<a id="tested-on-real-data"></a>
+## 4. Tested on real data
+
+The system was built and checked against a real team's daily files (about 750 back-order lines a day, four daily files).
+
+| Check | Result |
+| --- | --- |
+| Agreement with the planners' own remarks | **about 4 in 5 lines** (76–82%), rising as rules were refined |
+| Where it differs | Mostly remarks behind today's stock (e.g. stock already arrived) or notes only the team knows |
+| Stock used more than once, or more than the file has | **0** |
+| A later-ETA line served before an earlier one | **0** |
+| Transfers used beyond the open quantity | **0** |
+| Line splits that do not add up to the BO quantity | **0** |
+
+These checks are re-run whenever the rules change.
+
+---
+
+<a id="data-security-and-privacy"></a>
+## 5. Data security and privacy
+
+```mermaid
+flowchart LR
+    U["Authorised user"] -->|ID + password| L["Sign-in page"]
+    L -->|key made in the browser| K["Encrypted tool<br/>unlocked in memory"]
+    F["Your files"] -->|opened locally| K
+    K --> R["Results on screen<br/>and Excel downloads"]
+    K -.->|nothing sent| S["No server<br/>no database<br/>no other users"]
+```
+
+| | |
+| --- | --- |
+| **Files stay on your computer** | Every file is opened and calculated inside the browser tab. Nothing is uploaded, stored or sent anywhere, and no other user can see it. |
+| **Locked page** | The page's security policy blocks it from sending data to any other website. |
+| **Encrypted product** | The BO Planning code ships encrypted (AES-256-GCM, key from the ID and password with PBKDF2-SHA256, 600,000 rounds). Without the sign-in it cannot be read or run. |
+| **One sign-in** | A single ID and password per organisation; changing it re-encrypts the tool and the old one stops working. |
+| **Nothing kept** | Refreshing or signing out clears the files from the page. Saved rules stay only in that browser until you choose "Forget everything on this device". |
+| **No company data in this repository** | The readable source, rules and sample files are kept private; only the encrypted file is published. |
+
+The free tools work the same way: calculations and file reviews run in the browser, with no account needed.
+
+---
+
+<a id="free-tools"></a>
+## 6. Free tools
+
+Open to everyone at **[freightkit.in](https://freightkit.in/)** — no sign-up. Every calculator shows its formula and working.
 
 | Area | Examples |
 | --- | --- |
-| Freight & shipping | Shipment tracker · Freight quote comparison · Container booking log · Demurrage & detention tracker |
-| Audit & cost | Freight invoice audit · Landed cost & duty sheet · Transporter freight register |
-| Procurement | PO tracker · Supplier scorecard · Supplier risk register · Vendor onboarding checklist |
-| Inventory & warehouse | Inventory tracker · Reorder planner · Cycle count sheet · GRN receiving log · Pick-pack-dispatch |
-| Trade & compliance | Import clearance checklist · Export documentation checklist · HS code tracker · GST e-way bill register · Letter of credit checklist |
+| 🧾 File reviews | [Freight invoice review](https://freightkit.in/document-process/) (quote vs invoice, CSV / Excel / PDF) · [PO & shipment exceptions](https://freightkit.in/tools/po-exception-report/) |
+| 🚢 Freight & cargo | [Chargeable weight](https://freightkit.in/tools/volumetric-weight/) · [CBM](https://freightkit.in/tools/cbm-calculator/) · [Container load](https://freightkit.in/tools/container-load/) · [Landed cost](https://freightkit.in/tools/landed-cost/) |
+| 📊 Inventory | [Safety stock & reorder point](https://freightkit.in/tools/safety-stock/) · [EOQ](https://freightkit.in/tools/eoq/) · [Min-max](https://freightkit.in/tools/min-max/) · [ABC analysis](https://freightkit.in/tools/abc-analysis/) |
+| 🤝 Procurement | [Supplier scorecard](https://freightkit.in/tools/supplier-scorecard/) · [RFQ comparison](https://freightkit.in/tools/rfq-comparison/) · [Total cost of ownership](https://freightkit.in/tools/tco/) |
+| 🛠️ Build your own | [Custom calculator builder](https://freightkit.in/custom-calculator/) — your inputs and formula, no code |
+| 📥 Templates | [27 CSV templates and 5 Excel workbooks](https://freightkit.in/templates/) · [Guides](https://freightkit.in/guides/) |
 
-**Excel workbooks:** [Freight invoice audit](https://freightkit.in/downloads/freight-invoice-audit.xlsx) · [Freight quote comparison](https://freightkit.in/downloads/freight-quote-comparison.xlsx) · [PO exception tracker](https://freightkit.in/downloads/po-exception-tracker.xlsx) · [Supplier scorecard](https://freightkit.in/downloads/supplier-scorecard-workbook.xlsx) · [Inventory reorder planner](https://freightkit.in/downloads/inventory-reorder-planner.xlsx)
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/home.png" alt="FreightKit homepage"><br><sub><b>Home</b> — search everything or start from a task.</sub></td>
+<td width="50%"><img src="docs/screenshots/invoice-review.png" alt="Freight invoice review results"><br><sub><b>Invoice review</b> — billed vs quoted, with the source row for each finding.</sub></td>
+</tr>
+</table>
 
-[Browse all templates →](https://freightkit.in/templates/)
+[See all 40+ tools →](https://freightkit.in/tools/)
 
 ---
 
-## Services
+<a id="services"></a>
+## 7. Services
 
-<img src="docs/screenshots/services.png" alt="FreightKit services page" width="760">
-
-### Free, available now
-
-| | |
-| --- | --- |
-| 🧮 **Calculators** | 40+ freight, inventory, procurement and warehouse calculators with visible formulas |
-| 🧾 **Invoice review & PO exceptions** | File-based reviews that run in your browser |
-| 📊 **Templates & workbooks** | 27 CSV templates and 5 Excel workbooks |
-| 🛠️ **Calculator builder** | Your own inputs and formula, no code; save, share or embed |
-| 📘 **Guides** | Incoterms 2020, bills of lading, shipping documents, customs delays, freight disputes, stock-outs |
-
-### Built for your team, on request
-
-| | |
-| --- | --- |
-| 🔐 **Private planning systems** | A planning tool built around your own ERP reports and rules, behind a single sign-in, telling each owner what to expedite, follow up or order |
-| ⚙️ **Spreadsheet & report automation** | The report you rebuild by hand every day, in one click, from the exports you already have |
-| 🧩 **Custom calculators & website widgets** | Calculators for your quotes, pricing or capacity rules, branded or embedded on your site |
-| 🗺️ **Workflow review** | A map of how a recurring task is done today and what to standardise or automate first |
+We build private planning tools around **your own** exports and rules — like the BO Planning System.
 
 ```mermaid
 flowchart LR
-    S1["1 · Share a sample<br/>files + your rules"] --> S2["2 · We build & test<br/>against your past results"]
+    S1["1 · Share sample files<br/>and how you work"] --> S2["2 · We build and test<br/>against your past results"]
     S2 --> S3["3 · You review<br/>differences explained"]
-    S3 --> S4["4 · Use it & adjust<br/>rules you can edit"]
+    S3 --> S4["4 · Daily use<br/>rules you can edit"]
     S4 -. process changes .-> S3
 ```
 
-**Example — BO Planning System.** A private back-order planning tool built for one team. Each day it reads the ERP back-order report, stock file, transfer export and assembly schedule; allocates stock by ETA through the bill of materials; writes the line remarks; and lists what to expedite, follow up or order by owner, with lead times, forecasts and Excel exports. Rules (routes, vendors, lead times, wording) are edited on a settings page. It sits behind one ID and password, and its code ships encrypted.
+| Service | What you get |
+| --- | --- |
+| 🔐 **Private planning systems** | Daily plans from your ERP reports, behind one sign-in, telling each owner what to do |
+| ⚙️ **Report automation** | The report your team rebuilds by hand every day, in one click |
+| 🧩 **Custom calculators** | Quote, pricing or capacity rules as a branded calculator or website widget |
 
-<img src="docs/screenshots/bo-planning.png" alt="BO Planning System sign-in page" width="520">
-
-[See services →](https://freightkit.in/services/) · [Contact →](https://freightkit.in/contact/)
-
----
-
-## Privacy by design
-
-```mermaid
-flowchart LR
-    U["🧑‍💼 You"] -->|choose files| B["🌐 Your browser"]
-    B -->|reads and calculates locally| R["📊 Results on screen<br/>+ downloads"]
-    B -.-|nothing uploaded| S["🚫 No FreightKit server<br/>stores your files"]
-```
-
-- Calculators and file reviews run **entirely in the browser**. Files are not uploaded to FreightKit or stored on a server.
-- No account is needed. Saved calculations and "recently used" stay in your own browser and can be cleared.
-- Results are decision support: confirm rates, contracts, customs and tax rules with the relevant source before acting.
-
-FreightKit does not provide live carrier rates, ERP connections, cloud workspaces or automatic supplier messaging.
+[Services →](https://freightkit.in/services/) · [Contact →](https://freightkit.in/contact/)
 
 ---
 
-## For maintainers
+<a id="all-pages-and-links"></a>
+## 8. All pages and links
+
+Every page and download, with its live link, is listed in the **[links folder](links/)** — also as a spreadsheet: [links.csv](links/links.csv).
+
+| Key links | |
+| --- | --- |
+| Live site | [freightkit.in](https://freightkit.in/) · copy on [GitHub Pages](https://ionianverse.github.io/FreightKit/) |
+| BO Planning System (sign-in) | [freightkit.in/bo-planning](https://freightkit.in/bo-planning/) |
+| Free tools · Templates · Guides | [Tools](https://freightkit.in/tools/) · [Templates](https://freightkit.in/templates/) · [Guides](https://freightkit.in/guides/) |
+| Services · Contact | [Services](https://freightkit.in/services/) · [Contact](https://freightkit.in/contact/) |
+| Privacy · Terms | [Privacy](https://freightkit.in/privacy/) · [Terms](https://freightkit.in/terms/) |
+
+---
+
+<a id="for-maintainers"></a>
+## 9. For maintainers
 
 <details>
 <summary><b>Repository layout</b></summary>
 
 ```text
 FreightKit/
-├── index.html                 Home (task picker, search, recently used)
-├── tools/                     40+ calculators and file tools (one folder each)
-├── document-process/          Freight invoice review workflow
-├── templates/  downloads/     Template directory and the CSV / XLSX files
-├── guides/                    Operational guides
-├── services/                  Services (free and on request)
-├── bo-planning/               Private BO Planning System (sign-in + encrypted bundle)
-├── custom-calculator/  embed/ Calculator builder and embeddable runtime
-├── solutions/ pro/ pricing/ about/ contact/ suggest/ privacy/ terms/
-├── assets/
-│   ├── css/style.css          Shared styles
-│   ├── js/app.js              Calculators and result actions (copy, share, CSV, print)
-│   ├── js/site-search.js      Site search (/ or Ctrl+K) and recently used tools
-│   ├── js/search-index.js     Search index (generated)
-│   ├── js/document-process-v4.js, workflows.js   File workflows
-│   └── vendor/                SheetJS, PDF.js
-├── scripts/                   Site checks, search index, BO bundle builder, domain helper
-├── docs/                      Hosting / release notes and README screenshots
-├── links/                     All pages and links (README.md + links.csv, made by scripts/build-links-page.py)
-├── sitemap.xml  robots.txt  .htaccess  site.webmanifest
-└── contact-handler.php        Form handler for PHP hosting (config kept out of git)
+├── index.html           Home
+├── bo-planning/         BO Planning System: sign-in page + encrypted bundle (app.bundle)
+├── tools/               40+ calculators and file tools
+├── document-process/    Freight invoice review
+├── templates/ downloads/ guides/ services/ …   Other pages and files
+├── assets/              Styles, scripts, images, vendor libraries (SheetJS, PDF.js)
+├── links/               All pages and links (made by scripts/build-links-page.py)
+├── docs/                Hosting notes and README images
+└── scripts/             Site checks, search index, links page, BO bundle builder
 ```
 </details>
 
 <details>
-<summary><b>Run locally</b></summary>
+<summary><b>Run and check</b></summary>
 
 ```bash
-python -m http.server 8000
+python -m http.server 8000                # then open http://localhost:8000/
+python scripts/build-search-index.py      # after adding or renaming a page
+python scripts/build-links-page.py        # refresh links/
+python scripts/check-site.py              # links, assets and SEO tags
 ```
 
-Open <http://localhost:8000/>. The site is static; the PHP contact handler needs PHP hosting.
-</details>
-
-<details>
-<summary><b>Before publishing</b></summary>
-
-```bash
-python scripts/build-search-index.py   # after adding or renaming a page or template
-python scripts/build-links-page.py     # refresh links/ (all pages and links) after adding or renaming a page
-python scripts/check-site.py           # links, assets, SEO tags
-```
-
-- Keep internal links relative so the site works at a domain root and under `/FreightKit/` on GitHub Pages.
-- Add new indexable pages to `sitemap.xml`.
-- Never commit passwords, API keys, `contact-config.php`, customer files, `bo-src/` or `sample/`.
-</details>
-
-<details>
-<summary><b>Hosting</b></summary>
-
-- **freightkit.in** — Hostinger (upload changed files to `public_html`).
-- **GitHub Pages** — [ionianverse.github.io/FreightKit](https://ionianverse.github.io/FreightKit/), published from `main`.
-
-GitHub Pages does not run PHP; forms need PHP hosting or a form service. See [START-HERE.md](START-HERE.md), [docs/](docs/) and [AUDIT_AND_ROADMAP.md](AUDIT_AND_ROADMAP.md).
+- The BO Planning source, rules and sample files are private and never committed; only `bo-planning/app.bundle` is published.
+- Never commit passwords, keys, `contact-config.php` or customer files.
+- Hosting: **freightkit.in** on Hostinger (upload to `public_html`) and **GitHub Pages** from `main`.
 </details>
 
 ---
 
 <div align="center">
 
-**Feedback, tool ideas or a task to automate?** [Contact FreightKit](https://freightkit.in/contact/) · [Suggest a tool](https://freightkit.in/suggest/)
+**Want a planning system built around your own reports?** [Contact FreightKit](https://freightkit.in/contact/)
 
-<sub>Results are estimates and decision support. Verify carrier, customs and tax rules before acting.</sub>
+<sub>Results are decision support. Confirm supplier, carrier, customs and tax details before acting.</sub>
 
 </div>

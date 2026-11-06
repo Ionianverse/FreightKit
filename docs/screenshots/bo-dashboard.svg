@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="1000" height="560" font-family="Segoe UI, -apple-system, Helvetica, Arial, sans-serif">
+<rect width="1000" height="560" rx="14" fill="#f6f8fa"/>
+<rect width="1000" height="54" rx="14" fill="#0b1b33"/><rect y="40" width="1000" height="14" fill="#0b1b33"/>
+<text x="24" y="34" font-size="17" font-weight="700" fill="#fff">Freight<tspan fill="#60a5fa">Kit</tspan></text>
+<text x="118" y="34" font-size="14" font-weight="600" fill="#cbd5e1">|  BO Planning System</text>
+<text x="976" y="34" font-size="12" fill="#94a3b8" text-anchor="end">Illustration · sample data</text>
+<rect x="18" y="66" width="71.6" height="28" rx="7" fill="#e8efff"/>
+<text x="24" y="85" font-size="13" font-weight="700" fill="#0b5fff">Overview</text>
+<text x="103.6" y="85" font-size="13" font-weight="500" fill="#5b6b7c">Actions</text>
+<text x="176.0" y="85" font-size="13" font-weight="500" fill="#5b6b7c">Requirements</text>
+<text x="284.4" y="85" font-size="13" font-weight="500" fill="#5b6b7c">Planned lines</text>
+<text x="400.0" y="85" font-size="13" font-weight="500" fill="#5b6b7c">Components</text>
+<text x="494.0" y="85" font-size="13" font-weight="500" fill="#5b6b7c">Materials</text>
+<text x="580.8" y="85" font-size="13" font-weight="500" fill="#5b6b7c">Transfers</text>
+<text x="667.5999999999999" y="85" font-size="13" font-weight="500" fill="#5b6b7c">Analysis</text>
+<text x="747.1999999999999" y="85" font-size="13" font-weight="500" fill="#5b6b7c">Remarks</text>
+<text x="819.5999999999999" y="85" font-size="13" font-weight="500" fill="#5b6b7c">Rules</text>
+<rect x="24" y="108" width="149" height="92" rx="10" fill="#fff" stroke="#e3e9f0"/><rect x="24" y="108" width="149" height="4" rx="2" fill="#e02424"/>
+<text x="38" y="136" font-size="12" font-weight="600" fill="#5b6b7c">Expedite</text><text x="38" y="170" font-size="28" font-weight="700" fill="#0f172a">42</text><text x="38" y="190" font-size="11" fill="#5b6b7c">BO lines · 51 actions</text>
+<rect x="185" y="108" width="149" height="92" rx="10" fill="#fff" stroke="#e3e9f0"/><rect x="185" y="108" width="149" height="4" rx="2" fill="#3f83f8"/>
+<text x="199" y="136" font-size="12" font-weight="600" fill="#5b6b7c">Place order</text><text x="199" y="170" font-size="28" font-weight="700" fill="#0f172a">9</text><text x="199" y="190" font-size="11" fill="#5b6b7c">BO lines · 11 actions</text>
+<rect x="345" y="108" width="149" height="92" rx="10" fill="#fff" stroke="#e3e9f0"/><rect x="345" y="108" width="149" height="4" rx="2" fill="#e3a008"/>
+<text x="359" y="136" font-size="12" font-weight="600" fill="#5b6b7c">Follow up</text><text x="359" y="170" font-size="28" font-weight="700" fill="#0f172a">37</text><text x="359" y="190" font-size="11" fill="#5b6b7c">need-by within 7 days</text>
+<rect x="506" y="108" width="149" height="92" rx="10" fill="#fff" stroke="#e3e9f0"/><rect x="506" y="108" width="149" height="4" rx="2" fill="#e3a008"/>
+<text x="520" y="136" font-size="12" font-weight="600" fill="#5b6b7c">Transfers to chase</text><text x="520" y="170" font-size="28" font-weight="700" fill="#0f172a">6</text><text x="520" y="190" font-size="11" fill="#5b6b7c">open over 7 days</text>
+<rect x="667" y="108" width="149" height="92" rx="10" fill="#fff" stroke="#e3e9f0"/><rect x="667" y="108" width="149" height="4" rx="2" fill="#0e9f6e"/>
+<text x="681" y="136" font-size="12" font-weight="600" fill="#5b6b7c">On track</text><text x="681" y="170" font-size="28" font-weight="700" fill="#0f172a">214</text><text x="681" y="190" font-size="11" fill="#5b6b7c">BO lines</text>
+<rect x="827" y="108" width="149" height="92" rx="10" fill="#fff" stroke="#e3e9f0"/><rect x="827" y="108" width="149" height="4" rx="2" fill="#94a3b8"/>
+<text x="841" y="136" font-size="12" font-weight="600" fill="#5b6b7c">No ETA</text><text x="841" y="170" font-size="28" font-weight="700" fill="#0f172a">12</text><text x="841" y="190" font-size="11" fill="#5b6b7c">planned w/o allocation: 96</text>
+<text x="24" y="232" font-size="16" font-weight="700" fill="#0f172a">Who to contact today</text>
+<rect x="754" y="214" width="222" height="28" rx="7" fill="#0b5fff"/><text x="865" y="233" font-size="12" font-weight="600" fill="#fff" text-anchor="middle">Download full action pack (.xlsx)</text>
+<rect x="24" y="254" width="309" height="100" rx="10" fill="#fff" stroke="#e3e9f0"/>
+<text x="40" y="282" font-size="15" font-weight="700" fill="#0f172a">Production line</text><text x="40" y="300" font-size="11.5" fill="#5b6b7c">Assembly · SB line · pack</text>
+<rect x="40" y="314" width="95" height="24" rx="12" fill="#e0242422" stroke="#e0242466"/><text x="88" y="330" font-size="11.5" font-weight="600" fill="#e02424" text-anchor="middle">Expedite  18</text>
+<rect x="143" y="314" width="102" height="24" rx="12" fill="#e3a00822" stroke="#e3a00866"/><text x="194" y="330" font-size="11.5" font-weight="600" fill="#e3a008" text-anchor="middle">Follow up  22</text>
+<text x="317" y="282" font-size="11.5" font-weight="600" fill="#0b5fff" text-anchor="end">View actions →</text>
+<rect x="345" y="254" width="309" height="100" rx="10" fill="#fff" stroke="#e3e9f0"/>
+<text x="361" y="282" font-size="15" font-weight="700" fill="#0f172a">Foundry A</text><text x="361" y="300" font-size="11.5" fill="#5b6b7c">Castings</text>
+<rect x="361" y="314" width="89" height="24" rx="12" fill="#e0242422" stroke="#e0242466"/><text x="406" y="330" font-size="11.5" font-weight="600" fill="#e02424" text-anchor="middle">Expedite  9</text>
+<rect x="458" y="314" width="95" height="24" rx="12" fill="#e3a00822" stroke="#e3a00866"/><text x="506" y="330" font-size="11.5" font-weight="600" fill="#e3a008" text-anchor="middle">Follow up  3</text>
+<text x="639" y="282" font-size="11.5" font-weight="600" fill="#0b5fff" text-anchor="end">View actions →</text>
+<rect x="667" y="254" width="309" height="100" rx="10" fill="#fff" stroke="#e3e9f0"/>
+<text x="683" y="282" font-size="15" font-weight="700" fill="#0f172a">Grinding vendor</text><text x="683" y="300" font-size="11.5" fill="#5b6b7c">Outplant grinding</text>
+<rect x="683" y="314" width="89" height="24" rx="12" fill="#e0242422" stroke="#e0242466"/><text x="727" y="330" font-size="11.5" font-weight="600" fill="#e02424" text-anchor="middle">Expedite  5</text>
+<rect x="779" y="314" width="95" height="24" rx="12" fill="#e3a00822" stroke="#e3a00866"/><text x="827" y="330" font-size="11.5" font-weight="600" fill="#e3a008" text-anchor="middle">Follow up  8</text>
+<text x="960" y="282" font-size="11.5" font-weight="600" fill="#0b5fff" text-anchor="end">View actions →</text>
+<rect x="24" y="366" width="309" height="100" rx="10" fill="#fff" stroke="#e3e9f0"/>
+<text x="40" y="394" font-size="15" font-weight="700" fill="#0f172a">Fastener supplier</text><text x="40" y="412" font-size="11.5" fill="#5b6b7c">Vendor PO</text>
+<rect x="40" y="426" width="108" height="24" rx="12" fill="#3f83f822" stroke="#3f83f866"/><text x="94" y="442" font-size="11.5" font-weight="600" fill="#3f83f8" text-anchor="middle">Place order  6</text>
+<rect x="156" y="426" width="95" height="24" rx="12" fill="#e3a00822" stroke="#e3a00866"/><text x="204" y="442" font-size="11.5" font-weight="600" fill="#e3a008" text-anchor="middle">Follow up  2</text>
+<text x="317" y="394" font-size="11.5" font-weight="600" fill="#0b5fff" text-anchor="end">View actions →</text>
+<rect x="345" y="366" width="309" height="100" rx="10" fill="#fff" stroke="#e3e9f0"/>
+<text x="361" y="394" font-size="15" font-weight="700" fill="#0f172a">Machining vendor</text><text x="361" y="412" font-size="11.5" fill="#5b6b7c">Outplant machining</text>
+<rect x="361" y="426" width="89" height="24" rx="12" fill="#e0242422" stroke="#e0242466"/><text x="406" y="442" font-size="11.5" font-weight="600" fill="#e02424" text-anchor="middle">Expedite  4</text>
+<rect x="458" y="426" width="95" height="24" rx="12" fill="#e3a00822" stroke="#e3a00866"/><text x="506" y="442" font-size="11.5" font-weight="600" fill="#e3a008" text-anchor="middle">Follow up  1</text>
+<text x="639" y="394" font-size="11.5" font-weight="600" fill="#0b5fff" text-anchor="end">View actions →</text>
+<rect x="667" y="366" width="309" height="100" rx="10" fill="#fff" stroke="#e3e9f0"/>
+<text x="683" y="394" font-size="15" font-weight="700" fill="#0f172a">Hub warehouse</text><text x="683" y="412" font-size="11.5" fill="#5b6b7c">Move stock to production</text>
+<rect x="683" y="426" width="89" height="24" rx="12" fill="#e0242422" stroke="#e0242466"/><text x="727" y="442" font-size="11.5" font-weight="600" fill="#e02424" text-anchor="middle">Expedite  1</text>
+<rect x="779" y="426" width="95" height="24" rx="12" fill="#e3a00822" stroke="#e3a00866"/><text x="827" y="442" font-size="11.5" font-weight="600" fill="#e3a008" text-anchor="middle">Follow up  3</text>
+<text x="960" y="394" font-size="11.5" font-weight="600" fill="#0b5fff" text-anchor="end">View actions →</text>
+<text x="24" y="490" font-size="13" font-weight="700" fill="#0f172a">Plan status of all BO lines</text>
+<rect x="24.0" y="500" width="494.9" height="18" rx="4" fill="#0e9f6e"/>
+<rect x="520.9" y="500" width="220.9" height="18" rx="4" fill="#7e3af2"/>
+<rect x="743.8" y="500" width="95.5" height="18" rx="4" fill="#e02424"/>
+<rect x="841.3" y="500" width="83.9" height="18" rx="4" fill="#e3a008"/>
+<rect x="927.2" y="500" width="25.9" height="18" rx="4" fill="#9ca3af"/>
+<rect x="955.1" y="500" width="18.9" height="18" rx="4" fill="#3f83f8"/>
+<rect x="24" y="532" width="10" height="10" rx="2" fill="#0e9f6e"/><text x="39" y="541" font-size="11.5" fill="#5b6b7c">On track 214</text>
+<rect x="133.2" y="532" width="10" height="10" rx="2" fill="#7e3af2"/><text x="148.2" y="541" font-size="11.5" fill="#5b6b7c">Planned 96</text>
+<rect x="229.2" y="532" width="10" height="10" rx="2" fill="#e02424"/><text x="244.2" y="541" font-size="11.5" fill="#5b6b7c">Expedite 42</text>
+<rect x="331.79999999999995" y="532" width="10" height="10" rx="2" fill="#e3a008"/><text x="346.79999999999995" y="541" font-size="11.5" fill="#5b6b7c">Follow up 37</text>
+<rect x="440.99999999999994" y="532" width="10" height="10" rx="2" fill="#9ca3af"/><text x="455.99999999999994" y="541" font-size="11.5" fill="#5b6b7c">No ETA 12</text>
+<rect x="530.4" y="532" width="10" height="10" rx="2" fill="#3f83f8"/><text x="545.4" y="541" font-size="11.5" fill="#5b6b7c">Place order 9</text>
+</svg>
