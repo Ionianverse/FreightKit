@@ -5,7 +5,7 @@ System's built-in master data (bo-src/master.json, private and never committed).
 The tool uses this master when the plan is built from the ERP Daily Back Order Report and no
 previous BO workbook is added. Run it again whenever items, pockets or BOMs change:
 
-    python scripts/build-bo-master.py "path/to/JR BO report 11.06.2026v1.xlsx"
+    python scripts/build-bo-master.py "path/to/BO report.xlsx"
     python scripts/build-bo-bundle.py
 
 Sheets read (found by their headers, not their names):
