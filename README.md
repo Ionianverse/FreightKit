@@ -139,7 +139,8 @@ flowchart LR
 | **Locked page** | The page's security policy blocks it from sending data to any other website. |
 | **Encrypted product** | The BO Planning code ships encrypted (AES-256-GCM, key from the ID and password with PBKDF2-SHA256, 600,000 rounds). Without the sign-in it cannot be read or run. |
 | **One sign-in** | A single ID and password per organisation; changing it re-encrypts the tool and the old one stops working. |
-| **Nothing kept** | Refreshing or signing out clears the files from the page. Saved rules stay only in that browser until you choose "Forget everything on this device". |
+| **Nothing kept on a server** | Refreshing or signing out clears the files from the page. Only the rules and, if the user keeps it, the day-to-day remarks history stay on that computer; the history is encrypted with a key from the ID and password, so only someone who signs in can read it. "Forget everything on this device" removes both. |
+| **Automatic sign-out** | After 1 hour without activity the tool signs out and clears everything loaded in the page (with a warning 5 minutes before). |
 | **No company data in this repository** | The readable source, rules and sample files are kept private; only the encrypted file is published. |
 
 The free tools work the same way: calculations and file reviews run in the browser, with no account needed.
@@ -201,7 +202,7 @@ Every page and download, with its live link, is listed in the **[links folder](l
 
 | Key links | |
 | --- | --- |
-| Live site | [freightkit.in](https://freightkit.in/) · copy on [GitHub Pages](https://ionianverse.github.io/FreightKit/) |
+| Live site | [freightkit.in](https://freightkit.in/) |
 | BO Planning System (sign-in) | [freightkit.in/bo-planning](https://freightkit.in/bo-planning/) |
 | Free tools · Templates · Guides | [Tools](https://freightkit.in/tools/) · [Templates](https://freightkit.in/templates/) · [Guides](https://freightkit.in/guides/) |
 | Services · Contact | [Services](https://freightkit.in/services/) · [Contact](https://freightkit.in/contact/) |
@@ -241,7 +242,7 @@ python scripts/check-site.py              # links, assets and SEO tags
 
 - The BO Planning source, rules and sample files are private and never committed; only `bo-planning/app.bundle` is published.
 - Never commit passwords, keys, `contact-config.php` or customer files.
-- Hosting: **freightkit.in** on Hostinger (upload to `public_html`) and **GitHub Pages** from `main`.
+- Hosting: **freightkit.in** on Hostinger (upload to `public_html`). This repository is private.
 </details>
 
 ---
@@ -251,5 +252,7 @@ python scripts/check-site.py              # links, assets and SEO tags
 **Want a planning system built around your own reports?** [Contact FreightKit](https://freightkit.in/contact/)
 
 <sub>Results are decision support. Confirm supplier, carrier, customs and tax details before acting.</sub>
+
+<sub>© FreightKit. All rights reserved. No licence is granted to use, copy, modify or distribute this code or content.</sub>
 
 </div>

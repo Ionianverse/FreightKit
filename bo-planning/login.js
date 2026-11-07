@@ -32,7 +32,14 @@
       const err = new Error('ID or password is incorrect.'); err.auth = true; throw err;
     }
     const stream = new Blob([packed]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
-    return JSON.parse(await new Response(stream).text());
+    const app = JSON.parse(await new Response(stream).text());
+    // A second key from the same ID and password, for the remarks history kept encrypted on this device.
+    // It cannot be read out of the browser (not extractable) and is never stored.
+    const vaultKey = await crypto.subtle.deriveKey(
+      { name: 'PBKDF2', hash: 'SHA-256', salt: enc.encode(`freightkit-bo-history-v1|${id}`), iterations: 200000 },
+      base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+    );
+    return { app, vaultKey };
   }
 
   function loadScript(code, name) {
@@ -68,10 +75,12 @@
     say('Checking…');
     if (failures >= 3) await new Promise((r) => setTimeout(r, 2000 * (failures - 2)));
     try {
-      const app = await unlock(id, password);
+      const { app, vaultKey } = await unlock(id, password);
       $('login-password').value = '';
       $('signed-user').textContent = id;
+      Object.defineProperty(window, 'BO_VAULT_KEY', { value: vaultKey, writable: false, configurable: false });
       await mount(app);
+      watchIdle();
     } catch (err) {
       failures += err.auth ? 1 : 0;
       say(err.message || 'Could not open the tool.', true);
@@ -82,5 +91,25 @@
     }
   });
   $('sign-out').addEventListener('click', () => window.location.reload());
+
+  // Automatic sign-out after 1 hour without activity: reloading clears the files, the plan and the keys from memory.
+  const IDLE_MS = 60 * 60 * 1000; const WARN_MS = 5 * 60 * 1000;
+  function watchIdle() {
+    let last = Date.now(); let warn = null;
+    const hideWarn = () => { if (warn) { warn.remove(); warn = null; } };
+    const seen = () => { last = Date.now(); hideWarn(); };
+    ['pointerdown', 'keydown', 'wheel', 'touchstart', 'input'].forEach((t) => window.addEventListener(t, seen, { capture: true, passive: true }));
+    const check = () => {
+      const idle = Date.now() - last;
+      if (idle >= IDLE_MS) { window.location.reload(); return; }
+      if (idle >= IDLE_MS - WARN_MS && !warn) {
+        warn = document.createElement('div'); warn.className = 'bo-idle-warn'; warn.setAttribute('role', 'alert');
+        warn.textContent = 'No activity for almost an hour: you will be signed out in a few minutes and the loaded files will be cleared. Click or press a key to stay signed in.';
+        document.body.appendChild(warn);
+      }
+    };
+    setInterval(check, 15000);
+    document.addEventListener('visibilitychange', check);
+  }
   $('login-id').focus();
 })();

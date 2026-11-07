@@ -1,5 +1,5 @@
 """Build links/README.md (and links/links.csv): every public page and download of the site, with its
-live link on freightkit.in, the GitHub Pages copy, and the source file in this repository.
+live link on freightkit.in and the source file in this repository.
 
 Run after adding or renaming a page:   python scripts/build-links-page.py
 """
@@ -11,7 +11,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "links"
 LIVE = "https://freightkit.in/"
-MIRROR = "https://ionianverse.github.io/FreightKit/"
 REPO = "https://github.com/Ionianverse/FreightKit/blob/main/"
 SKIP = {"bo-src", "sample", "assets", "scripts", "docs", "links", "node_modules", ".git"}
 
@@ -66,7 +65,6 @@ def main():
         f"Every public page of the site, with its live link. **{len(items)} pages** and **{len(files)} downloads**.",
         "",
         f"- Live site: **[freightkit.in]({LIVE})**",
-        f"- Copy on GitHub Pages: [ionianverse.github.io/FreightKit]({MIRROR})",
         "- Spreadsheet version of this list: [links.csv](links.csv)",
         "",
         "This page is made by `python scripts/build-links-page.py`; run it again after adding or renaming a page.",
@@ -80,26 +78,25 @@ def main():
         group.sort(key=lambda p: (p["path"] not in ("index.html", "tools/index.html", "guides/index.html"), p["title"].lower()))
         if not group:
             continue
-        lines += [f"## {name} ({len(group)})", "", "| Page | What it does | Live | GitHub Pages | Source |", "|---|---|---|---|---|"]
+        lines += [f"## {name} ({len(group)})", "", "| Page | What it does | Live | Source |", "|---|---|---|---|"]
         for p in group:
             done.add(p["path"])
             live = LIVE + p["url_path"]
-            mirror = MIRROR + p["url_path"]
             note = " *(not in search engines)*" if p["noindex"] else ""
-            lines.append(f"| **{cell(p['title'], 60)}**{note} | {cell(p['desc'])} | [open]({live}) | [open]({mirror}) | [{p['path']}]({REPO}{p['path']}) |")
-            rows.append([name, p["title"], p["desc"], live, mirror, p["path"]])
+            lines.append(f"| **{cell(p['title'], 60)}**{note} | {cell(p['desc'])} | [open]({live}) | [{p['path']}]({REPO}{p['path']}) |")
+            rows.append([name, p["title"], p["desc"], live, p["path"]])
         lines.append("")
     if files:
-        lines += [f"## Downloads – templates and workbooks ({len(files)})", "", "| File | Type | Live | GitHub Pages |", "|---|---|---|---|"]
+        lines += [f"## Downloads – templates and workbooks ({len(files)})", "", "| File | Type | Live |", "|---|---|---|"]
         for f in files:
             kind = "Excel workbook" if f.endswith(".xlsx") else "CSV template" if f.endswith(".csv") else f.rsplit(".", 1)[-1]
-            lines.append(f"| {f} | {kind} | [download]({LIVE}downloads/{f}) | [download]({MIRROR}downloads/{f}) |")
-            rows.append(["Downloads", f, kind, f"{LIVE}downloads/{f}", f"{MIRROR}downloads/{f}", f"downloads/{f}"])
+            lines.append(f"| {f} | {kind} | [download]({LIVE}downloads/{f}) |")
+            rows.append(["Downloads", f, kind, f"{LIVE}downloads/{f}", f"downloads/{f}"])
         lines.append("")
     (OUT / "README.md").write_text("\n".join(lines), encoding="utf-8")
     with open(OUT / "links.csv", "w", newline="", encoding="utf-8-sig") as fh:
         w = csv.writer(fh)
-        w.writerow(["Section", "Page", "What it does", "Live link", "GitHub Pages link", "Source file"])
+        w.writerow(["Section", "Page", "What it does", "Live link", "Source file"])
         w.writerows(rows)
     print(f"links/README.md and links/links.csv: {len(items)} pages, {len(files)} downloads")
 
