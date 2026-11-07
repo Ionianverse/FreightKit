@@ -6,7 +6,8 @@ The readable tool lives in the private, git-ignored folder ``bo-src/``:
     bo-src/app.html        page markup shown after sign-in
     bo-src/bo.css          styles
     bo-src/rules.json      built-in rules (same format as "Export rules file" on the Rules page)
-    bo-src/js/*.js         rules-default.js (made from rules.json), engine.js, planning.js, app.js
+    bo-src/master.json     built-in item master, pockets and BOM (made by scripts/build-bo-master.py; optional)
+    bo-src/js/*.js         rules-default.js (from rules.json), master-default.js (from master.json), engine.js, planning.js, app.js
     bo-src/.credentials.json   {"id": "...", "password": "..."}  (never commit)
 
 This script packs those files, compresses them, and encrypts them with AES-256-GCM.
@@ -37,7 +38,7 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "bo-src"
 OUT = ROOT / "bo-planning" / "app.bundle"
-SCRIPTS = ["rules-default.js", "usmap.js", "engine.js", "planning.js", "app.js"]
+SCRIPTS = ["rules-default.js", "master-default.js", "usmap.js", "engine.js", "planning.js", "app.js"]
 ITERATIONS = 600_000
 
 
@@ -96,11 +97,30 @@ def sync_rules(new_file):
     print(f"Rules version {data.get('version')} (updated {data.get('updated', '?')}): {len(data['routes'])} routes, {steps} steps.")
 
 
+MASTER = SRC / "master.json"
+MASTER_JS = SRC / "js" / "master-default.js"
+
+
+def sync_master():
+    """Write master-default.js from bo-src/master.json (an empty master when there is none)."""
+    data = {}
+    if MASTER.is_file():
+        data = json.loads(MASTER.read_text(encoding="utf-8"))
+        print(f"Master data from {data.get('source', '?')} ({data.get('updated', '?')}): {len(data.get('items', {})):,} items, "
+              f"{len(data.get('pockets', {})):,} pockets, {len(data.get('bom', [])):,} BOM rows.")
+    MASTER_JS.write_text("/* Built-in item master, pockets and BOM for the BO Planning System. Private: never commit.\n"
+                         "   Made from bo-src/master.json by scripts/build-bo-bundle.py. */\n"
+                         "(function (root) { 'use strict'; root.BO_DEFAULT_MASTER = "
+                         + json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+                         + "; })(typeof window !== 'undefined' ? window : globalThis);\n", encoding="utf-8")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Build the encrypted BO Planning System bundle.")
     parser.add_argument("--rules", help="rules file exported from the Rules page, to become the built-in rules")
     args = parser.parse_args()
     sync_rules(args.rules)
+    sync_master()
     for name in ["app.html", "bo.css", *[f"js/{s}" for s in SCRIPTS]]:
         if not (SRC / name).is_file():
             sys.exit(f"Missing private source file: bo-src/{name}")
