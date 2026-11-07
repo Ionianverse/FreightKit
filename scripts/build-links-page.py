@@ -1,5 +1,5 @@
-"""Build links/README.md (and links/links.csv): every public page and download of the site, with its
-live link on freightkit.in and the source file in this repository.
+"""Build links/README.md (and links/links.csv): the FreightKit products and every public page of the
+site, with its live link on freightkit.in and the source file in this repository.
 
 Run after adding or renaming a page:   python scripts/build-links-page.py
 """
@@ -11,15 +11,22 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "links"
 LIVE = "https://freightkit.in/"
-REPO = "https://github.com/Ionianverse/FreightKit/blob/main/"
 SKIP = {"bo-src", "sample", "assets", "scripts", "docs", "links", "node_modules", ".git"}
+# Not listed: templates (not offered for now), the old BO address (redirects to bo-planning/) and utility pages.
+HIDE = ("templates/", "tools/bo-remarks/", "contact-success/", "embed/", "404.html")
 
-# Section for each top folder, in the order shown.
+# The products, first and in this order, with their own short description.
+PRODUCTS = [
+    ("bo-planning/index.html", "BO Planning System", "Daily back-order planning from your ERP reports: actions by owner, the daily BO file with remarks, requirements and the network map. Sign-in required."),
+    ("document-process/index.html", "Freight invoice review", "Compare freight quotes with invoices (CSV, Excel or PDF) and get each difference with its source row."),
+    ("custom-calculator/index.html", "Custom calculator builder", "Build, save and share your own calculator with your inputs and formula, no code."),
+    ("services/index.html", "Custom planning systems", "Private planning tools built around your own exports and rules, like the BO Planning System."),
+    ("tools/index.html", "Free calculators", "All free freight, inventory, procurement and warehouse calculators in one place."),
+]
 SECTIONS = [
-    ("Main pages", lambda p: p.count("/") <= 1 and p.split("/")[0] not in {"tools", "guides", "bo-planning", "embed", "contact-success", "404.html"}),
+    ("Company", lambda p: p.count("/") <= 1 and p.split("/")[0] not in {"tools", "guides"}),
     ("Calculators and tools", lambda p: p.startswith("tools/")),
     ("Guides", lambda p: p.startswith("guides/")),
-    ("BO Planning (sign-in required)", lambda p: p.startswith("bo-planning/")),
     ("Other pages", lambda p: True),
 ]
 
@@ -33,21 +40,15 @@ def pages():
     out = []
     for f in sorted(ROOT.rglob("*.html")):
         rel = f.relative_to(ROOT).as_posix()
-        if rel.split("/")[0] in SKIP:
+        if rel.split("/")[0] in SKIP or rel.startswith(HIDE):
             continue
         text = f.read_text(encoding="utf-8", errors="ignore")
         title = meta(text, r"<title>(.*?)</title>")
         title = "Home" if rel == "index.html" else (re.sub(r"\s*[|–-]\s*FreightKit.*$", "", title) or rel)
         desc = meta(text, r'<meta\s+name="description"\s+content="([^"]*)"')
         url_path = "" if rel == "index.html" else rel[: -len("index.html")] if rel.endswith("/index.html") else rel
-        noindex = bool(re.search(r'<meta\s+name="robots"\s+content="[^"]*noindex', text, re.I))
-        out.append({"path": rel, "url_path": url_path, "title": title, "desc": desc, "noindex": noindex})
+        out.append({"path": rel, "url_path": url_path, "title": title, "desc": desc})
     return out
-
-
-def downloads():
-    folder = ROOT / "downloads"
-    return sorted(p.name for p in folder.iterdir() if p.is_file()) if folder.exists() else []
 
 
 def cell(text, limit=140):
@@ -57,48 +58,48 @@ def cell(text, limit=140):
 
 def main():
     items = pages()
-    files = downloads()
+    by_path = {p["path"]: p for p in items}
     OUT.mkdir(exist_ok=True)
     lines = [
-        "# FreightKit – all pages and links",
+        "# FreightKit – products and links",
         "",
-        f"Every public page of the site, with its live link. **{len(items)} pages** and **{len(files)} downloads**.",
+        f"Our products and every public page of the website, with live links. Website: **[freightkit.in]({LIVE})** · spreadsheet version: [links.csv](links.csv)",
         "",
-        f"- Live site: **[freightkit.in]({LIVE})**",
-        "- Spreadsheet version of this list: [links.csv](links.csv)",
+        "## Products",
         "",
-        "This page is made by `python scripts/build-links-page.py`; run it again after adding or renaming a page.",
-        "",
+        "| Product | What it does | Open |",
+        "|---|---|---|",
     ]
-    done = set()
     rows = []
+    done = set()
+    for path, name, desc in PRODUCTS:
+        p = by_path.get(path)
+        if not p:
+            continue
+        done.add(path)
+        live = LIVE + p["url_path"]
+        lines.append(f"| **{name}** | {desc} | [freightkit.in/{p['url_path']}]({live}) |")
+        rows.append(["Products", name, desc, live, path])
+    lines.append("")
     for name, test in SECTIONS:
         group = [p for p in items if p["path"] not in done and test(p["path"])]
-        # The home page and each section's own index page come first.
-        group.sort(key=lambda p: (p["path"] not in ("index.html", "tools/index.html", "guides/index.html"), p["title"].lower()))
+        group.sort(key=lambda p: (p["path"] != "index.html", p["title"].lower()))
         if not group:
             continue
-        lines += [f"## {name} ({len(group)})", "", "| Page | What it does | Live | Source |", "|---|---|---|---|"]
+        lines += [f"## {name} ({len(group)})", "", "| Page | What it does | Open |", "|---|---|---|"]
         for p in group:
             done.add(p["path"])
             live = LIVE + p["url_path"]
-            note = " *(not in search engines)*" if p["noindex"] else ""
-            lines.append(f"| **{cell(p['title'], 60)}**{note} | {cell(p['desc'])} | [open]({live}) | [{p['path']}]({REPO}{p['path']}) |")
+            lines.append(f"| **{cell(p['title'], 60)}** | {cell(p['desc'])} | [open]({live}) |")
             rows.append([name, p["title"], p["desc"], live, p["path"]])
         lines.append("")
-    if files:
-        lines += [f"## Downloads – templates and workbooks ({len(files)})", "", "| File | Type | Live |", "|---|---|---|"]
-        for f in files:
-            kind = "Excel workbook" if f.endswith(".xlsx") else "CSV template" if f.endswith(".csv") else f.rsplit(".", 1)[-1]
-            lines.append(f"| {f} | {kind} | [download]({LIVE}downloads/{f}) |")
-            rows.append(["Downloads", f, kind, f"{LIVE}downloads/{f}", f"downloads/{f}"])
-        lines.append("")
+    lines += ["---", "", "Made by `python scripts/build-links-page.py`; run it again after adding or renaming a page.", ""]
     (OUT / "README.md").write_text("\n".join(lines), encoding="utf-8")
     with open(OUT / "links.csv", "w", newline="", encoding="utf-8-sig") as fh:
         w = csv.writer(fh)
         w.writerow(["Section", "Page", "What it does", "Live link", "Source file"])
         w.writerows(rows)
-    print(f"links/README.md and links/links.csv: {len(items)} pages, {len(files)} downloads")
+    print(f"links/README.md and links/links.csv: {len(rows)} links")
 
 
 if __name__ == "__main__":

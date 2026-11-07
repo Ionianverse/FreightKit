@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 228" width="1000" height="228" font-family="Segoe UI, -apple-system, Helvetica, Arial, sans-serif">
+<rect width="1000" height="228" rx="14" fill="#f6f8fb"/>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker></defs>
+<text x="24" y="34" font-size="12" font-weight="700" fill="#5b6b7c" letter-spacing=".06em">EACH MORNING</text>
+<rect x="24" y="48" width="270" height="36" rx="8" fill="#fff" stroke="#dbe3ec"/><text x="38" y="71" font-size="14" font-weight="600" fill="#0f172a">Daily back-order report<tspan font-weight="400" fill="#5b6b7c"></tspan></text>
+<rect x="24" y="92" width="270" height="36" rx="8" fill="#fff" stroke="#dbe3ec"/><text x="38" y="115" font-size="14" font-weight="600" fill="#0f172a">Stock availability<tspan font-weight="400" fill="#5b6b7c">  · one or many files</tspan></text>
+<rect x="24" y="136" width="270" height="36" rx="8" fill="#fff" stroke="#dbe3ec"/><text x="38" y="159" font-size="14" font-weight="600" fill="#0f172a">Open transfers<tspan font-weight="400" fill="#5b6b7c">  · assembly schedule</tspan></text>
+<rect x="24" y="180" width="270" height="36" rx="8" fill="#fff" stroke="#dbe3ec"/><text x="38" y="203" font-size="14" font-weight="600" fill="#0f172a">Yesterday's BO file<tspan font-weight="400" fill="#5b6b7c">  · or saved history</tspan></text>
+<rect x="380" y="52" width="240" height="160" rx="14" fill="#0b1b33"/>
+<text x="500.0" y="92" font-size="19" font-weight="800" fill="#fff" text-anchor="middle">BO Planning</text>
+<text x="406" y="124" font-size="12.5" fill="#c9d8ee">✓  Supply matched in ETA order</text>
+<text x="406" y="146" font-size="12.5" fill="#c9d8ee">✓  Kits checked from the BOM</text>
+<text x="406" y="168" font-size="12.5" fill="#c9d8ee">✓  Timing checked against ETA</text>
+<text x="406" y="190" font-size="12.5" fill="#c9d8ee">✓  Remarks checked and written</text>
+<text x="706" y="34" font-size="12" font-weight="700" fill="#5b6b7c" letter-spacing=".06em">READY TO USE</text>
+<rect x="706" y="48" width="270" height="36" rx="8" fill="#fff" stroke="#dbe3ec"/><text x="720" y="71" font-size="14" font-weight="600" fill="#0f172a">Actions by owner<tspan font-weight="400" fill="#5b6b7c">  · expedite, order</tspan></text>
+<rect x="706" y="92" width="270" height="36" rx="8" fill="#fff" stroke="#dbe3ec"/><text x="720" y="115" font-size="14" font-weight="600" fill="#0f172a">Today's BO file<tspan font-weight="400" fill="#5b6b7c">  · remarks written in</tspan></text>
+<rect x="706" y="136" width="270" height="36" rx="8" fill="#fff" stroke="#dbe3ec"/><text x="720" y="159" font-size="14" font-weight="600" fill="#0f172a">Requirements<tspan font-weight="400" fill="#5b6b7c">  · components, transfers</tspan></text>
+<rect x="706" y="180" width="270" height="36" rx="8" fill="#fff" stroke="#dbe3ec"/><text x="720" y="203" font-size="14" font-weight="600" fill="#0f172a">Analysis<tspan font-weight="400" fill="#5b6b7c">  · network map</tspan></text>
+<path d="M296,66 C 338,66 338,132.0 376,132.0" fill="none" stroke="#94a3b8" stroke-width="1.4"/>
+<path d="M296,110 C 338,110 338,132.0 376,132.0" fill="none" stroke="#94a3b8" stroke-width="1.4"/>
+<path d="M296,154 C 338,154 338,132.0 376,132.0" fill="none" stroke="#94a3b8" stroke-width="1.4"/>
+<path d="M296,198 C 338,198 338,132.0 376,132.0" fill="none" stroke="#94a3b8" stroke-width="1.4"/>
+<line x1="358" x2="377" y1="132.0" y2="132.0" stroke="#64748b" stroke-width="1.6" marker-end="url(#m)"/>
+<path d="M622,132.0 C 664,132.0 664,66 702,66" fill="none" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#m)"/>
+<path d="M622,132.0 C 664,132.0 664,110 702,110" fill="none" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#m)"/>
+<path d="M622,132.0 C 664,132.0 664,154 702,154" fill="none" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#m)"/>
+<path d="M622,132.0 C 664,132.0 664,198 702,198" fill="none" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#m)"/>
+</svg>

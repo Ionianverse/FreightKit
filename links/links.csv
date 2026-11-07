@@ -1,21 +1,20 @@
 ﻿Section,Page,What it does,Live link,Source file
-Main pages,Home,"Practical logistics calculators for freight costs, CBM, chargeable weight, container loading, inventory planning, procurement and warehouse operations. Transparent formulas and clear assumptions.",https://freightkit.in/,index.html
-Main pages,About,"Learn about FreightKit, a practical toolkit for freight, logistics, procurement, inventory and warehouse planning.",https://freightkit.in/about/,about/index.html
-Main pages,Contact,"Contact information and support guidance for FreightKit logistics calculators, supply-chain templates and workflow tools.",https://freightkit.in/contact/,contact/index.html
-Main pages,Custom Calculator Builder,"Build, test, save and share a custom calculator without coding. Use safe formulas, editable inputs, units and reusable templates.",https://freightkit.in/custom-calculator/,custom-calculator/index.html
-Main pages,Document Review,"Compare freight quote and invoice CSV, Excel, or text PDF files. Review source-linked discrepancies and export an audit report. Files stay in your browser.",https://freightkit.in/document-process/,document-process/index.html
-Main pages,Free Logistics Templates & Excel Workbooks,"Free logistics CSV templates and formula-led Excel workbooks for freight audits, PO tracking, supplier scorecards, landed cost, inventory, import/export and more.",https://freightkit.in/templates/,templates/index.html
-Main pages,FreightKit Pro,"Explore FreightKit prototype features including batch chargeable-weight calculations, reusable browser saves and custom calculators. No paid subscription is active.",https://freightkit.in/pro/,pro/index.html
-Main pages,Logistics & Supply Chain Solutions,"Explore practical workflow ideas for logistics reporting, procurement tracking, inventory control, freight cost audits and spreadsheet automation.",https://freightkit.in/solutions/,solutions/index.html
-Main pages,Pricing,Review FreightKit free tools and proposed Pro or Business concepts. Paid plans and checkout are not currently available.,https://freightkit.in/pricing/,pricing/index.html
-Main pages,Privacy,"How FreightKit calculator inputs, browser storage and uploaded CSV files are handled.",https://freightkit.in/privacy/,privacy/index.html
-Main pages,Services,"Free FreightKit tools available now, plus custom planning systems, spreadsheet automation and calculators built around your own files and rules.",https://freightkit.in/services/,services/index.html
-Main pages,Suggest a Calculator or Service,"Suggest a FreightKit calculator, logistics workflow, spreadsheet template or feature improvement for freight and supply-chain operations.",https://freightkit.in/suggest/,suggest/index.html
-Main pages,Terms,"Usage terms and limitations for FreightKit calculators, templates and custom calculator tools.",https://freightkit.in/terms/,terms/index.html
-Calculators and tools,Logistics & Supply Chain Calculators,"Browse free freight, warehouse, inventory, procurement and supply-chain calculators with editable inputs, visible formulas and practical assumptions.",https://freightkit.in/tools/,tools/index.html
+Products,BO Planning System,"Daily back-order planning from your ERP reports: actions by owner, the daily BO file with remarks, requirements and the network map. Sign-in required.",https://freightkit.in/bo-planning/,bo-planning/index.html
+Products,Freight invoice review,"Compare freight quotes with invoices (CSV, Excel or PDF) and get each difference with its source row.",https://freightkit.in/document-process/,document-process/index.html
+Products,Custom calculator builder,"Build, save and share your own calculator with your inputs and formula, no code.",https://freightkit.in/custom-calculator/,custom-calculator/index.html
+Products,Custom planning systems,"Private planning tools built around your own exports and rules, like the BO Planning System.",https://freightkit.in/services/,services/index.html
+Products,Free calculators,"All free freight, inventory, procurement and warehouse calculators in one place.",https://freightkit.in/tools/,tools/index.html
+Company,Home,"Practical logistics calculators for freight costs, CBM, chargeable weight, container loading, inventory planning, procurement and warehouse operations. Transparent formulas and clear assumptions.",https://freightkit.in/,index.html
+Company,About,"Learn about FreightKit, a practical toolkit for freight, logistics, procurement, inventory and warehouse planning.",https://freightkit.in/about/,about/index.html
+Company,Contact,"Contact information and support guidance for FreightKit logistics calculators, supply-chain templates and workflow tools.",https://freightkit.in/contact/,contact/index.html
+Company,FreightKit Pro,"Explore FreightKit prototype features including batch chargeable-weight calculations, reusable browser saves and custom calculators. No paid subscription is active.",https://freightkit.in/pro/,pro/index.html
+Company,Logistics & Supply Chain Solutions,"Explore practical workflow ideas for logistics reporting, procurement tracking, inventory control, freight cost audits and spreadsheet automation.",https://freightkit.in/solutions/,solutions/index.html
+Company,Pricing,Review FreightKit free tools and proposed Pro or Business concepts. Paid plans and checkout are not currently available.,https://freightkit.in/pricing/,pricing/index.html
+Company,Privacy,"How FreightKit calculator inputs, browser storage and uploaded CSV files are handled.",https://freightkit.in/privacy/,privacy/index.html
+Company,Suggest a Calculator or Service,"Suggest a FreightKit calculator, logistics workflow, spreadsheet template or feature improvement for freight and supply-chain operations.",https://freightkit.in/suggest/,suggest/index.html
+Company,Terms,"Usage terms and limitations for FreightKit calculators, templates and custom calculator tools.",https://freightkit.in/terms/,terms/index.html
 Calculators and tools,ABC Inventory Analysis,"Upload inventory CSV data to calculate annual consumption value, item-level ABC classifications and an exportable analysis.",https://freightkit.in/tools/abc-analysis/,tools/abc-analysis/index.html
 Calculators and tools,Air vs Sea Comparison,"Compare air and sea freight using entered cost, transit time and optional value-of-time assumptions; results are planning estimates.",https://freightkit.in/tools/air-vs-sea/,tools/air-vs-sea/index.html
-Calculators and tools,BO Planning System has moved,,https://freightkit.in/tools/bo-remarks/,tools/bo-remarks/index.html
 Calculators and tools,Business Day Lead Time,"Calculate an expected date after a number of business days, with editable start date and optional weekend/holiday assumptions.",https://freightkit.in/tools/business-day-lead-time/,tools/business-day-lead-time/index.html
 Calculators and tools,Cargo Insurance Estimator,"Estimate cargo insurance premium from entered insured value, premium rate and any additional declared charges.",https://freightkit.in/tools/cargo-insurance/,tools/cargo-insurance/index.html
 Calculators and tools,Cartons per Pallet,"Estimate cartons per pallet using carton dimensions, pallet dimensions, orientation and usable stack height.",https://freightkit.in/tools/cartons-per-pallet/,tools/cartons-per-pallet/index.html
@@ -56,46 +55,10 @@ Calculators and tools,Transport Cost per Delivery,Calculate transport cost per d
 Calculators and tools,Volumetric & Chargeable Weight,"Calculate shipment CBM, volumetric weight and chargeable weight using editable dimensions, quantities and carrier divisor.",https://freightkit.in/tools/volumetric-weight/,tools/volumetric-weight/index.html
 Calculators and tools,Warehouse Cost per Pallet,"Estimate warehouse storage cost per pallet using rent, operating expenses, capacity and occupancy assumptions.",https://freightkit.in/tools/warehouse-cost-per-pallet/,tools/warehouse-cost-per-pallet/index.html
 Calculators and tools,Warehouse Rack Capacity,"Estimate warehouse rack pallet positions from bay, beam-level and position counts with editable layout assumptions.",https://freightkit.in/tools/rack-capacity/,tools/rack-capacity/index.html
-Guides,Logistics Guides,"Read practical guides to shipping documents, Incoterms, customs delays, freight disputes, inventory stockouts and logistics operations.",https://freightkit.in/guides/,guides/index.html
 Guides,Freight Invoice Dispute,"A practical checklist for reviewing freight invoices, documenting discrepancies and raising a clear freight charge dispute.",https://freightkit.in/guides/freight-dispute/,guides/freight-dispute/index.html
 Guides,How to Read a Bill of Lading,"Learn the key fields on a bill of lading, what they mean and which details to check before using shipping documents.",https://freightkit.in/guides/bill-of-lading/,guides/bill-of-lading/index.html
 Guides,Incoterms 2020 Explained,"Understand the 11 Incoterms 2020 rules, their responsibilities and how to confirm the correct rule for a shipment.",https://freightkit.in/guides/incoterms-2020/,guides/incoterms-2020/index.html
+Guides,Logistics Guides,"Read practical guides to shipping documents, Incoterms, customs delays, freight disputes, inventory stockouts and logistics operations.",https://freightkit.in/guides/,guides/index.html
 Guides,Shipment Stuck at Customs,"What to check when a shipment is held at customs, including documents, classification, valuation and broker follow-up.",https://freightkit.in/guides/customs-delay/,guides/customs-delay/index.html
 Guides,Shipping Documents Checklist,Review common international shipping documents and the key details to cross-check before dispatch and customs clearance.,https://freightkit.in/guides/shipping-documents/,guides/shipping-documents/index.html
 Guides,Stock-Out Response Plan,"A practical response plan for stockouts: confirm demand, check supply, prioritise orders and communicate recovery dates.",https://freightkit.in/guides/stockout-response/,guides/stockout-response/index.html
-BO Planning (sign-in required),BO Planning System,Back-order planning system for authorized users.,https://freightkit.in/bo-planning/,bo-planning/index.html
-Other pages,Enquiry received,Thank you for contacting FreightKit. Your enquiry has been sent.,https://freightkit.in/contact-success/,contact-success/index.html
-Other pages,FreightKit embedded calculator,An embeddable FreightKit custom calculator runtime for calculators configured through the builder.,https://freightkit.in/embed/,embed/index.html
-Other pages,Not Found,"The page could not be found. Browse FreightKit logistics calculators, supply-chain templates and practical operations guides.",https://freightkit.in/404.html,404.html
-Downloads,cold-chain-temperature-log.csv,CSV template,https://freightkit.in/downloads/cold-chain-temperature-log.csv,downloads/cold-chain-temperature-log.csv
-Downloads,container-booking-tracker.csv,CSV template,https://freightkit.in/downloads/container-booking-tracker.csv,downloads/container-booking-tracker.csv
-Downloads,cycle-count-sheet.csv,CSV template,https://freightkit.in/downloads/cycle-count-sheet.csv,downloads/cycle-count-sheet.csv
-Downloads,demurrage-detention-tracker.csv,CSV template,https://freightkit.in/downloads/demurrage-detention-tracker.csv,downloads/demurrage-detention-tracker.csv
-Downloads,eu-cbam-data-sheet.csv,CSV template,https://freightkit.in/downloads/eu-cbam-data-sheet.csv,downloads/eu-cbam-data-sheet.csv
-Downloads,export-documentation-checklist.csv,CSV template,https://freightkit.in/downloads/export-documentation-checklist.csv,downloads/export-documentation-checklist.csv
-Downloads,freight-audit.csv,CSV template,https://freightkit.in/downloads/freight-audit.csv,downloads/freight-audit.csv
-Downloads,freight-invoice-audit.xlsx,Excel workbook,https://freightkit.in/downloads/freight-invoice-audit.xlsx,downloads/freight-invoice-audit.xlsx
-Downloads,freight-quote-comparison.csv,CSV template,https://freightkit.in/downloads/freight-quote-comparison.csv,downloads/freight-quote-comparison.csv
-Downloads,freight-quote-comparison.xlsx,Excel workbook,https://freightkit.in/downloads/freight-quote-comparison.xlsx,downloads/freight-quote-comparison.xlsx
-Downloads,grn-receiving-log.csv,CSV template,https://freightkit.in/downloads/grn-receiving-log.csv,downloads/grn-receiving-log.csv
-Downloads,gst-eway-bill-register.csv,CSV template,https://freightkit.in/downloads/gst-eway-bill-register.csv,downloads/gst-eway-bill-register.csv
-Downloads,hs-code-tariff-tracker.csv,CSV template,https://freightkit.in/downloads/hs-code-tariff-tracker.csv,downloads/hs-code-tariff-tracker.csv
-Downloads,import-clearance-checklist.csv,CSV template,https://freightkit.in/downloads/import-clearance-checklist.csv,downloads/import-clearance-checklist.csv
-Downloads,inventory-reorder-planner.xlsx,Excel workbook,https://freightkit.in/downloads/inventory-reorder-planner.xlsx,downloads/inventory-reorder-planner.xlsx
-Downloads,inventory-tracker.csv,CSV template,https://freightkit.in/downloads/inventory-tracker.csv,downloads/inventory-tracker.csv
-Downloads,kpi-dashboard.csv,CSV template,https://freightkit.in/downloads/kpi-dashboard.csv,downloads/kpi-dashboard.csv
-Downloads,landed-cost-sheet.csv,CSV template,https://freightkit.in/downloads/landed-cost-sheet.csv,downloads/landed-cost-sheet.csv
-Downloads,letter-of-credit-checklist.csv,CSV template,https://freightkit.in/downloads/letter-of-credit-checklist.csv,downloads/letter-of-credit-checklist.csv
-Downloads,payment-due-tracker.csv,CSV template,https://freightkit.in/downloads/payment-due-tracker.csv,downloads/payment-due-tracker.csv
-Downloads,pick-pack-dispatch.csv,CSV template,https://freightkit.in/downloads/pick-pack-dispatch.csv,downloads/pick-pack-dispatch.csv
-Downloads,po-exception-tracker.xlsx,Excel workbook,https://freightkit.in/downloads/po-exception-tracker.xlsx,downloads/po-exception-tracker.xlsx
-Downloads,po-tracker.csv,CSV template,https://freightkit.in/downloads/po-tracker.csv,downloads/po-tracker.csv
-Downloads,reorder-planner.csv,CSV template,https://freightkit.in/downloads/reorder-planner.csv,downloads/reorder-planner.csv
-Downloads,returns-rma-tracker.csv,CSV template,https://freightkit.in/downloads/returns-rma-tracker.csv,downloads/returns-rma-tracker.csv
-Downloads,shipment-co2-log.csv,CSV template,https://freightkit.in/downloads/shipment-co2-log.csv,downloads/shipment-co2-log.csv
-Downloads,shipment-tracker.csv,CSV template,https://freightkit.in/downloads/shipment-tracker.csv,downloads/shipment-tracker.csv
-Downloads,supplier-risk-register.csv,CSV template,https://freightkit.in/downloads/supplier-risk-register.csv,downloads/supplier-risk-register.csv
-Downloads,supplier-scorecard-workbook.xlsx,Excel workbook,https://freightkit.in/downloads/supplier-scorecard-workbook.xlsx,downloads/supplier-scorecard-workbook.xlsx
-Downloads,supplier-scorecard.csv,CSV template,https://freightkit.in/downloads/supplier-scorecard.csv,downloads/supplier-scorecard.csv
-Downloads,transporter-freight-register.csv,CSV template,https://freightkit.in/downloads/transporter-freight-register.csv,downloads/transporter-freight-register.csv
-Downloads,vendor-onboarding-checklist.csv,CSV template,https://freightkit.in/downloads/vendor-onboarding-checklist.csv,downloads/vendor-onboarding-checklist.csv
