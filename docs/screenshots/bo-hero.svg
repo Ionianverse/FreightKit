@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 380" width="1200" height="380" font-family="Segoe UI, -apple-system, Helvetica, Arial, sans-serif">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1b33"/><stop offset="1" stop-color="#123a6b"/></linearGradient></defs>
+<rect width="1200" height="380" rx="18" fill="url(#bg)"/>
+<rect x="56" y="48" width="44" height="44" rx="10" fill="#0b5fff"/><text x="78" y="78" font-size="20" font-weight="800" fill="#fff" text-anchor="middle">FK</text>
+<text x="114" y="79" font-size="22" font-weight="800" fill="#fff">Freight<tspan fill="#7cb1ff">Kit</tspan></text>
+<text x="56" y="152" font-size="46" font-weight="800" fill="#fff">BO Planning System</text>
+<text x="56" y="192" font-size="19" fill="#c9d8ee">Daily back-order planning from the reports your ERP already exports:</text>
+<text x="56" y="218" font-size="19" fill="#c9d8ee">what to expedite, follow up or order — for every line, every morning.</text>
+<rect x="56" y="252" width="221" height="38" rx="19" fill="#ffffff1a" stroke="#ffffff40"/><text x="166" y="277" font-size="15.5" font-weight="600" fill="#fff" text-anchor="middle">One-click daily BO file</text>
+<rect x="288.9" y="252" width="204" height="38" rx="19" fill="#ffffff1a" stroke="#ffffff40"/><text x="391" y="277" font-size="15.5" font-weight="600" fill="#fff" text-anchor="middle">Encrypted and private</text>
+<rect x="505.2" y="252" width="113" height="38" rx="19" fill="#ffffff1a" stroke="#ffffff40"/><text x="562" y="277" font-size="15.5" font-weight="600" fill="#fff" text-anchor="middle">Your rules</text>
+<rect x="820" y="64" width="348" height="252" rx="14" fill="#ffffff" fill-opacity=".97"/>
+<text x="840" y="96" font-size="14" font-weight="700" fill="#0f172a">Today’s plan</text><text x="1148" y="96" font-size="11" fill="#5b6b7c" text-anchor="end">sample data</text>
+<rect x="840" y="112" width="96" height="70" rx="9" fill="#fff" stroke="#e3e9f0"/><rect x="840" y="112" width="96" height="4" rx="2" fill="#e02424"/><text x="852" y="136" font-size="11.5" fill="#5b6b7c">Expedite</text><text x="852" y="168" font-size="26" font-weight="800" fill="#0f172a">42</text>
+<rect x="946" y="112" width="96" height="70" rx="9" fill="#fff" stroke="#e3e9f0"/><rect x="946" y="112" width="96" height="4" rx="2" fill="#3f83f8"/><text x="958" y="136" font-size="11.5" fill="#5b6b7c">Place order</text><text x="958" y="168" font-size="26" font-weight="800" fill="#0f172a">9</text>
+<rect x="1052" y="112" width="96" height="70" rx="9" fill="#fff" stroke="#e3e9f0"/><rect x="1052" y="112" width="96" height="4" rx="2" fill="#e3a008"/><text x="1064" y="136" font-size="11.5" fill="#5b6b7c">Follow up</text><text x="1064" y="168" font-size="26" font-weight="800" fill="#0f172a">37</text>
+<line x1="840" x2="1148" y1="196" y2="196" stroke="#e3e9f0"/><text x="840" y="218" font-size="13" font-weight="600" fill="#0f172a">Production line</text><rect x="1040" y="204" width="108" height="22" rx="11" fill="#fde2e2"/><text x="1094" y="219" font-size="11.5" font-weight="700" fill="#b91c1c" text-anchor="middle">Expedite 18</text>
+<line x1="840" x2="1148" y1="230" y2="230" stroke="#e3e9f0"/><text x="840" y="252" font-size="13" font-weight="600" fill="#0f172a">Foundry A</text><rect x="1040" y="238" width="108" height="22" rx="11" fill="#e0ebff"/><text x="1094" y="253" font-size="11.5" font-weight="700" fill="#1e40af" text-anchor="middle">Place order 3</text>
+<line x1="840" x2="1148" y1="264" y2="264" stroke="#e3e9f0"/><text x="840" y="286" font-size="13" font-weight="600" fill="#0f172a">Grinding vendor</text><rect x="1040" y="272" width="108" height="22" rx="11" fill="#fef3c7"/><text x="1094" y="287" font-size="11.5" font-weight="700" fill="#92400e" text-anchor="middle">Follow up 8</text>
+</svg>

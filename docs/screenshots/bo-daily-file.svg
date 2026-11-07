@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1136 438" width="1136" height="438" font-family="Segoe UI, -apple-system, Helvetica, Arial, sans-serif">
+<rect width="1136" height="438" rx="14" fill="#fff"/>
+<text x="24" y="36" font-size="18" font-weight="700" fill="#0f172a">Daily BO file — rebuilt every morning from the ERP daily back-order report</text>
+<text x="24" y="60" font-size="13" fill="#5b6b7c">Sorted by Current ETA, Promise date, status, allocation and order line. Remarks written in; closed lines removed and listed separately. Illustration · sample data.</text>
+<rect x="24" y="80" width="1088" height="34" fill="#1f3a5f"/>
+<text x="32" y="102" font-size="12.5" font-weight="700" fill="#fff">Order#</text>
+<text x="136" y="102" font-size="12.5" font-weight="700" fill="#fff">Line#</text>
+<text x="188" y="102" font-size="12.5" font-weight="700" fill="#fff">Item</text>
+<text x="306" y="102" font-size="12.5" font-weight="700" fill="#fff">BO</text>
+<text x="350" y="102" font-size="12.5" font-weight="700" fill="#fff">Status</text>
+<text x="424" y="102" font-size="12.5" font-weight="700" fill="#fff">Allocate</text>
+<text x="494" y="102" font-size="12.5" font-weight="700" fill="#fff">Current ETA</text>
+<text x="586" y="102" font-size="12.5" font-weight="700" fill="#fff">Week</text>
+<text x="640" y="102" font-size="12.5" font-weight="700" fill="#fff">Remarks</text>
+<rect x="24" y="114" width="1088" height="34" fill="#fff"/><line x1="24" x2="1112" y1="148" y2="148" stroke="#e3e9f0"/>
+<rect x="24" y="114" width="104" height="34" fill="#ffc000"/>
+<text x="32" y="136" font-size="12.5" fill="#0f172a">2000071234</text>
+<rect x="128" y="114" width="52" height="34" fill="#ffc000"/>
+<text x="136" y="136" font-size="12.5" fill="#0f172a">4</text>
+<text x="188" y="136" font-size="12.5" fill="#0f172a" font-weight="600">PACK-12</text>
+<text x="306" y="136" font-size="12.5" fill="#0f172a">6</text>
+<text x="350" y="136" font-size="12.5" fill="#0f172a">Ordered</text>
+<text x="424" y="136" font-size="12.5" fill="#0f172a">YES</text>
+<text x="494" y="136" font-size="12.5" fill="#0f172a">10/30/2026</text>
+<text x="586" y="136" font-size="12.5" fill="#0f172a">44</text>
+<text x="640" y="136" font-size="12.5" fill="#0f172a">added in pack asm FG ETA 11/12</text>
+<rect x="24" y="148" width="1088" height="34" fill="#ddebf7"/><line x1="24" x2="1112" y1="182" y2="182" stroke="#e3e9f0"/>
+<rect x="24" y="148" width="104" height="34" fill="#ffc000"/>
+<text x="32" y="170" font-size="12.5" fill="#0f172a">2000071234</text>
+<rect x="128" y="148" width="52" height="34" fill="#ffc000"/>
+<text x="136" y="170" font-size="12.5" fill="#0f172a">4</text>
+<text x="188" y="170" font-size="12.5" fill="#0f172a">GLAND-12</text>
+<text x="306" y="170" font-size="12.5" fill="#0f172a">6</text>
+<text x="350" y="170" font-size="12.5" fill="#0f172a">Ordered</text>
+<text x="424" y="170" font-size="12.5" fill="#0f172a">YES</text>
+<text x="494" y="170" font-size="12.5" fill="#0f172a">10/30/2026</text>
+<text x="586" y="170" font-size="12.5" fill="#0f172a">44</text>
+<text x="640" y="170" font-size="12.5" fill="#0f172a">Gland-added in SB line FG ETA 11/12</text>
+<rect x="24" y="182" width="1088" height="34" fill="#ddebf7"/><line x1="24" x2="1112" y1="216" y2="216" stroke="#e3e9f0"/>
+<rect x="24" y="182" width="104" height="34" fill="#ffc000"/>
+<text x="32" y="204" font-size="12.5" fill="#0f172a">2000071234</text>
+<rect x="128" y="182" width="52" height="34" fill="#ffc000"/>
+<text x="136" y="204" font-size="12.5" fill="#0f172a">4</text>
+<text x="188" y="204" font-size="12.5" fill="#0f172a">BOLT-KIT-12</text>
+<text x="306" y="204" font-size="12.5" fill="#0f172a">6</text>
+<text x="350" y="204" font-size="12.5" fill="#0f172a">Ordered</text>
+<text x="424" y="204" font-size="12.5" fill="#0f172a">YES</text>
+<text x="494" y="204" font-size="12.5" fill="#0f172a">10/30/2026</text>
+<text x="586" y="204" font-size="12.5" fill="#0f172a">44</text>
+<text x="640" y="204" font-size="12.5" fill="#0f172a">Bolt-on order with Fastener supplier</text>
+<rect x="24" y="216" width="1088" height="34" fill="#fff"/><line x1="24" x2="1112" y1="250" y2="250" stroke="#e3e9f0"/>
+<text x="32" y="238" font-size="12.5" fill="#0f172a">3500042210</text>
+<text x="136" y="238" font-size="12.5" fill="#0f172a">7</text>
+<text x="188" y="238" font-size="12.5" fill="#0f172a" font-weight="600">GLAND-24</text>
+<text x="306" y="238" font-size="12.5" fill="#0f172a">12</text>
+<text x="350" y="238" font-size="12.5" fill="#0f172a">Ordered</text>
+<text x="424" y="238" font-size="12.5" fill="#0f172a">NO</text>
+<text x="494" y="238" font-size="12.5" fill="#0f172a">11/05/2026</text>
+<text x="586" y="238" font-size="12.5" fill="#0f172a">45</text>
+<text x="640" y="238" font-size="12.5" fill="#0f172a">8 pcs req from grinding vendor, Bal 4 casting on order with Foundry A</text>
+<rect x="24" y="250" width="1088" height="34" fill="#fff"/><line x1="24" x2="1112" y1="284" y2="284" stroke="#e3e9f0"/>
+<text x="32" y="272" font-size="12.5" fill="#0f172a">5500067781</text>
+<text x="136" y="272" font-size="12.5" fill="#0f172a">2</text>
+<text x="188" y="272" font-size="12.5" fill="#0f172a" font-weight="600">GASKET-8</text>
+<text x="306" y="272" font-size="12.5" fill="#0f172a">40</text>
+<text x="350" y="272" font-size="12.5" fill="#0f172a">Ordered</text>
+<text x="424" y="272" font-size="12.5" fill="#0f172a">YES</text>
+<text x="494" y="272" font-size="12.5" fill="#0f172a">11/13/2026</text>
+<rect x="578" y="250" width="54" height="34" fill="#ffff00"/>
+<text x="586" y="272" font-size="12.5" fill="#0f172a">46</text>
+<text x="640" y="272" font-size="12.5" fill="#0f172a">stock on xfer, xfer dt 11/06</text>
+<rect x="24" y="284" width="1088" height="34" fill="#fff"/><line x1="24" x2="1112" y1="318" y2="318" stroke="#e3e9f0"/>
+<text x="32" y="306" font-size="12.5" fill="#0f172a">7000098812</text>
+<text x="136" y="306" font-size="12.5" fill="#0f172a">13</text>
+<text x="188" y="306" font-size="12.5" fill="#0f172a" font-weight="600">GLAND-36</text>
+<text x="306" y="306" font-size="12.5" fill="#0f172a">3</text>
+<text x="350" y="306" font-size="12.5" fill="#0f172a">Ordered</text>
+<text x="424" y="306" font-size="12.5" fill="#0f172a">NO</text>
+<text x="494" y="306" font-size="12.5" fill="#0f172a">11/20/2026</text>
+<rect x="578" y="284" width="54" height="34" fill="#ffff00"/>
+<text x="586" y="306" font-size="12.5" fill="#0f172a">47</text>
+<text x="640" y="306" font-size="12.5" fill="#0f172a">need to place order with Foundry B</text>
+<rect x="24" y="318" width="1088" height="34" fill="#fff"/><line x1="24" x2="1112" y1="352" y2="352" stroke="#e3e9f0"/>
+<text x="32" y="340" font-size="12.5" fill="#0f172a">6000045120</text>
+<text x="136" y="340" font-size="12.5" fill="#0f172a">32</text>
+<text x="188" y="340" font-size="12.5" fill="#0f172a" font-weight="600">ADAPTER-6</text>
+<text x="306" y="340" font-size="12.5" fill="#0f172a">24</text>
+<rect x="342" y="318" width="74" height="34" fill="#a6a6a6"/>
+<text x="350" y="340" font-size="12.5" fill="#0f172a">Planned</text>
+<rect x="416" y="318" width="70" height="34" fill="#a6a6a6"/>
+<text x="424" y="340" font-size="12.5" fill="#0f172a">NO</text>
+<text x="494" y="340" font-size="12.5" fill="#0f172a">12/31/2027</text>
+<text x="586" y="340" font-size="12.5" fill="#0f172a">53</text>
+<text x="640" y="340" font-size="12.5" fill="#0f172a">Planned Order, Without Allocation/ stock avail in other RDCs</text>
+<rect x="24" y="80" width="1088" height="272" fill="none" stroke="#c9d3df"/>
+<rect x="24" y="374" width="16" height="16" rx="3" fill="#ffc000" stroke="#c9d3df"/><text x="46" y="387" font-size="13" fill="#5b6b7c">Hot order (Order# / Line#)</text>
+<rect x="261.20000000000005" y="374" width="16" height="16" rx="3" fill="#ffff00" stroke="#c9d3df"/><text x="283.20000000000005" y="387" font-size="13" fill="#5b6b7c">New today (Week)</text>
+<rect x="426.40000000000003" y="374" width="16" height="16" rx="3" fill="#ddebf7" stroke="#c9d3df"/><text x="448.40000000000003" y="387" font-size="13" fill="#5b6b7c">Material line of a kit</text>
+<rect x="634.8000000000001" y="374" width="16" height="16" rx="3" fill="#a6a6a6" stroke="#c9d3df"/><text x="656.8000000000001" y="387" font-size="13" fill="#5b6b7c">Planned without allocation</text>
+</svg>
