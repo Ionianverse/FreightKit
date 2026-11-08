@@ -83,7 +83,7 @@ if ($done) page('<h1>Setup is complete</h1><p class="ok">Your admin account is r
 $v = fn($k, $d = '') => $h($_POST[$k] ?? $d);
 $db = $testDb ? '<p class="note">Test mode: local test database.</p>' :
     '<h2>2. Database (from hPanel → Databases → MySQL)</h2>'
-    . '<label for="db_name">Database name</label><input id="db_name" name="db_name" value="' . $v('db_name') . '" required placeholder="u202783376_bo">'
+    . '<label for="db_name">Database name</label><input id="db_name" name="db_name" value="' . $v('db_name') . '" required placeholder="u123456789_bo">'
     . '<label for="db_user">Database user</label><input id="db_user" name="db_user" value="' . $v('db_user') . '" required>'
     . '<label for="db_pass">Database password</label><input id="db_pass" name="db_pass" type="password" required autocomplete="off">'
     . '<label for="db_host">Database host</label><input id="db_host" name="db_host" value="' . $v('db_host', 'localhost') . '">';

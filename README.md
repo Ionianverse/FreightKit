@@ -57,6 +57,8 @@ A private planning system for teams that manage open back orders every day. It r
 
 | Screen | What you get |
 | --- | --- |
+| Today | One work list: every line with its status, what to do, who, requests and the new remark; any BO column shown or hidden, filters under each heading, saved views, Done ticks and a five-step daily checklist |
+| Requests & emails | The team's daily requests ready to send: WH change, Starbond substitute, alternative item, split line, ETA and lead-time requests; each one tracked to the next day |
 | Overview | Counts to expedite, order and follow up; a card per owner; new and closed lines; reserve stock that can save late lines |
 | Actions | Every action with need-by date, owner and the stock behind it, with filters |
 | Requirements and materials | What each item still needs, beside stock, open orders and forecast |
@@ -73,13 +75,12 @@ A private planning system for teams that manage open back orders every day. It r
 
 | Protection | How it works |
 | --- | --- |
-| Files stay with you | Every file is opened and calculated in the browser. Nothing is uploaded, and the page is blocked from sending data to any other site. |
-| Encrypted product | The system ships encrypted (AES-256-GCM, key derived from the sign-in with PBKDF2-SHA256, 600,000 rounds). Without the sign-in it cannot be read or run. |
-| Protected history | The remarks history stays on the user's computer, encrypted with a key from the sign-in. One click removes everything. |
-| Automatic sign-out | After one hour without activity the session ends and everything loaded is cleared. |
+| Approved users only | Anyone can request an account; the admin approves or declines each request. Passwords are stored as one-way hashes, with lockout after repeated wrong attempts. |
+| Files stay with you | Files are opened and planned in the browser. Nothing goes to the server until the user presses Save work. |
+| Encrypted saved work | A save (that day's files, rules and edits) is encrypted on the server (AES-256-GCM) and readable only by that user's account. |
+| Encrypted product | The system ships encrypted with a new key on every build; the server hands the key only to signed-in, approved users. |
+| Automatic sign-out | After one hour without activity (or 12 hours) the session ends and everything loaded is cleared. |
 | Private source | Source code, rules and customer files are never published. This repository is private. |
-
-Coming next: user accounts with saved work, so each planner keeps their workspace on any computer.
 
 ---
 

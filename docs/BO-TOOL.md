@@ -1,35 +1,42 @@
-# BO Planning System – sign-in, privacy and updates
+# BO Planning System – accounts, privacy and updates
 
-The BO Planning System lives at `bo-planning/` (the old `tools/bo-remarks/` address redirects there) and is for one authorized user (one ID and password).
+The BO Planning System lives at `bo-planning/` (the old `tools/bo-remarks/` address redirects there). Only approved users can use it: anyone can request an account, and the admin approves or declines each request.
 
 ## What is public and what is private
 
-| Public (in this repository and on the website) | Private (only on the owner's computer) |
+| In this repository and on the website | Only on the owner's computer or the server |
 | --- | --- |
-| `bo-planning/index.html` – sign-in page and app shell | `bo-src/` – the readable tool: page markup, styles, rules and logic |
-| `bo-planning/login.js`, `app-shell.css` – sign-in and loader | `bo-src/.credentials.json` – the ID and password |
-| `bo-planning/app.bundle` – the tool, encrypted | Real BO, stock and transfer files (`sample/`) |
-| `scripts/build-bo-bundle.py` – builds the encrypted bundle | |
+| `bo-planning/index.html`, `login.js`, `app-shell.css` – sign-in page, request form, admin panel and loader | `bo-src/` – the readable tool: page markup, styles, rules and logic (never committed) |
+| `bo-planning/app.bundle` – the tool, encrypted | `bo-api/.appkey.php` – the bundle key, made by each build (never committed, never served) |
+| `bo-api/*.php` – sign-in, accounts, saved work, admin | `bo-api/mail-settings.json` – email addresses (written by the admin panel) |
+| `scripts/build-bo-bundle.py` – builds the bundle and its key | `bo-private/` (next to `public_html`) – database login, data key, encrypted saves |
+| | Real BO, stock and transfer files (`sample/`) |
 
-`bo-src/` and `sample/` are in `.gitignore` and must never be committed. Keep a backup of `bo-src/` (for example in a private cloud folder); it is the only readable copy of the tool.
+Keep a backup of `bo-src/` and of the server's `bo-private/` folder (above all `data.key`: without it saved work cannot be read).
 
-## How sign-in works
+## Accounts and sign-in
 
-The tool is encrypted with AES-256-GCM using a key derived from the ID and password (PBKDF2-SHA256, 600,000 rounds). The sign-in page downloads the encrypted bundle and decrypts it in the browser. A wrong ID or password cannot decrypt it, so the tool cannot be seen or used without them. Nothing is sent to a server, and the decrypted tool stays in memory only; signing out or refreshing clears it.
+- A user requests access (name, work email, company, reason, password). The admin gets an email at the address in **Users & requests → Email settings** and approves or declines in the admin panel; the user gets an email either way.
+- Passwords are stored as one-way hashes (12+ characters, letters and numbers). Five wrong passwords lock the account for 15 minutes; repeated failures from one network are slowed down.
+- The session cookie is HttpOnly, Secure and SameSite=Strict. Users are signed out after one hour without activity or after 12 hours.
+- Every call needs the tool's own header and the site's origin. Account events are logged (admin panel → Recent activity), including every email sent.
 
-## Privacy of files
+## How the tool is protected
 
-BO, stock, transfer and contact files are read inside the browser tab. They are never uploaded or stored, and no other visitor can see them. A Content Security Policy stops the page from sending data to other websites. Only rules saved on the Rules page are kept, in that browser; “Forget everything on this device” removes them.
+The tool ships encrypted (AES-256-GCM) with a new random key on every build. The server hands the key only to a signed-in, approved user; the browser decrypts the tool in memory. Without an approved account the tool cannot be read or run.
 
-## Changing the tool or the password
+## Privacy of files and saved work
 
-1. To change the built-in rules, edit them on the Rules page, press **Export rules file**, then run `python scripts/build-bo-bundle.py --rules "<exported file>"`. The file becomes `bo-src/rules.json` (the previous one is kept as a dated backup in `bo-src/`).
-2. To change the tool itself, edit files in `bo-src/`. To change the password, edit `bo-src/.credentials.json`.
-3. Run `python scripts/build-bo-bundle.py` (needs `python -m pip install --user cryptography` once).
-4. Commit the new `bo-planning/app.bundle` and upload it to the website.
+Files are read and planned inside the browser tab. Nothing goes to the server until the user presses **Save work**: then that day's input files, rules and edits are saved encrypted with the server key, readable only by that user's account from the tool. The last three saves of each plan date are kept, for 120 plan dates. **Reset to last save** and **Reset to previous day** bring work back; the previous day's save also carries remarks and open requests to the next day.
 
-Rules saved on the Rules page live only in that browser and take priority over the built-in rules there. The Rules page says which rules are in use; **Restore defaults** switches back to the built-in rules.
+## Email
 
-## Publishing to the website
+Access requests, approvals and the contact form are sent through the sender mailbox (SMTP login at smtp.hostinger.com). The admin types the mailbox password once in Email settings; it is kept encrypted in `bo-private/`. Without it the server's basic mail is used, which Hostinger marks as spam.
 
-Upload the `bo-planning/` folder (index.html, login.js, app-shell.css, app.bundle) and the updated pages to the host. Every page's menu has a **BO Planning** tab that opens the sign-in page; the page is `noindex`, so search engines do not list it.
+## Changing the tool
+
+1. Edit files in `bo-src/` (rules: edit on the Rules page, **Export rules file**, then `python scripts/build-bo-bundle.py --rules "<exported file>"`).
+2. Run `python scripts/build-bo-bundle.py` (needs `python -m pip install --user cryptography` once). It writes `bo-planning/app.bundle` and `bo-api/.appkey.php`.
+3. Commit `bo-planning/app.bundle` (never `.appkey.php`) and upload both files to the website together.
+
+Each user's rules are saved with their work; **Restore defaults** on the Rules page switches back to the built-in rules.
