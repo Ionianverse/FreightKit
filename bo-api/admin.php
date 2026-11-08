@@ -87,6 +87,32 @@ case 'delete': {
     bo_audit('delete', null, (int)$me['id'], $u['email']);
     bo_json(['ok' => true]);
 }
+case 'settings': {
+    $c = bo_config() ?: [];
+    bo_json(['ok' => true, 'notify' => (string)($c['notify_email'] ?? ''), 'from' => (string)($c['mail_from'] ?? '')]);
+}
+case 'save-settings': {
+    $notify = strtolower(bo_str($in, 'notify', 190)); $from = strtolower(bo_str($in, 'from', 190));
+    if ($notify !== '' && !filter_var($notify, FILTER_VALIDATE_EMAIL)) bo_fail(400, 'The address for access requests is not valid.');
+    if ($from !== '' && !filter_var($from, FILTER_VALIDATE_EMAIL)) bo_fail(400, 'The sender address is not valid.');
+    $c = bo_config() ?: [];
+    $c['notify_email'] = $notify; $c['mail_from'] = $from;
+    $file = bo_private_dir() . '/config.php';
+    $ok = @file_put_contents($file, "<?php\n// BO Planning System settings. Private: keep this file outside the public web folder.\nreturn " . var_export($c, true) . ";\n", LOCK_EX);
+    if ($ok === false) bo_fail(500, 'The settings could not be saved on the server.');
+    @chmod($file, 0600);
+    bo_audit('email-settings', null, (int)$me['id'], "requests to $notify, sender $from");
+    bo_json(['ok' => true]);
+}
+case 'test-email': {
+    $c = bo_config() ?: [];
+    $to = (string)($c['notify_email'] ?? '') ?: $me['email'];
+    if (empty($c['mail_from'])) bo_fail(400, 'Set a sender address first.');
+    $sent = bo_mail($to, 'BO Planning System: test email', "This is a test from the BO Planning System.\nAccess requests will be emailed to this address, sent from {$c['mail_from']}.\n");
+    bo_audit('test-email', null, (int)$me['id'], $to);
+    if (!$sent) bo_fail(502, 'The server could not send the email. Check that the sender mailbox exists in hPanel → Emails.');
+    bo_json(['ok' => true, 'to' => $to]);
+}
 default:
     bo_fail(404, 'Unknown request.');
 }
