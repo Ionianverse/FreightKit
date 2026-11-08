@@ -10,14 +10,14 @@ The readable tool lives in the private, git-ignored folder ``bo-src/``:
     bo-src/js/*.js         rules-default.js (from rules.json), master-default.js (from master.json), engine.js, planning.js, app.js
     bo-src/.credentials.json   {"id": "...", "password": "..."}  (never commit)
 
-This script packs those files, compresses them, and encrypts them with AES-256-GCM.
-The key comes from the ID and password (PBKDF2-SHA256), so the published file
-``bo-planning/app.bundle`` cannot be read or used without them.
+This script packs those files, compresses them, and encrypts them with AES-256-GCM under a new random key
+on every build. The key goes to ``bo-api/.appkey.php`` (git-ignored, never served by the web server); the
+server hands it only to signed-in, approved users, so ``bo-planning/app.bundle`` is useless without an account.
 
 Run from anywhere:  python scripts/build-bo-bundle.py
 New built-in rules:  python scripts/build-bo-bundle.py --rules "path/to/bo-rules-2026-11-03.json"
                      (the file from "Export rules file"; it is copied to bo-src/rules.json)
-Change the password: edit bo-src/.credentials.json (or set BO_ID / BO_PASSWORD), then run again.
+Accounts, approval and saved work: bo-api/ (PHP + MySQL); see bo-src/HOW-TO-UPDATE.md.
 """
 import argparse
 import base64
@@ -38,6 +38,7 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "bo-src"
 OUT = ROOT / "bo-planning" / "app.bundle"
+KEY_PHP = ROOT / "bo-api" / ".appkey.php"
 SCRIPTS = ["rules-default.js", "master-default.js", "usmap.js", "engine.js", "planning.js", "app.js"]
 ITERATIONS = 600_000
 
@@ -124,7 +125,6 @@ def main():
     for name in ["app.html", "bo.css", *[f"js/{s}" for s in SCRIPTS]]:
         if not (SRC / name).is_file():
             sys.exit(f"Missing private source file: bo-src/{name}")
-    user, password = credentials()
     payload = {
         "v": 1,
         "built": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -135,18 +135,13 @@ def main():
     raw = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     deflate = zlib.compressobj(9, zlib.DEFLATED, -15)  # raw deflate, read in the browser with DecompressionStream
     packed = deflate.compress(raw) + deflate.flush()
-    salt, iv = secrets.token_bytes(16), secrets.token_bytes(12)
-    key = pbkdf2_hmac("sha256", f"{user}\n{password}".encode("utf-8"), salt, ITERATIONS, dklen=32)
-    sealed = AESGCM(key).encrypt(iv, packed, b"bo-bundle-1")
-    bundle = {
-        "format": "bo-bundle-1",
-        "kdf": "PBKDF2-SHA256",
-        "iterations": ITERATIONS,
-        "salt": base64.b64encode(salt).decode(),
-        "iv": base64.b64encode(iv).decode(),
-        "data": base64.b64encode(sealed).decode(),
-    }
+    # A new random key on every build; only the server hands it out, to signed-in approved users.
+    key, iv = secrets.token_bytes(32), secrets.token_bytes(12)
+    sealed = AESGCM(key).encrypt(iv, packed, b"bo-bundle-2")
+    bundle = {"format": "bo-bundle-2", "iv": base64.b64encode(iv).decode(), "data": base64.b64encode(sealed).decode()}
     OUT.write_text(json.dumps(bundle), encoding="utf-8")
+    KEY_PHP.write_text("<?php\n// Key of bo-planning/app.bundle, built " + payload["built"] + ". Private: never commit; the web server never serves it.\n"
+                       "return '" + base64.b64encode(key).decode() + "';\n", encoding="utf-8")
     print(f"Built {OUT.relative_to(ROOT)}: {len(raw):,} bytes of source, {len(sealed):,} bytes encrypted.")
 
 

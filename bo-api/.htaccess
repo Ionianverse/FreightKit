@@ -1,0 +1,8 @@
+# BO Planning System API: only these endpoints are reachable; everything else in this folder is private.
+Options -Indexes
+<FilesMatch ".*">
+  Require all denied
+</FilesMatch>
+<FilesMatch "^(auth|admin|work|setup)\.php$">
+  Require all granted
+</FilesMatch>

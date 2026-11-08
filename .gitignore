@@ -27,3 +27,6 @@ samples/
 
 # Private source of the BO Planning System (encrypted into tools/bo-remarks/app.bundle)
 bo-src/
+
+# Key of the BO Planning tool bundle (handed out by the server after sign-in)
+bo-api/.appkey.php
