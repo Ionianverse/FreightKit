@@ -260,8 +260,10 @@ function bo_mail(string $to, string $subject, string $body, string $replyTo = ''
     if (!filter_var($to, FILTER_VALIDATE_EMAIL)) { bo_mail_error('The address to send to is not valid.'); return false; }
     $replyTo = filter_var($replyTo, FILTER_VALIDATE_EMAIL) ?: $from;
     $oneLine = fn(string $s): string => trim((string)preg_replace('/[\r\n]+/', ' ', $s));
-    $subj = '=?UTF-8?B?' . base64_encode($oneLine($subject)) . '?=';
-    $name = '=?UTF-8?B?' . base64_encode($oneLine($fromName)) . '?=';
+    // Plain headers when they are plain English; encoded only when needed (spam filters score needless encoding).
+    $plain = fn(string $s): bool => !preg_match('/[^\x20-\x7E]/', $s);
+    $subj = $plain($oneLine($subject)) ? $oneLine($subject) : '=?UTF-8?B?' . base64_encode($oneLine($subject)) . '?=';
+    $name = $plain($oneLine($fromName)) ? '"' . str_replace(['"', '\\'], '', $oneLine($fromName)) . '"' : '=?UTF-8?B?' . base64_encode($oneLine($fromName)) . '?=';
     if (getenv('BO_MAIL_LOG')) { file_put_contents(getenv('BO_MAIL_LOG'), "TO: $to\nREPLY-TO: $replyTo\nSUBJECT: $subject\n$body\n----\n", FILE_APPEND); return true; }
     $pass = bo_mail_pass();
     if ($pass === '') {
@@ -272,11 +274,20 @@ function bo_mail(string $to, string $subject, string $body, string $replyTo = ''
         return $ok;
     }
     $domain = substr($from, strpos($from, '@') + 1);
-    $msg = 'Date: ' . date('r') . "\r\nFrom: $name <$from>\r\nTo: <$to>\r\nReply-To: <$replyTo>\r\nSubject: $subj\r\n"
-        . 'Message-ID: <' . bin2hex(random_bytes(12)) . "@$domain>\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\n"
-        . "Content-Transfer-Encoding: base64\r\n\r\n" . rtrim(chunk_split(base64_encode($body), 76, "\r\n"));
+    // Body as normal text (7bit), or quoted-printable when it has accents or very long lines, like an email app.
+    $text = str_replace(["\r\n", "\r"], "\n", rtrim($body));
+    $longest = max(array_map('strlen', explode("\n", $text)));
+    $simple = $plain(str_replace(["\n", "\t"], '', $text)) && $longest <= 900;
+    $text = str_replace("\n", "\r\n", $text) . "\r\n";
+    $cte = $simple ? '7bit' : 'quoted-printable';
+    if (!$simple) $text = quoted_printable_encode($text);
+    $msg = 'Date: ' . date('r') . "\r\nFrom: $name <$from>\r\nTo: <$to>\r\n" . ($replyTo !== $from ? "Reply-To: <$replyTo>\r\n" : '')
+        . "Subject: $subj\r\nMessage-ID: <" . bin2hex(random_bytes(12)) . "@$domain>\r\nMIME-Version: 1.0\r\n"
+        . "Content-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: $cte\r\n\r\n" . rtrim($text);
     $host = (string)($c['smtp_host'] ?? BO_SMTP_HOST); $port = (int)($c['smtp_port'] ?? BO_SMTP_PORT);
-    $err = bo_smtp_send($host, $port, $from, $pass, $from, $to, $msg, $domain);
+    $helo = (string)gethostname();
+    if (!preg_match('/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i', $helo)) $helo = $domain;
+    $err = bo_smtp_send($host, $port, $from, $pass, $from, $to, $msg, $helo);
     bo_mail_record($to, $subject, 'mailbox', $err);
     if ($err !== null) { bo_mail_error($err); return false; }
     return true;

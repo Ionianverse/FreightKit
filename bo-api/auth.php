@@ -66,7 +66,7 @@ case 'request': {
     $c = bo_config(); $notify = $c['notify_email'] ?? '';
     $link = "
 
-Sign in at " . bo_site_url() . "/bo-planning/ and open “Users & requests”.
+Sign in at " . bo_site_url() . "/bo-planning/ and open 'Users & requests'.
 ";
     if ($old && $old['status'] !== 'rejected') {
         // The admin still hears about it (the person may have forgotten they asked, or already has access).
@@ -80,7 +80,7 @@ Email: $email
 Company: $company
 Why: $note
 
-If they forgot their password, use “Reset password” next to their account." . $link, $email);
+If they forgot their password, use 'Reset password' next to their account." . $link, $email);
         bo_json($answer);
     }
     if ($old) {
