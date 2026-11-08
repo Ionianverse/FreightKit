@@ -37,6 +37,10 @@ if (!is_dir($dir) && !@mkdir($dir, 0700, true)) page('<h1>Setup</h1><p class="er
 @file_put_contents("$dir/.htaccess", "Require all denied\n");
 if (!is_file($codeFile)) file_put_contents($codeFile, strtoupper(bin2hex(random_bytes(6))) . "\n");
 @chmod($codeFile, 0600);
+// A copy where the File Manager opens (public_html/bo-api/): the web server never serves it (bo-api/.htaccess).
+$codeCopy = __DIR__ . '/setup-code.txt';
+@file_put_contents($codeCopy, trim((string)file_get_contents($codeFile)) . PHP_EOL);
+@chmod($codeCopy, 0600);
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     $p = fn($k, $m = 200) => trim(mb_substr((string)($_POST[$k] ?? ''), 0, $m, 'UTF-8'));
@@ -44,7 +48,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     $expect = strtoupper(trim((string)file_get_contents($codeFile)));
     $email = strtolower($p('email', 190)); $notify = strtolower($p('notify', 190)); $from = strtolower($p('mail_from', 190));
     $pass = (string)($_POST['password'] ?? '');
-    if ($code === '' || !hash_equals($expect, $code)) $msg = 'The setup code is not correct. Copy it from bo-private/setup-code.txt in the File Manager.';
+    if ($code === '' || !hash_equals($expect, $code)) $msg = 'The setup code is not correct. Copy it from public_html/bo-api/setup-code.txt in the File Manager.';
     elseif ($p('name', 120) === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) $msg = 'Enter your name and email for the admin account.';
     elseif ($e = bo_password_ok($pass)) $msg = $e;
     elseif ($pass !== (string)($_POST['password2'] ?? '')) $msg = 'The two passwords are not the same.';
@@ -65,7 +69,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
             $cfg += ['notify_email' => $notify ?: $email, 'mail_from' => $from, 'site_url' => '', 'created' => date('c')];
             file_put_contents("$dir/config.php", "<?php\n// BO Planning System settings. Private: keep this file outside the public web folder.\nreturn " . var_export($cfg, true) . ";\n");
             @chmod("$dir/config.php", 0600);
-            @unlink($codeFile);
+            @unlink($codeFile); @unlink($codeCopy);
             $done = true;
         } catch (Throwable $e) {
             $msg = ($e instanceof PDOException) ? 'Could not open the database: check the database name, user and password from hPanel. (' . $e->getMessage() . ')' : $e->getMessage();
@@ -86,7 +90,7 @@ $db = $testDb ? '<p class="note">Test mode: local test database.</p>' :
 page('<h1>Set up the BO Planning System</h1><p class="note">Do this once. The passwords go straight to your server; nobody else sees them.</p>'
     . ($msg ? '<p class="err">' . $h($msg) . '</p>' : '')
     . '<form method="post" autocomplete="off">'
-    . '<h2>1. Setup code</h2><p class="note">In hPanel open <strong>File Manager</strong>, go to <code>' . $h(basename(dirname($dir))) . '/bo-private/</code> (next to public_html) and open <code>setup-code.txt</code>.</p>'
+    . '<h2>1. Setup code</h2><p class="note">In hPanel open <strong>File Manager</strong> for freightkit.in. In <code>public_html</code> open the folder <code>bo-api</code>, then open <code>setup-code.txt</code> and copy the code. Visitors can never open this file; it is deleted when the setup is done.</p>'
     . '<label for="code">Setup code</label><input id="code" name="code" required>'
     . $db
     . '<h2>3. Your admin account</h2>'

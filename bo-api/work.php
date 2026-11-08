@@ -33,7 +33,7 @@ function read_state(int $uid, array $s): string {
     return bo_open((string)file_get_contents($f), "u$uid|s{$s['id']}|state");
 }
 function prune(PDO $db, int $uid): void {
-    $rows = $db->prepare('SELECT id, plan_date FROM bo_saves WHERE user_id = ? ORDER BY plan_date DESC, saved_at DESC'); $rows->execute([$uid]);
+    $rows = $db->prepare('SELECT id, plan_date FROM bo_saves WHERE user_id = ? ORDER BY plan_date DESC, saved_at DESC, id DESC'); $rows->execute([$uid]);
     $perDay = []; $drop = [];
     foreach ($rows->fetchAll() as $r) {
         $perDay[$r['plan_date']] = ($perDay[$r['plan_date']] ?? 0) + 1;
