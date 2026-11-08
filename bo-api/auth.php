@@ -78,7 +78,7 @@ case 'request': {
     $c = bo_config();
     $notify = $c['notify_email'] ?? '';
     if ($notify) bo_mail($notify, 'BO Planning System: new access request',
-        "A new access request is waiting for your approval.\n\nName: $name\nEmail: $email\nCompany: $company\nWhy: $note\n\nApprove or reject it: sign in at " . bo_site_url() . "/bo-planning/ and open “Users & requests”.\n");
+        "A new access request is waiting for your approval.\n\nName: $name\nEmail: $email\nCompany: $company\nWhy: $note\n\nApprove or reject it: sign in at " . bo_site_url() . "/bo-planning/ and open “Users & requests”.\n", $email);
     bo_json($answer);
 }
 case 'password': {

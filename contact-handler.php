@@ -60,19 +60,13 @@ if ($isSuggestion) {
     $body .= "Topic: {$topic}\nMessage:\n{$message}\n";
 }
 $body .= "\nSubmitted at (UTC): " . gmdate('c') . "\n";
-$headers = [
-    'From' => $from,
-    'Reply-To' => $email,
-    'MIME-Version' => '1.0',
-    'Content-Type' => 'text/plain; charset=UTF-8',
-    'X-Content-Type-Options' => 'nosniff',
-];
-
-// PHP mail() requires a working mail service on the hosting account. SMTP is more reliable.
-$sent = mail($to, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, $headers);
+// Sent through the sender mailbox (SMTP login, set by the admin in BO Planning → Users & requests → Email settings),
+// so it reaches the inbox. Falls back to PHP mail() when that is not set up.
+require __DIR__ . '/bo-api/lib.php';
+$sent = bo_mail($to, $subject, $body, $email, 'FreightKit website', $from);
 if (!$sent) {
     http_response_code(502);
-    exit('Your message could not be sent. Please try again later or contact the site owner by email.');
+    exit('Your message could not be sent. Please try again later, or email ' . $to . ' directly.');
 }
 header('Location: ' . $successUrl, true, 303);
 exit;

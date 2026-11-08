@@ -89,14 +89,24 @@ case 'delete': {
 }
 case 'settings': {
     $c = bo_config() ?: [];
-    bo_json(['ok' => true, 'notify' => (string)($c['notify_email'] ?? ''), 'from' => (string)($c['mail_from'] ?? '')]);
+    bo_json(['ok' => true, 'notify' => (string)($c['notify_email'] ?? ''), 'from' => (string)($c['mail_from'] ?? ''), 'passwordSet' => is_file(bo_mail_pass_file())]);
 }
 case 'save-settings': {
     $notify = strtolower(bo_str($in, 'notify', 190)); $from = strtolower(bo_str($in, 'from', 190));
     if ($notify !== '' && !filter_var($notify, FILTER_VALIDATE_EMAIL)) bo_fail(400, 'The address for access requests is not valid.');
     if ($from !== '' && !filter_var($from, FILTER_VALIDATE_EMAIL)) bo_fail(400, 'The sender address is not valid.');
-    $ok = @file_put_contents(bo_mail_settings_file(), json_encode(['notify_email' => $notify, 'mail_from' => $from], JSON_PRETTY_PRINT) . "\n", LOCK_EX);
+    $pass = (string)($in['password'] ?? '');
+    if (strlen($pass) > 300) bo_fail(400, 'That password is too long.');
+    $keep = bo_mail_settings();   // keeps a test mail server, if one is set
+    $json = ['notify_email' => $notify, 'mail_from' => $from] + array_intersect_key($keep, ['smtp_host' => 1, 'smtp_port' => 1]);
+    $ok = @file_put_contents(bo_mail_settings_file(), json_encode($json, JSON_PRETTY_PRINT) . "\n", LOCK_EX);
     if ($ok === false) bo_fail(500, 'The settings could not be saved on the server.');
+    if ($pass !== '') {
+        // Kept encrypted with the server key, outside the web folder; it is never sent back to the browser.
+        if (@file_put_contents(bo_mail_pass_file(), bo_seal($pass, 'mail-pass'), LOCK_EX) === false) bo_fail(500, 'The mailbox password could not be saved on the server.');
+        @chmod(bo_mail_pass_file(), 0600);
+        bo_audit('mail-password', null, (int)$me['id'], $from);
+    }
     bo_audit('email-settings', null, (int)$me['id'], "requests to $notify, sender $from");
     bo_json(['ok' => true]);
 }
@@ -106,7 +116,7 @@ case 'test-email': {
     if (empty($c['mail_from'])) bo_fail(400, 'Set a sender address first.');
     $sent = bo_mail($to, 'BO Planning System: test email', "This is a test from the BO Planning System.\nAccess requests will be emailed to this address, sent from {$c['mail_from']}.\n");
     bo_audit('test-email', null, (int)$me['id'], $to);
-    if (!$sent) bo_fail(502, 'The server could not send the email. Check that the sender mailbox exists in hPanel → Emails.');
+    if (!$sent) bo_fail(502, bo_mail_error() ?: 'The server could not send the email.');
     bo_json(['ok' => true, 'to' => $to]);
 }
 default:

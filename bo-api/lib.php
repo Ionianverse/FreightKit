@@ -43,6 +43,9 @@ function bo_mail_settings(): array {
         $v = is_array($j) ? strtolower(trim((string)($j[$k] ?? ''))) : '';
         if ($v !== '' && filter_var($v, FILTER_VALIDATE_EMAIL)) $out[$k] = $v;
     }
+    // Mail server (only changed for tests; Hostinger's is the default).
+    if (is_array($j) && preg_match('/^[a-z0-9.-]{1,120}$/i', (string)($j['smtp_host'] ?? ''))) $out['smtp_host'] = (string)$j['smtp_host'];
+    if (is_array($j) && (int)($j['smtp_port'] ?? 0) > 0) $out['smtp_port'] = (int)$j['smtp_port'];
     return $out;
 }
 
@@ -233,15 +236,87 @@ function bo_rmdir(string $dir): void {
     @rmdir($dir);
 }
 
-/* ---------- mail (Hostinger: PHP mail() from a mailbox of this domain) ---------- */
-function bo_mail(string $to, string $subject, string $body): bool {
+/* ---------- mail ----------
+ * Sent through the sender mailbox itself (SMTP login, like an email app), so Hostinger signs it and it reaches
+ * the inbox. The mailbox password is typed by the admin in Email settings and kept encrypted in bo-private.
+ * Without a password the old PHP mail() is tried, which Hostinger often drops or files as spam. */
+const BO_SMTP_HOST = 'smtp.hostinger.com';
+const BO_SMTP_PORT = 465;
+function bo_mail_pass_file(): string { return bo_private_dir() . '/mail-pass.bin'; }
+function bo_mail_pass(): string {
+    $f = bo_mail_pass_file();
+    return is_file($f) ? bo_open((string)file_get_contents($f), 'mail-pass') : '';
+}
+function bo_mail_error(?string $set = null): string {
+    static $e = '';
+    if ($set !== null) $e = $set;
+    return $e;
+}
+function bo_mail(string $to, string $subject, string $body, string $replyTo = '', string $fromName = 'BO Planning System', string $from = ''): bool {
     $c = bo_config() ?: [];
-    $from = filter_var((string)($c['mail_from'] ?? ''), FILTER_VALIDATE_EMAIL);
-    if (!$from || !filter_var($to, FILTER_VALIDATE_EMAIL)) return false;
-    $subject = '=?UTF-8?B?' . base64_encode(preg_replace('/[\r\n]+/', ' ', $subject)) . '?=';
-    $headers = "From: BO Planning System <$from>\r\nReply-To: $from\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nX-Mailer: FreightKit";
-    if (getenv('BO_MAIL_LOG')) { file_put_contents(getenv('BO_MAIL_LOG'), "TO: $to\nSUBJECT: $subject\n$body\n----\n", FILE_APPEND); return true; }
-    return @mail($to, $subject, $body, $headers, "-f$from");
+    $from = filter_var($from ?: (string)($c['mail_from'] ?? ''), FILTER_VALIDATE_EMAIL);
+    bo_mail_error('');
+    if (!$from) { bo_mail_error('No sender address is set.'); return false; }
+    if (!filter_var($to, FILTER_VALIDATE_EMAIL)) { bo_mail_error('The address to send to is not valid.'); return false; }
+    $replyTo = filter_var($replyTo, FILTER_VALIDATE_EMAIL) ?: $from;
+    $oneLine = fn(string $s): string => trim((string)preg_replace('/[\r\n]+/', ' ', $s));
+    $subj = '=?UTF-8?B?' . base64_encode($oneLine($subject)) . '?=';
+    $name = '=?UTF-8?B?' . base64_encode($oneLine($fromName)) . '?=';
+    if (getenv('BO_MAIL_LOG')) { file_put_contents(getenv('BO_MAIL_LOG'), "TO: $to\nREPLY-TO: $replyTo\nSUBJECT: $subject\n$body\n----\n", FILE_APPEND); return true; }
+    $pass = bo_mail_pass();
+    if ($pass === '') {
+        $headers = "From: $name <$from>\r\nReply-To: $replyTo\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8";
+        $ok = @mail($to, $subj, $body, $headers, "-f$from");
+        if (!$ok) bo_mail_error('The server could not send the email. Add the mailbox password in Email settings.');
+        return $ok;
+    }
+    $domain = substr($from, strpos($from, '@') + 1);
+    $msg = 'Date: ' . date('r') . "\r\nFrom: $name <$from>\r\nTo: <$to>\r\nReply-To: <$replyTo>\r\nSubject: $subj\r\n"
+        . 'Message-ID: <' . bin2hex(random_bytes(12)) . "@$domain>\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\n"
+        . "Content-Transfer-Encoding: base64\r\n\r\n" . rtrim(chunk_split(base64_encode($body), 76, "\r\n"));
+    $host = (string)($c['smtp_host'] ?? BO_SMTP_HOST); $port = (int)($c['smtp_port'] ?? BO_SMTP_PORT);
+    $err = bo_smtp_send($host, $port, $from, $pass, $from, $to, $msg, $domain);
+    if ($err !== null) { bo_mail_error($err); return false; }
+    return true;
+}
+/** Returns null when the mail server accepted the message, otherwise a short reason. */
+function bo_smtp_send(string $host, int $port, string $user, string $pass, string $from, string $to, string $msg, string $helo): ?string {
+    $ctx = stream_context_create(['ssl' => ['verify_peer' => true, 'verify_peer_name' => true, 'peer_name' => $host, 'SNI_enabled' => true]]);
+    $fp = @stream_socket_client(($port === 465 ? 'ssl://' : 'tcp://') . "$host:$port", $errno, $errstr, 15, STREAM_CLIENT_CONNECT, $ctx);
+    if (!$fp) return "Could not reach the mail server $host ($errstr).";
+    stream_set_timeout($fp, 20);
+    $step = function (?string $line, array $ok) use ($fp): string {
+        if ($line !== null) fwrite($fp, $line . "\r\n");
+        $r = '';
+        while (($l = fgets($fp, 2048)) !== false) { $r .= $l; if (strlen($l) < 4 || $l[3] !== '-') break; }
+        if (!in_array((int)substr($r, 0, 3), $ok, true)) throw new RuntimeException(trim($r) ?: 'no answer');
+        return $r;
+    };
+    try {
+        $step(null, [220]);
+        $ehlo = $step("EHLO $helo", [250]);
+        if ($port !== 465 && stripos($ehlo, 'STARTTLS') !== false) {
+            $step('STARTTLS', [220]);
+            if (!stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) throw new RuntimeException('secure connection failed');
+            $step("EHLO $helo", [250]);
+        }
+        $step('AUTH LOGIN', [334]);
+        $step(base64_encode($user), [334]);
+        try { $step(base64_encode($pass), [235]); }
+        catch (RuntimeException $e) { throw new RuntimeException('LOGIN: ' . $e->getMessage()); }
+        $step("MAIL FROM:<$from>", [250]);
+        $step("RCPT TO:<$to>", [250, 251]);
+        $step('DATA', [354]);
+        $step(preg_replace('/^\./m', '..', $msg) . "\r\n.", [250]);
+        @fwrite($fp, "QUIT\r\n");
+        fclose($fp);
+        return null;
+    } catch (RuntimeException $e) {
+        @fclose($fp);
+        $m = $e->getMessage();
+        if (str_starts_with($m, 'LOGIN: ')) return "The mailbox password for $user was not accepted. Type it again in Email settings.";
+        return 'The mail server refused the email: ' . mb_substr($m, 0, 200, 'UTF-8');
+    }
 }
 function bo_site_url(): string {
     $c = bo_config() ?: [];
