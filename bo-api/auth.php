@@ -63,22 +63,43 @@ case 'request': {
     $st = $db->prepare('SELECT id, status FROM bo_users WHERE email = ?'); $st->execute([$email]); $old = $st->fetch();
     // The same answer whatever exists, so nobody can test which emails have accounts.
     $answer = ['ok' => true, 'message' => 'Thank you. Your request was sent to the admin. You can sign in once it is approved.'];
+    $c = bo_config(); $notify = $c['notify_email'] ?? '';
+    $link = "
+
+Sign in at " . bo_site_url() . "/bo-planning/ and open “Users & requests”.
+";
+    if ($old && $old['status'] !== 'rejected') {
+        // The admin still hears about it (the person may have forgotten they asked, or already has access).
+        $was = ['pending' => 'is already waiting for your approval', 'approved' => 'already has an active account', 'disabled' => 'has a disabled account'][$old['status']] ?? 'already exists';
+        bo_audit('request-again', (int)$old['id'], null, $email);
+        if ($notify) bo_mail($notify, 'BO Planning System: access requested again',
+            "Someone asked for access again with an email that $was.
+
+Name: $name
+Email: $email
+Company: $company
+Why: $note
+
+If they forgot their password, use “Reset password” next to their account." . $link, $email);
+        bo_json($answer);
+    }
     if ($old) {
-        if ($old['status'] === 'rejected') {
-            $db->prepare("UPDATE bo_users SET name = ?, company = ?, note = ?, pw_hash = ?, status = 'pending', created_at = ?, decided_at = NULL, decided_by = NULL WHERE id = ?")
-                ->execute([$name, $company, $note, password_hash($pass, PASSWORD_DEFAULT), bo_now(), $old['id']]);
-            $id = (int)$old['id'];
-        } else bo_json($answer);
+        $db->prepare("UPDATE bo_users SET name = ?, company = ?, note = ?, pw_hash = ?, status = 'pending', created_at = ?, decided_at = NULL, decided_by = NULL WHERE id = ?")
+            ->execute([$name, $company, $note, password_hash($pass, PASSWORD_DEFAULT), bo_now(), $old['id']]);
+        $id = (int)$old['id'];
     } else {
         $db->prepare("INSERT INTO bo_users (email, name, company, note, pw_hash, role, status, created_at) VALUES (?,?,?,?,?,'user','pending',?)")
             ->execute([$email, $name, $company, $note, password_hash($pass, PASSWORD_DEFAULT), bo_now()]);
         $id = (int)$db->lastInsertId();
     }
     bo_audit('request', $id, null, $email);
-    $c = bo_config();
-    $notify = $c['notify_email'] ?? '';
     if ($notify) bo_mail($notify, 'BO Planning System: new access request',
-        "A new access request is waiting for your approval.\n\nName: $name\nEmail: $email\nCompany: $company\nWhy: $note\n\nApprove or reject it: sign in at " . bo_site_url() . "/bo-planning/ and open “Users & requests”.\n", $email);
+        "A new access request is waiting for your approval.
+
+Name: $name
+Email: $email
+Company: $company
+Why: $note" . $link, $email);
     bo_json($answer);
 }
 case 'password': {

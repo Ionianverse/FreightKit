@@ -268,6 +268,7 @@ function bo_mail(string $to, string $subject, string $body, string $replyTo = ''
         $headers = "From: $name <$from>\r\nReply-To: $replyTo\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8";
         $ok = @mail($to, $subj, $body, $headers, "-f$from");
         if (!$ok) bo_mail_error('The server could not send the email. Add the mailbox password in Email settings.');
+        bo_mail_record($to, $subject, 'PHP mail', $ok ? null : bo_mail_error());
         return $ok;
     }
     $domain = substr($from, strpos($from, '@') + 1);
@@ -276,8 +277,14 @@ function bo_mail(string $to, string $subject, string $body, string $replyTo = ''
         . "Content-Transfer-Encoding: base64\r\n\r\n" . rtrim(chunk_split(base64_encode($body), 76, "\r\n"));
     $host = (string)($c['smtp_host'] ?? BO_SMTP_HOST); $port = (int)($c['smtp_port'] ?? BO_SMTP_PORT);
     $err = bo_smtp_send($host, $port, $from, $pass, $from, $to, $msg, $domain);
+    bo_mail_record($to, $subject, 'mailbox', $err);
     if ($err !== null) { bo_mail_error($err); return false; }
     return true;
+}
+/** Every email leaves a line in the admin's Recent activity (to whom, subject, sent or why not). Never the content. */
+function bo_mail_record(string $to, string $subject, string $via, ?string $err): void {
+    if (!bo_config()) return;
+    bo_audit($err === null ? 'email-sent' : 'email-failed', null, null, "to $to · $subject · via $via" . ($err === null ? '' : " · $err"));
 }
 /** Returns null when the mail server accepted the message, otherwise a short reason. */
 function bo_smtp_send(string $host, int $port, string $user, string $pass, string $from, string $to, string $msg, string $helo): ?string {
