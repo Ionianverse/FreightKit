@@ -30,7 +30,20 @@ function bo_config(): ?array {
     if ($cfg !== false) return $cfg;
     $f = bo_private_dir() . '/config.php';
     $cfg = is_file($f) ? (require $f) : null;
+    // Email addresses live in their own file (set in Users & requests → Email settings); it wins over setup's values.
+    if (is_array($cfg)) foreach (bo_mail_settings() as $k => $v) $cfg[$k] = $v;
     return $cfg;
+}
+function bo_mail_settings_file(): string { return __DIR__ . '/mail-settings.json'; }
+function bo_mail_settings(): array {
+    $f = bo_mail_settings_file();
+    $j = is_file($f) ? json_decode((string)file_get_contents($f), true) : null;
+    $out = [];
+    foreach (['notify_email', 'mail_from'] as $k) {
+        $v = is_array($j) ? strtolower(trim((string)($j[$k] ?? ''))) : '';
+        if ($v !== '' && filter_var($v, FILTER_VALIDATE_EMAIL)) $out[$k] = $v;
+    }
+    return $out;
 }
 
 function bo_db(): PDO {

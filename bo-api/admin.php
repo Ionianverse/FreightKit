@@ -95,12 +95,8 @@ case 'save-settings': {
     $notify = strtolower(bo_str($in, 'notify', 190)); $from = strtolower(bo_str($in, 'from', 190));
     if ($notify !== '' && !filter_var($notify, FILTER_VALIDATE_EMAIL)) bo_fail(400, 'The address for access requests is not valid.');
     if ($from !== '' && !filter_var($from, FILTER_VALIDATE_EMAIL)) bo_fail(400, 'The sender address is not valid.');
-    $c = bo_config() ?: [];
-    $c['notify_email'] = $notify; $c['mail_from'] = $from;
-    $file = bo_private_dir() . '/config.php';
-    $ok = @file_put_contents($file, "<?php\n// BO Planning System settings. Private: keep this file outside the public web folder.\nreturn " . var_export($c, true) . ";\n", LOCK_EX);
+    $ok = @file_put_contents(bo_mail_settings_file(), json_encode(['notify_email' => $notify, 'mail_from' => $from], JSON_PRETTY_PRINT) . "\n", LOCK_EX);
     if ($ok === false) bo_fail(500, 'The settings could not be saved on the server.');
-    @chmod($file, 0600);
     bo_audit('email-settings', null, (int)$me['id'], "requests to $notify, sender $from");
     bo_json(['ok' => true]);
 }

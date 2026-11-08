@@ -31,3 +31,4 @@ bo-src/
 # Key of the BO Planning tool bundle (handed out by the server after sign-in)
 bo-api/.appkey.php
 bo-api/setup-code.txt
+bo-api/mail-settings.json
