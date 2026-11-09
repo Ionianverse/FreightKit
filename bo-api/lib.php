@@ -174,11 +174,13 @@ function bo_user(bool $touch = true): ?array {
     $t = $_COOKIE[bo_cookie_name()] ?? '';
     if (!preg_match('/^[a-f0-9]{64}$/', $t)) return null;
     $db = bo_db(); $h = hash('sha256', $t); $now = bo_now();
-    $st = $db->prepare('SELECT s.created_at, s.last_seen, u.* FROM bo_sessions s JOIN bo_users u ON u.id = s.user_id WHERE s.token_hash = ?');
+    // The session's own times get their own names: bo_users has a created_at column too (when the account was made),
+    // and with u.* it would overwrite the session's, signing out every account older than 12 hours at once.
+    $st = $db->prepare('SELECT u.*, s.created_at AS session_created, s.last_seen AS session_seen FROM bo_sessions s JOIN bo_users u ON u.id = s.user_id WHERE s.token_hash = ?');
     $st->execute([$h]);
     $row = $st->fetch();
     if (!$row) return null;
-    if ($row['status'] !== 'approved' || $now - (int)$row['last_seen'] > BO_IDLE_SECONDS || $now - (int)$row['created_at'] > BO_MAX_SESSION) {
+    if ($row['status'] !== 'approved' || $now - (int)$row['session_seen'] > BO_IDLE_SECONDS || $now - (int)$row['session_created'] > BO_MAX_SESSION) {
         $db->prepare('DELETE FROM bo_sessions WHERE token_hash = ?')->execute([$h]);
         return null;
     }
