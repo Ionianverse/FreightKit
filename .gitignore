@@ -32,3 +32,4 @@ bo-src/
 bo-api/.appkey.php
 bo-api/setup-code.txt
 bo-api/mail-settings.json
+bo-api/recover-code.txt
