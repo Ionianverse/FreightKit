@@ -58,14 +58,15 @@ A private planning system for teams that manage open back orders every day. It r
 | Screen | What you get |
 | --- | --- |
 | Today | One work list: every line with its status, what to do, who, requests and the new remark; any BO column shown or hidden, filters under each heading, saved views, Done ticks and a five-step daily checklist |
-| Requests & emails | The team's daily requests ready to send: WH change, Starbond substitute, alternative item, split line, ETA and lead-time requests; each one tracked to the next day |
-| Overview | Counts to expedite, order and follow up; a card per owner; new and closed lines; reserve stock that can save late lines |
+| Requests & emails | The team's daily requests ready to send: WH change, Starbond substitute, alternative item, split line, ETA and lead-time requests; click the boxes to see one or several kinds; each one tracked to the next day |
+| Overview | Counts to expedite, order and follow up; **Changes** (BOM, item details, process steps, lead times, vendors, foundries) saved and used by every calculation; missing item details to fill in; a card per owner; reserve stock that can save late lines |
 | Actions | Every action with need-by date, owner and the stock behind it, with filters |
 | Requirements and materials | What each item still needs, beside stock, open orders and forecast |
-| Components | Stock at every process stage, coverage and what to push through each process |
-| Transfers | Open transfers, their age and the order lines they serve |
+| Components | Stock of every process stage in order after the forecast, what to expedite, build or buy, and a weekly plan (forecast ÷ 4) |
+| Transfers | A map of every open lane between warehouses, late and old transfers, and the order lines they serve |
 | Analysis | Charts by status, owner, region, warehouse, week and customer, plus the network map |
-| Remarks | Each remark checked against today; edit, mark hot orders, download the updated BO file |
+| Planned lines | Every planned-without-allocation row laid out like the BO file, any column shown or hidden, what each one needs |
+| Remarks | Each remark checked against today; edit, mark hot orders, download the BO file in the team's own layout |
 | Rules | Routes, suppliers, lead times, warehouses, wording, item master and BOM |
 
 ---
