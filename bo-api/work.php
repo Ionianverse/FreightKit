@@ -47,6 +47,9 @@ function prune(PDO $db, int $uid): void {
 
 switch ($a) {
 case 'save': {
+    // A request bigger than the server's post_max_size arrives empty: say so instead of "Nothing to save".
+    $sent = (int)($_SERVER['CONTENT_LENGTH'] ?? 0);
+    if ($sent > 0 && empty($_POST) && empty($_FILES)) bo_fail(413, 'The files are larger than the server accepts in one save (' . round($sent / 1048576, 1) . ' MB sent, limit ' . ini_get('post_max_size') . '). Remove files you do not need and save again.');
     $stateText = (string)($_POST['state'] ?? '');
     $state = json_decode($stateText, true);
     if (!is_array($state)) bo_fail(400, 'Nothing to save.');
@@ -54,13 +57,14 @@ case 'save': {
     if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $planDate)) bo_fail(400, 'The plan date is missing.');
     $files = []; $total = strlen($stateText);
     foreach ($_FILES as $field => $f) {
+        if (is_array($f) && in_array($f['error'] ?? 0, [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) bo_fail(413, 'The file ' . mb_substr((string)($f['name'] ?? ''), 0, 120, 'UTF-8') . ' is larger than the server accepts (' . ini_get('upload_max_filesize') . ').');
         if (!preg_match('/^f(\d{1,3})$/', $field, $m) || !is_array($f) || ($f['error'] ?? 1) !== UPLOAD_ERR_OK) continue;
         $total += (int)$f['size'];
         $files[(int)$m[1]] = $f;
     }
     if ($total > BO_MAX_SAVE_BYTES) bo_fail(413, 'These files are too large to save together (over 60 MB).');
     $list = is_array($state['files'] ?? null) ? $state['files'] : [];
-    if (count($list) !== count($files)) bo_fail(400, 'Some files did not arrive. Try again.');
+    if (count($list) !== count($files)) bo_fail(400, count($list) > (int)ini_get('max_file_uploads') ? 'Too many files in one save (the server takes ' . (int)ini_get('max_file_uploads') . '). Merge the stock exports with Download stock file and use that one file.' : 'Some files did not arrive. Try again.');
     $db->prepare('INSERT INTO bo_saves (user_id, plan_date, saved_at, files, bytes, note) VALUES (?,?,?,?,?,?)')
         ->execute([$uid, $planDate, bo_now(), '[]', $total, mb_substr((string)($state['note'] ?? ''), 0, 200, 'UTF-8')]);
     $sid = (int)$db->lastInsertId();
