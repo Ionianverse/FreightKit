@@ -66,7 +66,7 @@ A private planning system for teams that manage open back orders every day. It r
 | Transfers | A map of every open lane between warehouses, late and old transfers, and the order lines they serve |
 | Analysis | Charts by status, owner, region, warehouse, week and customer, plus the network map |
 | Planned lines | Every planned-without-allocation row laid out like the BO file, any column shown or hidden, what each one needs |
-| Remarks | Each remark checked against today; edit, mark hot orders, download the BO file in the team's own layout |
+| Remarks | Each remark checked against today; edit, mark hot orders, download the BO file in the team's own layout; **Planned now**: tick lines to see, stage by stage, what real stock can do for them (green / yellow / red) |
 | Rules | Routes, suppliers, lead times, warehouses, wording, item master and BOM |
 
 ---
