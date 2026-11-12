@@ -10,7 +10,7 @@ The BO Planning System lives at `bo-planning/` (the old `tools/bo-remarks/` addr
 | `bo-planning/app.bundle` – the tool, encrypted | `bo-api/.appkey.php` – the bundle key, made by each build (never committed, never served) |
 | `bo-api/*.php` – sign-in, accounts, saved work, admin | `bo-api/mail-settings.json` – email addresses (written by the admin panel) |
 | `scripts/build-bo-bundle.py` – builds the bundle and its key | `bo-private/` (next to `public_html`) – database login, data key, encrypted saves |
-| | Real BO, stock and transfer files (`sample/`) |
+| | `Data/` – business rules, logic, file layouts and real BO, stock and transfer files |
 
 Keep a backup of `bo-src/` and of the server's `bo-private/` folder (above all `data.key`: without it saved work cannot be read).
 

@@ -33,3 +33,7 @@ bo-api/.appkey.php
 bo-api/setup-code.txt
 bo-api/mail-settings.json
 bo-api/recover-code.txt
+
+# Private Data folder: business rules, logic, file layouts and real company files (never commit)
+/Data/
+/data/
