@@ -95,8 +95,10 @@
       const app = JSON.parse(await new Response(new Blob([packed]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text());
       // The user's newest saved work (their rules and the "last saved" time); the files load only on Reset.
       let latest = null; try { latest = await api('work.php?a=latest'); } catch (_) { /* nothing saved yet */ }
+      // The team's shared rules and changes (one set for every user); null until someone saves them.
+      let team = null; try { team = (await api('team.php?a=get')).team || null; } catch (_) { /* older server */ }
       // What the tool needs from the shell: who is signed in, their latest save and how to reach the server.
-      Object.defineProperty(window, 'BO_SESSION', { value: Object.freeze({ user: Object.freeze(Object.assign({}, user)), latest, api, signedOut }), writable: false, configurable: false });
+      Object.defineProperty(window, 'BO_SESSION', { value: Object.freeze({ user: Object.freeze(Object.assign({}, user)), latest, team, api, signedOut }), writable: false, configurable: false });
       const style = document.createElement('style'); style.textContent = app.css; document.head.appendChild(style);
       $('app-root').innerHTML = app.html;
       for (const s of app.scripts) await loadScript(s.code, s.name);
