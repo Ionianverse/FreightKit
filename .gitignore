@@ -37,3 +37,6 @@ bo-api/recover-code.txt
 # Private Data folder: business rules, logic, file layouts and real company files (never commit)
 /Data/
 /data/
+
+# Files the user drops in for study (private, never commit)
+/New folder/
