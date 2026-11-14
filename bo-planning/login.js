@@ -86,7 +86,7 @@
     const loading = $('app-loading'); loading.hidden = false;
     try {
       const k = await api('auth.php?a=appkey');
-      const res = await fetch('app.bundle', { cache: 'no-store' });
+      const res = await fetch(`app.bundle?v=${Date.now()}`, { cache: 'no-store' }); // never a CDN copy of an older build
       if (!res.ok) throw new Error('The tool file could not be loaded.');
       const bundle = await res.json();
       if (bundle.format !== 'bo-bundle-2') throw new Error('The tool file is out of date. Reload the page.');
