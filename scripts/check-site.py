@@ -28,7 +28,7 @@ for item in required:
         errors.append(f'Missing required file: {item}')
 
 REF = re.compile(r'\b(?:href|src|action)="([^"]*)"')
-PRIVATE = {'.git', 'docs', 'bo-src', 'sample', 'samples', '.claude'}  # not published
+PRIVATE = {'.git', 'docs', 'bo-src', 'sample', 'samples', 'Data', '.claude'}  # not published
 pages = [p for p in ROOT.rglob('*.html') if not PRIVATE.intersection(p.parts)]
 checked = 0
 for page in pages:
